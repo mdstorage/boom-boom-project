@@ -73,6 +73,34 @@ class SiteController extends Controller
             )
         );
     }
+
+    public function actionGroups($catalog, $catalogCode, $modelName, $modelCode)
+    {
+        $this->render('index', array('groups'=>1, 'sCatalog'=>$catalog, 'sCatalogCode'=>$catalogCode, 'sModelName'=>$modelName, 'sModelCode'=>$modelCode));
+    }
+
+    public function actionSubGroups($catalog, $catalogCode, $modelName, $modelCode, $groupNumber)
+    {
+        switch($groupNumber){
+            case 1:
+                $min = 0;
+                $max = 2;
+            case 2:
+                $min = 3;
+                $max = 4;
+            case 3:
+                $min = 5;
+                $max = 7;
+            case 4:
+                $min = 8;
+                $max = 9;
+        }
+
+        $oPartCodes = new PartCodes();
+
+        $aPartGroups = $oPartCodes->getPartGroupsByCatalogCode($catalog, $catalogCode, $min, $max);
+        print_r($aPartGroups);
+    }
 	/**
 	 * This is the action to handle external exceptions.
 	 */

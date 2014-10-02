@@ -129,6 +129,9 @@ class ModelCodes extends CActiveRecord
 		));
 	}
 
+    /*
+     * Возвращает массив модификаций с расшифрованными аббревиатурами
+     */
     public function getModelCodes($catalog, $catalogCode)
     {
         $aModelCodes = Yii::app()->db->CreateCommand()
@@ -136,6 +139,15 @@ class ModelCodes extends CActiveRecord
             ->from('model_codes')
             ->where('catalog = :catalog AND catalog_code = :catalog_code', array(':catalog'=>$catalog, ':catalog_code'=>$catalogCode))
             ->queryAll();
+
+        $oAbbrevs = new Abbrevs();
+
+        foreach($aModelCodes as &$aModelCode){
+            $aModelCode['body'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['body']) . ' (' . $aModelCode['body'] . ')';
+            $aModelCode['grade'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['grade']) . ' (' . $aModelCode['grade'] . ')';
+            $aModelCode['atm_mtm'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['atm_mtm']) . ' (' . $aModelCode['atm_mtm'] . ')';
+            $aModelCode['f1'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['f1']) . ' (' . $aModelCode['f1'] . ')';
+        }
 
         return $aModelCodes;
     }

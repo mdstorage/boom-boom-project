@@ -1,21 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "abbrevs".
+ * This is the model class for table "part_groups".
  *
- * The followings are the available columns in table 'abbrevs':
+ * The followings are the available columns in table 'part_groups':
  * @property string $catalog
- * @property string $abb
+ * @property string $group_id
  * @property string $desc_en
  */
-class Abbrevs extends CActiveRecord
+class PartGroups extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'abbrevs';
+		return 'part_groups';
 	}
 
 	/**
@@ -26,12 +26,11 @@ class Abbrevs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('catalog', 'length', 'max'=>10),
-			array('abb', 'length', 'max'=>50),
+			array('catalog, group_id', 'length', 'max'=>10),
 			array('desc_en', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('catalog, abb, desc_en', 'safe', 'on'=>'search'),
+			array('catalog, group_id, desc_en', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,7 +52,7 @@ class Abbrevs extends CActiveRecord
 	{
 		return array(
 			'catalog' => 'Catalog',
-			'abb' => 'Abb',
+			'group_id' => 'Group',
 			'desc_en' => 'Desc En',
 		);
 	}
@@ -77,7 +76,7 @@ class Abbrevs extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('catalog',$this->catalog,true);
-		$criteria->compare('abb',$this->abb,true);
+		$criteria->compare('group_id',$this->group_id,true);
 		$criteria->compare('desc_en',$this->desc_en,true);
 
 		return new CActiveDataProvider($this, array(
@@ -85,15 +84,11 @@ class Abbrevs extends CActiveRecord
 		));
 	}
 
-    /*
-     * Возвращает описание на англ. для региона и кода аббревиатуры
-     */
-    public function getDescEn($catalog, $abb)
-    {
+    public function getPartGroupDescEn($catalog, $groupId){
         $sDescEn = Yii::app()->db->CreateCommand()
             ->select('desc_en')
             ->from('abbrevs')
-            ->where('catalog = :catalog AND abb = :abb', array(':catalog'=>$catalog, ':abb'=>$abb))
+            ->where('catalog = :catalog AND group_id = :group_id', array(':catalog'=>$catalog, ':group_id'=>$groupId))
             ->queryScalar();
 
         return $sDescEn;
@@ -103,7 +98,7 @@ class Abbrevs extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Abbrevs the static model class
+	 * @return PartGroups the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

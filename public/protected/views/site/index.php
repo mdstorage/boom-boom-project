@@ -20,7 +20,8 @@ if (!empty($aModelNames)){
         foreach($aModelNameCodes[$aModelName] as $aModelNameCode){
             echo 'Период выпуска: ' . CHtml::link(Functions::prodToDate($aModelNameCode['prod_start']) . ' - ' .
                     Functions::prodToDate($aModelNameCode['prod_end']), array(
-                        'site/modelcodes', 'catalog'=>$sCatalog,
+                        'site/modelcodes',
+                        'catalog'=>$sCatalog,
                         'catalogCode'=>$aModelNameCode['catalog_code'],
                         'modelName'=>$aModelName)) . '<br/>';
             echo 'Дополнительные коды модели: '.$aModelNameCode['add_codes'] . '<br/><br/>';
@@ -33,6 +34,12 @@ if (!empty($aModelCodes)){
 
     echo "<h2>Выбрать модификацию модели </h2>";
     foreach($aModelCodes as $aModelCode){
+        echo CHtml::link($aModelCode['model_code'], array(
+                'groups',
+                'catalog'=>$sCatalog,
+                'catalogCode'=>$aModelCode['catalog_code'],
+                'modelName'=>$sModelName,
+                'modelCode'=>$aModelCode['model_code'])) . '<br/>';
         echo $aModelCode['model_code'] . '<br/>';
 
         echo "Период выпуска: " . Functions::prodToDate($aModelCode['prod_start']) . ' - ' .
@@ -43,6 +50,27 @@ if (!empty($aModelCodes)){
         echo "Трансмиссия: " . $aModelCode['atm_mtm'] . '<br/>';
         echo "Кузов: " . $aModelCode['f1'] . '<br/>';
     }
+}
+
+if (!empty($groups)){
+    $this->breadcrumbs = array(
+        $sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog),
+        $sModelName=>array(
+        'site/modelcodes', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
+        ),
+        $sModelCode
+    );
+
+    echo CHtml::link("Двигатель/Топливная система/Принадлежности",
+            array('site/subgroups',
+                'catalog'=>$sCatalog,
+                'catalogCode'=>$sCatalogCode,
+                'modelName'=>$sModelName,
+                'modelCode'=>$sModelCode,
+                'groupNumber'=>1)) . '<br/>';
+    echo CHtml::link("Трансмиссия/Подвеска") . '<br/>';
+    echo CHtml::link("Кузов") . '<br/>';
+    echo CHtml::link("Электрика") . '<br/>';
 }
 
 
