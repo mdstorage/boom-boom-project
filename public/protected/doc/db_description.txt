@@ -1,0 +1,44 @@
+Описание таблиц:
+
+models
+
+    поля, входящие в составной ключ
+    models.catalog          регион
+    models.catalog_code     номер каталога
+
+    прочие поля, которые выводятся пользователю на ilcats
+    models.name             наименование модели (например, Camry)
+    models.add_codes        код модели
+    models.prod_start       дата начала производства
+    models.prod_end         дата окончания производства
+
+model_codes
+
+    поля, входящие в составной ключ
+    model_codes.catalog          регион
+    model_codes.catalog_code     номер каталога
+
+    прочие поля, которые выводятся пользователю на ilcats
+    model_codes.model_code  код модификации (ссылка в каталоге, по которой переходят от модели к набору деталей для нее)
+    model_codes.vin8        первые 8 цифр vin, по ним нельзя однозначно определить код модификации, но можно определить
+                            первую часть frame
+    model_codes.prod_start  дата начала производства
+    model_codes.prod_end    дата окончания производства
+    model_codes.frame       первая часть frame
+    model_codes.engine1     двигатель
+    model_codes.body        аббревиатура типа кузова (например, SED - расшифровка в таблице abbrevs)
+    model_codes.grade       аббревиатура класса (на ilcats идет как модификация), расшифровка в таблице abbrevs
+    model_codes.atm_mtm     аббревиатура типа трансмиссии, расшифровка в таблице abbrevs
+    model_codes.f1          аббревиатура расположения руля (на ilcats идет как кузов), расшифровка в таблице abbrevs
+
+pncs
+
+    pncs.catalog            регион
+    pncs.pnc                номер детали, который отображается на картинке
+    pncs.desc_en            описание детали на английском
+
+part_groups
+
+    part_groups.catalog     регион
+    part_groups.group_id    индекс группы
+    part_groups.desc_en     описание на английском

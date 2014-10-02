@@ -4,17 +4,46 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<?php
+if (!empty($aCatalogs)){
+    echo "<h2>Выбрать регион </h2>";
+    foreach($aCatalogs as $aCatalog){
+        echo CHtml::link($aCatalog, array('site/modelnames', 'catalog'=>$aCatalog)) . '<br/>';
+    }
+}
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+if (!empty($aModelNames)){
+    $this->breadcrumbs = array($sCatalog);
+    echo "<h2>Выбрать наименование модели </h2>";
+    foreach($aModelNames as $aModelName){
+        echo '<b>' . $aModelName . '</b><br/>';
+        foreach($aModelNameCodes[$aModelName] as $aModelNameCode){
+            echo 'Период выпуска: ' . CHtml::link(Functions::prodToDate($aModelNameCode['prod_start']) . ' - ' .
+                    Functions::prodToDate($aModelNameCode['prod_end']), array(
+                        'site/modelcodes', 'catalog'=>$sCatalog,
+                        'catalogCode'=>$aModelNameCode['catalog_code'],
+                        'modelName'=>$aModelName)) . '<br/>';
+            echo 'Дополнительные коды модели: '.$aModelNameCode['add_codes'] . '<br/><br/>';
+        }
+    }
+}
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
+if (!empty($aModelCodes)){
+    $this->breadcrumbs = array($sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog), $sModelName);
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+    echo "<h2>Выбрать модификацию модели </h2>";
+    foreach($aModelCodes as $aModelCode){
+        echo $aModelCode['model_code'] . '<br/>';
+
+        echo "Период выпуска: " . Functions::prodToDate($aModelCode['prod_start']) . ' - ' .
+            Functions::prodToDate($aModelCode['prod_end']) . '<br/>';
+        echo "Двигатель: " . $aModelCode['engine1'] . '<br/>';
+        echo "Кузов: " . $aModelCode['body'] . '<br/>';
+        echo "Класс модели: " . $aModelCode['grade'] . '<br/>';
+        echo "Трансмиссия: " . $aModelCode['atm_mtm'] . '<br/>';
+        echo "Кузов: " . $aModelCode['f1'] . '<br/>';
+    }
+}
+
+
+

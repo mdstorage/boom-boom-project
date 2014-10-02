@@ -29,9 +29,50 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$oModels = new Models();
+
+        $aCatalogs = $oModels->getCatalogs();
+        foreach($aCatalogs as &$aCatalog){
+            $aCatalog = $aCatalog['catalog'];
+        }
+
+        $this->render('index', array('aCatalogs'=>$aCatalogs));
 	}
 
+    public function actionModelNames($catalog){
+        $oModels = new Models();
+
+        $aModelNames = $oModels->getModelNames($catalog);
+        foreach($aModelNames as &$modelName){
+            $modelName = $modelName['model_name'];
+        }
+        $aModelNameCodes = array();
+        foreach($aModelNames as $modelName){
+            $aModelNameCodes[$modelName] = $oModels->getModelNameCodes($modelName, $catalog);
+        }
+        $this->render(
+            'index', array(
+                'aModelNames'=>$aModelNames,
+                'sCatalog'=>$catalog,
+                'aModelNameCodes'=>$aModelNameCodes
+                )
+        );
+    }
+
+    public function actionModelCodes($catalog, $catalogCode, $modelName)
+    {
+        $oModelCodes = new ModelCodes();
+
+        $aModelCodes = $oModelCodes->getModelCodes($catalog, $catalogCode);
+
+        $this->render(
+            'index', array(
+                'sModelName'=>$modelName,
+                'sCatalog'=>$catalog,
+                'aModelCodes'=>$aModelCodes
+            )
+        );
+    }
 	/**
 	 * This is the action to handle external exceptions.
 	 */
