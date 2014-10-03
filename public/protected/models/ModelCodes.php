@@ -134,20 +134,8 @@ class ModelCodes extends CActiveRecord
      */
     public function getModelCodes($catalog, $catalogCode)
     {
-        $aModelCodes = Yii::app()->db->CreateCommand()
-            ->select('*')
-            ->from('model_codes')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code', array(':catalog'=>$catalog, ':catalog_code'=>$catalogCode))
-            ->queryAll();
-
-        $oAbbrevs = new Abbrevs();
-
-        foreach($aModelCodes as &$aModelCode){
-            $aModelCode['body'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['body']) . ' (' . $aModelCode['body'] . ')';
-            $aModelCode['grade'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['grade']) . ' (' . $aModelCode['grade'] . ')';
-            $aModelCode['atm_mtm'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['atm_mtm']) . ' (' . $aModelCode['atm_mtm'] . ')';
-            $aModelCode['f1'] =  $oAbbrevs->getDescEn($catalog,  $aModelCode['f1']) . ' (' . $aModelCode['f1'] . ')';
-        }
+        $oComplectations = new Complectations();
+        $aModelCodes = $oComplectations->getComplectations($catalog, $catalogCode);
 
         return $aModelCodes;
     }

@@ -956,3 +956,464 @@ Stack trace:
 REQUEST_URI=/index.php/site/subgroups?catalog=GR&catalogCode=671360&modelName=4RUNNER&modelCode=KZN185L-GKMST&groupNumber=1
 HTTP_REFERER=http://boom.dev/index.php/site/groups?catalog=GR&catalogCode=671360&modelName=4RUNNER&modelCode=KZN185L-GKMST
 ---
+2014/10/03 11:43:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/03 11:43:51 [error] [exception.CException] exception 'CException' with message 'PartGroups and its behaviors do not have a method or closure named "getDescEn".' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(227): CComponent->__call('getDescEn', Array)
+#1 /home/itm/projects/boom-boom-project/public/protected/models/PartCodes.php(118): CActiveRecord->__call('getDescEn', Array)
+#2 /home/itm/projects/boom-boom-project/public/protected/models/PartCodes.php(118): PartGroups->getDescEn('EU', '8101')
+#3 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(101): PartCodes->getPartGroupsByCatalogCode('EU', '671440', 8, 9)
+#4 [internal function]: SiteController->actionSubGroups('EU', '671440', '4-RUNNER TRUCK', 'LN51L-KRA', '1')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('subgroups')
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/subgroups')
+#12 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1
+HTTP_REFERER=http://boom.dev/index.php/site/groups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA
+---
+2014/10/03 11:45:45 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'group_id' in 'where clause'. The SQL statement executed was: SELECT `desc_en`
+FROM `abbrevs`
+WHERE catalog = :catalog AND group_id = :group_id.
+in /home/itm/projects/boom-boom-project/public/protected/models/PartGroups.php (92)
+in /home/itm/projects/boom-boom-project/public/protected/models/PartCodes.php (118)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (101)
+2014/10/03 11:45:45 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'group_id' in 'where clause'. The SQL statement executed was: SELECT `desc_en`
+FROM `abbrevs`
+WHERE catalog = :catalog AND group_id = :group_id' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/itm/projects/boom-boom-project/public/protected/models/PartGroups.php(92): CDbCommand->queryScalar()
+#2 /home/itm/projects/boom-boom-project/public/protected/models/PartCodes.php(118): PartGroups->getPartGroupDescEn('EU', '8101')
+#3 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(101): PartCodes->getPartGroupsByCatalogCode('EU', '671440', 8, 9)
+#4 [internal function]: SiteController->actionSubGroups('EU', '671440', '4-RUNNER TRUCK', 'LN51L-KRA', '1')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('subgroups')
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/subgroups')
+#12 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1
+HTTP_REFERER=http://boom.dev/index.php/site/groups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA
+---
+2014/10/03 11:49:29 [error] [php] Array to string conversion (/home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php:102)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#7 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (102)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 12:09:10 [error] [php] constant(): Couldn't find constant Двигатель/Топливная система/Принадлежности (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:69)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#3 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(79): SiteController->render()
+#4 unknown(0): SiteController->actionGroups()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/groups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN56L-MDCA
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (69)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (79)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 12:10:16 [error] [php] Undefined variable: groupNumber (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:83)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(116): SiteController->render()
+#3 unknown(0): SiteController->actionSubGroups()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN56L-MDCA&groupNumber=1
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (83)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (116)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 12:11:11 [error] [php] Undefined variable: groupNumber (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:83)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(116): SiteController->render()
+#3 unknown(0): SiteController->actionSubGroups()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN56L-MDCA&groupNumber=1
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (83)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (116)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 12:13:49 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('groups')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/groups')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/groups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1
+---
+2014/10/03 14:37:52 [error] [php] Undefined variable: groupName (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:153)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(138): SiteController->render()
+#3 unknown(0): SiteController->actionPncs()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1&partCode=1105
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (153)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (138)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 14:40:34 [error] [php] Use of undefined constant GROUP_1 - assumed 'GROUP_1' (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:66)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(79): SiteController->render()
+#3 unknown(0): SiteController->actionGroups()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/groups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (66)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (79)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 14:42:03 [error] [php] Use of undefined constant GROUP_1 - assumed 'GROUP_1' (/home/itm/projects/boom-boom-project/public/protected/components/Functions.php:23)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CBaseController.php(95): SiteController->renderInternal()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#3 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(79): SiteController->render()
+#4 unknown(0): SiteController->actionGroups()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#12 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/groups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA
+in /home/itm/projects/boom-boom-project/public/protected/components/Functions.php (23)
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (66)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (79)
+2014/10/03 14:42:47 [error] [php] Undefined variable: groupName (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:135)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(138): SiteController->render()
+#3 unknown(0): SiteController->actionPncs()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=4&partCode=8104
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (135)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (138)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 14:42:53 [error] [php] Undefined variable: groupName (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:135)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(138): SiteController->render()
+#3 unknown(0): SiteController->actionPncs()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=4&partCode=8111
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (135)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (138)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 14:42:57 [error] [php] Undefined variable: groupName (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:135)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(138): SiteController->render()
+#3 unknown(0): SiteController->actionPncs()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=4&partCode=8101
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (135)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (138)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 14:46:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "partcodes".' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:483
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(270): CController->missingAction('partcodes')
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('partcodes')
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/partcodes')
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/partcodes?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA3&partCode=0901
+HTTP_REFERER=http://boom.dev/index.php/site/pncs?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA3&groupNumber=1&partCode=0901
+---
+2014/10/03 14:46:38 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('subgroups')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/subgroups')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/subgroups?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA3&partCode=1101
+HTTP_REFERER=http://boom.dev/index.php/site/pncs?catalog=EU&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA3&groupNumber=1&partCode=1101
+---
+2014/10/03 16:23:54 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3&partCode=6404
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3
+---
+2014/10/03 16:23:59 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3&partCode=5102
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3
+---
+2014/10/03 16:25:13 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3&partCode=5102
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3
+---
+2014/10/03 16:25:15 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#7 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3&partCode=5102
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3
+---
+2014/10/03 16:25:52 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT `part_code`, `quantity`, `start_date`, `end_date`, `add_desc`
+FROM `part_catalog`
+WHERE catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc
+GROUP BY `part_group`.
+in /home/itm/projects/boom-boom-project/public/protected/models/PartCatalog.php (136)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (128)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 16:25:52 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT `part_code`, `quantity`, `start_date`, `end_date`, `add_desc`
+FROM `part_catalog`
+WHERE catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc
+GROUP BY `part_group`' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/itm/projects/boom-boom-project/public/protected/models/PartCatalog.php(136): CDbCommand->queryAll()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(128): PartCatalog->getPartCodesByPnc('EU', '281220', '51204A')
+#3 [internal function]: SiteController->actionPncs('EU', '281220', 'CAMRY', 'CV10L-UEMEXW', '3', '5102')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3&partGroup=5102
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3
+---
+2014/10/03 16:26:54 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT `part_code`, `quantity`, `start_date`, `end_date`, `add_desc`
+FROM `part_catalog`
+WHERE catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc.
+in /home/itm/projects/boom-boom-project/public/protected/models/PartCatalog.php (135)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (128)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 16:26:54 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined. The SQL statement executed was: SELECT `part_code`, `quantity`, `start_date`, `end_date`, `add_desc`
+FROM `part_catalog`
+WHERE catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/itm/projects/boom-boom-project/public/protected/models/PartCatalog.php(135): CDbCommand->queryAll()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(128): PartCatalog->getPartCodesByPnc('EU', '281220', '51204A')
+#3 [internal function]: SiteController->actionPncs('EU', '281220', 'CAMRY', 'CV10L-UEMEXW', '3', '5102')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3&partGroup=5102
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=3
+---
+2014/10/03 16:37:31 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toyota.part_code' doesn't exist. The SQL statement executed was: SELECT `pnc` AS `part_code`
+FROM `part_code`
+WHERE catalog = :catalog AND catalog_code = :catalog_code AND part_group = :part_group.
+in /home/itm/projects/boom-boom-project/public/protected/models/PartCodes.php (156)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (128)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 16:37:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toyota.part_code' doesn't exist. The SQL statement executed was: SELECT `pnc` AS `part_code`
+FROM `part_code`
+WHERE catalog = :catalog AND catalog_code = :catalog_code AND part_group = :part_group' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/CDbCommand.php(396): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /home/itm/projects/boom-boom-project/public/protected/models/PartCodes.php(156): CDbCommand->queryAll()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(128): PartCodes->getPartCodesByPnc('EU', '281220', '09101')
+#3 [internal function]: SiteController->actionPncs('EU', '281220', 'CAMRY', 'CV10L-UEMEXW', '1', '0901')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=1&partGroup=0901
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=281220&modelName=CAMRY&modelCode=CV10L-UEMEXW&groupNumber=1
+---
+2014/10/03 17:28:47 [error] [exception.CException] exception 'CException' with message 'PartCodes and its behaviors do not have a method or closure named "getPartCodesByPnc".' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CComponent.php:266
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(227): CComponent->__call('getPartCodesByP...', Array)
+#1 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(128): CActiveRecord->__call('getPartCodesByP...', Array)
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(128): PartCodes->getPartCodesByPnc('EU', '274530', '31126')
+#3 [internal function]: SiteController->actionPncs('EU', '274530', 'CARINA E WG    ...', 'AT190R-DWMDKW', '2', '3101')
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('pncs')
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/pncs')
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=274530&modelName=CARINA+E+WG++++%28JPP%29&modelCode=AT190R-DWMDKW&groupNumber=2&partGroup=3101
+HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&catalogCode=274530&modelName=CARINA+E+WG++++%28JPP%29&modelCode=AT190R-DWMDKW&groupNumber=2
+---
+2014/10/03 17:29:22 [error] [php] Undefined index: part_group (/home/itm/projects/boom-boom-project/public/protected/views/site/index.php:152)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(869): SiteController->renderFile()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php(146): SiteController->render()
+#3 unknown(0): SiteController->actionPncs()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#8 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/pncs?catalog=EU&catalogCode=274530&modelName=CARINA+E+WG++++%28JPP%29&modelCode=AT190R-DWMDKW&groupNumber=2&partGroup=3101
+in /home/itm/projects/boom-boom-project/public/protected/views/site/index.php (152)
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (146)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/03 18:00:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "http://v3.ryli.by/search/preload/article/3112632010".' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('http://v3.ryli....')
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/http://v3.ryli.by/search/preload/article/3112632010
+HTTP_REFERER=http://boom.dev/index.php/site/pncs?catalog=JP&catalogCode=281120&modelName=CAMRY%2FVISTA&modelCode=CV10-JEMEX&groupNumber=2&partGroup=3101
+---

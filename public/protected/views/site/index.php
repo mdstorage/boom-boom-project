@@ -61,16 +61,104 @@ if (!empty($groups)){
         $sModelCode
     );
 
-    echo CHtml::link("Двигатель/Топливная система/Принадлежности",
+    echo "<h2>Выбрать группу запчастей </h2>";
+
+    echo CHtml::link(Functions::getGroupName(1),
             array('site/subgroups',
                 'catalog'=>$sCatalog,
                 'catalogCode'=>$sCatalogCode,
                 'modelName'=>$sModelName,
                 'modelCode'=>$sModelCode,
                 'groupNumber'=>1)) . '<br/>';
-    echo CHtml::link("Трансмиссия/Подвеска") . '<br/>';
-    echo CHtml::link("Кузов") . '<br/>';
-    echo CHtml::link("Электрика") . '<br/>';
+    echo CHtml::link( Functions::getGroupName(2),
+            array('site/subgroups',
+                'catalog'=>$sCatalog,
+                'catalogCode'=>$sCatalogCode,
+                'modelName'=>$sModelName,
+                'modelCode'=>$sModelCode,
+                'groupNumber'=>2)) . '<br/>';
+    echo CHtml::link(Functions::getGroupName(3),
+            array('site/subgroups',
+                'catalog'=>$sCatalog,
+                'catalogCode'=>$sCatalogCode,
+                'modelName'=>$sModelName,
+                'modelCode'=>$sModelCode,
+                'groupNumber'=>3)) . '<br/>';
+    echo CHtml::link(Functions::getGroupName(4),
+            array('site/subgroups',
+                'catalog'=>$sCatalog,
+                'catalogCode'=>$sCatalogCode,
+                'modelName'=>$sModelName,
+                'modelCode'=>$sModelCode,
+                'groupNumber'=>4)) . '<br/>';
+}
+
+if (!empty($aPartGroups)){
+    $groupName = Functions::getGroupName($groupNumber);
+    $this->breadcrumbs = array(
+        $sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog),
+        $sModelName=>array(
+            'site/modelcodes', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
+        ),
+        $sModelCode=>array(
+            'site/groups', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode
+        ),
+        $groupName
+    );
+
+    echo "<h2>Выбрать подгруппу запчастей </h2>";
+
+    foreach ($aPartGroups as $aPartGroup){
+        echo CHtml::link($aPartGroup['desc_en'], array(
+                'site/pncs',
+                    'catalog'=>$sCatalog,
+                    'catalogCode'=>$sCatalogCode,
+                    'modelName'=>$sModelName,
+                    'modelCode'=>$sModelCode,
+                    'groupNumber'=>$groupNumber,
+                    'partGroup'=>$aPartGroup['part_code']
+                )
+            ) . '<br/>';
+    }
+}
+
+if (!empty($aPncs)){
+    $groupName = Functions::getGroupName($groupNumber);
+    $this->breadcrumbs = array(
+        $sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog),
+        $sModelName=>array(
+            'site/modelcodes', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
+        ),
+        $sModelCode=>array(
+            'site/groups', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode
+        ),
+        $groupName=>array(
+            'site/subgroups', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode, 'groupNumber'=>$groupNumber
+        ),
+        $sPartGroupDescEn
+    );
+
+    echo "<h2>Выбрать запчасть</h2>";
+
+    foreach ($aPncs as $aPnc){
+        echo $aPnc['desc_en'] . '<br/>';
+        echo '<table class="hidden">';
+        echo '<thead>
+                <td>Код</td>
+                <td>Период выпуска</td>
+                <td>Количество</td>
+                <td>Применяемость</td>
+              </thead><tbody>';
+        foreach($aPartCatalog[$aPnc['pnc']] as $aPartCode){
+            echo '<tr>';
+            echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
+            echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . '-' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
+            echo '<td>' . $aPartCode['quantity']  .'</td>';
+            echo '<td>' . $aPartCode['add_desc']  .'</td>';
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
+    }
 }
 
 

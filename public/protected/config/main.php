@@ -86,5 +86,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'outUrl'=>'http://v3.ryli.by/search/preload/?article='
 	),
 );

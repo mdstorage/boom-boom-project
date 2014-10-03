@@ -81,25 +81,70 @@ class SiteController extends Controller
 
     public function actionSubGroups($catalog, $catalogCode, $modelName, $modelCode, $groupNumber)
     {
-        switch($groupNumber){
+        switch ($groupNumber){
             case 1:
                 $min = 0;
                 $max = 2;
+                break;
             case 2:
                 $min = 3;
                 $max = 4;
+                break;
             case 3:
                 $min = 5;
                 $max = 7;
+                break;
             case 4:
                 $min = 8;
                 $max = 9;
+                break;
         }
 
         $oPartCodes = new PartCodes();
 
         $aPartGroups = $oPartCodes->getPartGroupsByCatalogCode($catalog, $catalogCode, $min, $max);
-        print_r($aPartGroups);
+
+        $this->render(
+            'index', array(
+                'groupNumber'=>$groupNumber,
+                'sCatalog'=>$catalog,
+                'sCatalogCode'=>$catalogCode,
+                'sModelName'=>$modelName,
+                'sModelCode'=>$modelCode,
+                'aPartGroups'=>$aPartGroups
+            )
+        );
+
+    }
+
+    public function actionPncs($catalog, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup){
+
+        $oPartCodes = new PartCodes();
+        $aPncs = $oPartCodes->getPncs($catalog, $catalogCode, $partGroup);
+
+        $oPartCatalog = new PartCatalog();
+        $aPartCatalog = array();
+        foreach($aPncs as $aPnc){
+            $aPartCatalog[$aPnc['pnc']] = $oPartCatalog->getPartCodesByPnc($catalog, $catalogCode, $aPnc['pnc']);
+        }
+
+        $oPartGroups = new PartGroups();
+        $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
+
+        $this->render(
+            'index', array(
+                'groupNumber'=>$groupNumber,
+                'sCatalog'=>$catalog,
+                'sCatalogCode'=>$catalogCode,
+                'sModelName'=>$modelName,
+                'sModelCode'=>$modelCode,
+                'sPartGroup'=>$partGroup,
+                'sPartGroupDescEn'=>$sPartGroupDescEn,
+                'aPncs'=>$aPncs,
+                'aPartCatalog'=>$aPartCatalog
+            )
+        );
+
     }
 	/**
 	 * This is the action to handle external exceptions.

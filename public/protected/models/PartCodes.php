@@ -115,11 +115,37 @@ class PartCodes extends CActiveRecord
         $oPartGroups = new PartGroups();
 
         foreach($aPartGroups as &$aPartGroup){
-            $aPartGroup['part_code'] =  $oPartGroups->getDescEn($catalog,  $aPartGroup['part_code']) . ' (' . $aPartGroup['part_code'] . ')';
+            $aPartGroup['desc_en'] =  $oPartGroups->getPartGroupDescEn($catalog,  $aPartGroup['part_code']) . ' (' . $aPartGroup['part_code'] . ')';
         }
 
         return $aPartGroups;
     }
+
+    /*
+     * Возвращает номер детали, изображаемый на рисунке, по номеру группы
+     * (не забываем про несоответствие названий полей в part_codes)
+     */
+    public function getPncs($catalog, $catalogCode, $partGroup){
+        $aPncs = Yii::app()->db->CreateCommand()
+            ->select('part_group AS pnc')
+            ->from('part_codes')
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND part_code = :part_code', array(
+                ':catalog'=>$catalog,
+                ':catalog_code'=>$catalogCode,
+                ':part_code'=>$partGroup))
+            ->group('pnc')
+            ->queryAll();
+
+        $oPncs = new Pncs();
+
+        foreach($aPncs as &$aPnc){
+            $aPnc['desc_en'] = $aPnc['pnc'] . ' ' . $oPncs->getPncDescEn($catalog, $aPnc['pnc']);
+        }
+
+        return $aPncs;
+    }
+
+
 
 	/**
 	 * Returns the static model of the specified AR class.

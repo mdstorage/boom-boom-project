@@ -85,13 +85,13 @@ class PartGroups extends CActiveRecord
 	}
 
     public function getPartGroupDescEn($catalog, $groupId){
-        $sDescEn = Yii::app()->db->CreateCommand()
+        $sPartGroupDescEn = Yii::app()->db->CreateCommand()
             ->select('desc_en')
-            ->from('abbrevs')
+            ->from('part_groups')
             ->where('catalog = :catalog AND group_id = :group_id', array(':catalog'=>$catalog, ':group_id'=>$groupId))
             ->queryScalar();
 
-        return $sDescEn;
+        return $sPartGroupDescEn;
     }
 
 	/**
