@@ -59,7 +59,7 @@ class SiteController extends Controller
         );
     }
 
-    public function actionModelCodes($catalog, $catalogCode, $modelName)
+    public function actionModelCodes($catalog, $cd, $catalogCode, $modelName)
     {
         $oModelCodes = new ModelCodes();
 
@@ -69,17 +69,18 @@ class SiteController extends Controller
             'index', array(
                 'sModelName'=>$modelName,
                 'sCatalog'=>$catalog,
+                'sCd'=>$cd,
                 'aModelCodes'=>$aModelCodes
             )
         );
     }
 
-    public function actionGroups($catalog, $catalogCode, $modelName, $modelCode)
+    public function actionGroups($catalog, $cd, $catalogCode, $modelName, $modelCode)
     {
-        $this->render('index', array('groups'=>1, 'sCatalog'=>$catalog, 'sCatalogCode'=>$catalogCode, 'sModelName'=>$modelName, 'sModelCode'=>$modelCode));
+        $this->render('index', array('groups'=>1, 'sCatalog'=>$catalog, 'sCd'=>$cd, 'sCatalogCode'=>$catalogCode, 'sModelName'=>$modelName, 'sModelCode'=>$modelCode));
     }
 
-    public function actionSubGroups($catalog, $catalogCode, $modelName, $modelCode, $groupNumber)
+    public function actionSubGroups($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber)
     {
         switch ($groupNumber){
             case 1:
@@ -108,6 +109,7 @@ class SiteController extends Controller
             'index', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
+                'sCd'=>$cd,
                 'sCatalogCode'=>$catalogCode,
                 'sModelName'=>$modelName,
                 'sModelCode'=>$modelCode,
@@ -117,7 +119,7 @@ class SiteController extends Controller
 
     }
 
-    public function actionPncs($catalog, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup){
+    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup){
 
         $oPartCodes = new PartCodes();
         $aPncs = $oPartCodes->getPncs($catalog, $catalogCode, $partGroup);
@@ -135,6 +137,7 @@ class SiteController extends Controller
             'index', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
+                'sCd'=>$cd,
                 'sCatalogCode'=>$catalogCode,
                 'sModelName'=>$modelName,
                 'sModelCode'=>$modelCode,

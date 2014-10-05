@@ -131,7 +131,7 @@ class Models extends CActiveRecord
      */
     public function getModelNameCodes($modelName, $catalog){
         $aModelNameCodes = Yii::app()->db->CreateCommand()
-            ->select('add_codes, prod_start, prod_end, catalog_code')
+            ->select('add_codes, prod_start, prod_end, catalog_code, cd')
             ->from('models')
             ->where('catalog = :catalog AND model_name = :model_name', array(':model_name'=>$modelName, 'catalog'=>$catalog))
             ->queryAll();

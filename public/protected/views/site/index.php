@@ -22,6 +22,7 @@ if (!empty($aModelNames)){
                     Functions::prodToDate($aModelNameCode['prod_end']), array(
                         'site/modelcodes',
                         'catalog'=>$sCatalog,
+                        'cd'=>$aModelNameCode['cd'],
                         'catalogCode'=>$aModelNameCode['catalog_code'],
                         'modelName'=>$aModelName)) . '<br/>';
             echo 'Дополнительные коды модели: '.$aModelNameCode['add_codes'] . '<br/><br/>';
@@ -37,6 +38,7 @@ if (!empty($aModelCodes)){
         echo CHtml::link($aModelCode['model_code'], array(
                 'groups',
                 'catalog'=>$sCatalog,
+                'cd'=>$sCd,
                 'catalogCode'=>$aModelCode['catalog_code'],
                 'modelName'=>$sModelName,
                 'modelCode'=>$aModelCode['model_code'])) . '<br/>';
@@ -56,41 +58,23 @@ if (!empty($groups)){
     $this->breadcrumbs = array(
         $sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog),
         $sModelName=>array(
-        'site/modelcodes', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
+        'site/modelcodes', 'catalog'=>$sCatalog, 'cd'=>$sCd, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
         ),
         $sModelCode
     );
 
     echo "<h2>Выбрать группу запчастей </h2>";
 
-    echo CHtml::link(Functions::getGroupName(1),
-            array('site/subgroups',
-                'catalog'=>$sCatalog,
-                'catalogCode'=>$sCatalogCode,
-                'modelName'=>$sModelName,
-                'modelCode'=>$sModelCode,
-                'groupNumber'=>1)) . '<br/>';
-    echo CHtml::link( Functions::getGroupName(2),
-            array('site/subgroups',
-                'catalog'=>$sCatalog,
-                'catalogCode'=>$sCatalogCode,
-                'modelName'=>$sModelName,
-                'modelCode'=>$sModelCode,
-                'groupNumber'=>2)) . '<br/>';
-    echo CHtml::link(Functions::getGroupName(3),
-            array('site/subgroups',
-                'catalog'=>$sCatalog,
-                'catalogCode'=>$sCatalogCode,
-                'modelName'=>$sModelName,
-                'modelCode'=>$sModelCode,
-                'groupNumber'=>3)) . '<br/>';
-    echo CHtml::link(Functions::getGroupName(4),
-            array('site/subgroups',
-                'catalog'=>$sCatalog,
-                'catalogCode'=>$sCatalogCode,
-                'modelName'=>$sModelName,
-                'modelCode'=>$sModelCode,
-                'groupNumber'=>4)) . '<br/>';
+    for ($i=1; $i<5;$i++){
+        echo CHtml::link(Functions::getGroupName($i),
+                array('site/subgroups',
+                    'catalog'=>$sCatalog,
+                    'cd'=>$sCd,
+                    'catalogCode'=>$sCatalogCode,
+                    'modelName'=>$sModelName,
+                    'modelCode'=>$sModelCode,
+                    'groupNumber'=>$i)) . '<br/>';
+    }
 }
 
 if (!empty($aPartGroups)){
@@ -98,10 +82,10 @@ if (!empty($aPartGroups)){
     $this->breadcrumbs = array(
         $sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog),
         $sModelName=>array(
-            'site/modelcodes', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
+            'site/modelcodes', 'catalog'=>$sCatalog, 'cd'=>$sCd, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
         ),
         $sModelCode=>array(
-            'site/groups', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode
+            'site/groups', 'catalog'=>$sCatalog, 'cd'=>$sCd, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode
         ),
         $groupName
     );
@@ -112,6 +96,7 @@ if (!empty($aPartGroups)){
         echo CHtml::link($aPartGroup['desc_en'], array(
                 'site/pncs',
                     'catalog'=>$sCatalog,
+                    'cd'=>$sCd,
                     'catalogCode'=>$sCatalogCode,
                     'modelName'=>$sModelName,
                     'modelCode'=>$sModelCode,
@@ -127,13 +112,13 @@ if (!empty($aPncs)){
     $this->breadcrumbs = array(
         $sCatalog=>array('site/modelnames', 'catalog'=>$sCatalog),
         $sModelName=>array(
-            'site/modelcodes', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
+            'site/modelcodes', 'catalog'=>$sCatalog, 'cd'=>$sCd, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName
         ),
         $sModelCode=>array(
-            'site/groups', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode
+            'site/groups', 'catalog'=>$sCatalog, 'cd'=>$sCd, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode
         ),
         $groupName=>array(
-            'site/subgroups', 'catalog'=>$sCatalog, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode, 'groupNumber'=>$groupNumber
+            'site/subgroups', 'catalog'=>$sCatalog, 'cd'=>$sCd, 'catalogCode'=>$sCatalogCode, 'modelName'=>$sModelName, 'modelCode'=>$sModelCode, 'groupNumber'=>$groupNumber
         ),
         $sPartGroupDescEn
     );
