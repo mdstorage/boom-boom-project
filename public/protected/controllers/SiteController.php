@@ -133,6 +133,15 @@ class SiteController extends Controller
         $oPartGroups = new PartGroups();
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
 
+        $oPgPictures = new PgPictures();
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup);
+
+        $oImages = new Images();
+        foreach($aPgPictures as &$aPgPicture){
+            foreach($aPncs as $aPnc){
+                $aPgPicture[$aPnc['pnc']] = $oImages->getCoords($catalog, $cd, $aPgPicture['pic_code'], $aPnc['pnc']);
+            }
+        }
         $this->render(
             'index', array(
                 'groupNumber'=>$groupNumber,
@@ -144,7 +153,8 @@ class SiteController extends Controller
                 'sPartGroup'=>$partGroup,
                 'sPartGroupDescEn'=>$sPartGroupDescEn,
                 'aPncs'=>$aPncs,
-                'aPartCatalog'=>$aPartCatalog
+                'aPartCatalog'=>$aPartCatalog,
+                'aPgPictures'=>$aPgPictures
             )
         );
 

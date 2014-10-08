@@ -125,8 +125,39 @@ if (!empty($aPncs)){
 
     echo "<h2>Выбрать запчасть</h2>";
 
+    foreach ($aPgPictures as $aPgPicture){
+        $width = Yii::app()->params['imageWidth'];
+
+        $size = getimagesize(Yii::app()->basePath . '/../images/' .
+            $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
+            '/' . $aPgPicture['pic_code'] . '.png');
+
+
+            $k = $size[1]/$size[0];
+            $kc = $width/$size[0];
+            $height = $width * $k;
+
+
+        echo CHtml::image(
+            Yii::app()->request->baseUrl.'/images/' .
+            $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
+            '/' . $aPgPicture['pic_code'] . '.png',
+            $aPgPicture['pic_code'],
+            array("width"=>$width, "usemap"=>'#' . $aPgPicture['pic_code']));
+        echo '<map name='. $aPgPicture['pic_code'] .'>';
+            foreach($aPncs as $aPnc){
+                foreach ($aPgPicture[$aPnc['pnc']] as $aPncCoords){
+                    echo '<area shape="rect" coords="'.$aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc.'"
+                href="#'.$aPnc['pnc'].'">';
+                }
+            }
+        echo '</map>';
+    }
+
+    echo '<br/>';
+
     foreach ($aPncs as $aPnc){
-        echo $aPnc['desc_en'] . '<br/>';
+        echo '<a name=' . $aPnc['pnc'] . '></a>' . $aPnc['desc_en'] . '<br/>';
         echo '<table class="hidden">';
         echo '<thead>
                 <td>Код</td>
