@@ -174,7 +174,6 @@ class SiteController extends Controller
 
     }
 
-    public function 
 	/**
 	 * This is the action to handle external exceptions.
 	 */
