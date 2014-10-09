@@ -123,6 +123,10 @@ class SiteController extends Controller
 
         $oPartCodes = new PartCodes();
         $aPncs = $oPartCodes->getPncs($catalog, $catalogCode, $partGroup);
+        $aPncCodes = array();
+        foreach($aPncs as $aPnc){
+            $aPncCodes[] = $aPnc['pnc'];
+        }
 
         $oPartCatalog = new PartCatalog();
         $aPartCatalog = array();
@@ -138,10 +142,20 @@ class SiteController extends Controller
 
         $oImages = new Images();
         foreach($aPgPictures as &$aPgPicture){
-            foreach($aPncs as $aPnc){
-                $aPgPicture[$aPnc['pnc']] = $oImages->getCoords($catalog, $cd, $aPgPicture['pic_code'], $aPnc['pnc']);
+            $aCoords = $oImages->getCoords($catalog, $cd, $aPgPicture['pic_code']);
+            $aPgPicture['general'] = array();
+            $aPgPicture['groups'] = array();
+            foreach($aCoords as $aCoord){
+                if(in_array($aCoord['label2'], $aPncCodes)){
+                    $aPgPicture['pncs'][] = $aCoord;
+                } elseif (strlen($aCoord['label2'])>4) {
+                    $aPgPicture['general'][] = $aCoord;
+                } else {
+                    $aPgPicture['groups'][] = $aCoord;
+                }
             }
         }
+
         $this->render(
             'index', array(
                 'groupNumber'=>$groupNumber,
@@ -159,6 +173,8 @@ class SiteController extends Controller
         );
 
     }
+
+    public function 
 	/**
 	 * This is the action to handle external exceptions.
 	 */

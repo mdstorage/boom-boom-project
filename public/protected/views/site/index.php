@@ -5,6 +5,11 @@ $this->pageTitle=Yii::app()->name;
 ?>
 
 <?php
+
+echo "Поиск по VIN: " . CHtml::textField('VIN') . CHtml::ajaxButton("Искать", "site");
+echo "<br/>";
+echo "Поиск по FRAME: " . CHtml::textField('FRAME')." - ".CHtml::textField('CODE') . CHtml::ajaxButton("Искать", "site");;
+
 if (!empty($aCatalogs)){
     echo "<h2>Выбрать регион </h2>";
     foreach($aCatalogs as $aCatalog){
@@ -127,54 +132,88 @@ if (!empty($aPncs)){
 
     foreach ($aPgPictures as $aPgPicture){
         $width = Yii::app()->params['imageWidth'];
-
-        $size = getimagesize(Yii::app()->basePath . '/../images/' .
+        if(file_exists(Yii::app()->basePath . '/../images/' .
             $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
-            '/' . $aPgPicture['pic_code'] . '.png');
-
+            '/' . $aPgPicture['pic_code'] . '.png')){
+            $size = getimagesize(Yii::app()->basePath . '/../images/' .
+                $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
+                '/' . $aPgPicture['pic_code'] . '.png');
 
             $k = $size[1]/$size[0];
             $kc = $width/$size[0];
             $height = $width * $k;
 
 
-        echo CHtml::image(
-            Yii::app()->request->baseUrl.'/images/' .
-            $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
-            '/' . $aPgPicture['pic_code'] . '.png',
-            $aPgPicture['pic_code'],
-            array("width"=>$width, "usemap"=>'#' . $aPgPicture['pic_code']));
-        echo '<map name='. $aPgPicture['pic_code'] .'>';
-            foreach($aPncs as $aPnc){
-                foreach ($aPgPicture[$aPnc['pnc']] as $aPncCoords){
+            echo CHtml::image(
+                Yii::app()->request->baseUrl.'/images/' .
+                $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
+                '/' . $aPgPicture['pic_code'] . '.png',
+                $aPgPicture['pic_code'],
+                array("width"=>$width, "usemap"=>'#' . $aPgPicture['pic_code']));
+            echo '<map name='. $aPgPicture['pic_code'] .'>';
+            foreach($aPgPicture['pncs'] as $aPncCoords){
+                echo '<area shape="rect" coords="'.$aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc.'"
+                href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
+                foreach($aPgPicture['general'] as $aPncCoords){
                     echo '<area shape="rect" coords="'.$aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc.'"
-                href="#'.$aPnc['pnc'].'">';
+                href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
                 }
             }
-        echo '</map>';
-    }
+            echo '</map>';
+        }
 
-    echo '<br/>';
-
-    foreach ($aPncs as $aPnc){
-        echo '<a name=' . $aPnc['pnc'] . '></a>' . $aPnc['desc_en'] . '<br/>';
-        echo '<table class="hidden">';
-        echo '<thead>
+        foreach ($aPgPicture['pncs'] as $aPnc){
+            echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a>' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '<br/>';
+            echo '<table class="hidden">';
+            echo '<thead>
                 <td>Код</td>
                 <td>Период выпуска</td>
                 <td>Количество</td>
                 <td>Применяемость</td>
               </thead><tbody>';
-        foreach($aPartCatalog[$aPnc['pnc']] as $aPartCode){
-            echo '<tr>';
-            echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
-            echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . '-' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
-            echo '<td>' . $aPartCode['quantity']  .'</td>';
-            echo '<td>' . $aPartCode['add_desc']  .'</td>';
-            echo '</tr>';
+            foreach($aPartCatalog[$aPnc['label2']] as $aPartCode){
+                echo '<tr>';
+                echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
+                echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . ' - ' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
+                echo '<td>' . $aPartCode['quantity']  .'</td>';
+                echo '<td>' . $aPartCode['add_desc']  .'</td>';
+                echo '</tr>';
+            }
+            echo '</tbody></table>';
         }
-        echo '</tbody></table>';
+        if($aPgPicture['general']){
+            echo 'Стандартные запчасти:<br/>';
+            foreach($aPgPicture['general'] as $aPartCode){
+                $aPartCodes[$aPartCode['label2']] = $aPartCode;
+            }
+            foreach($aPartCodes as $aPartCode){
+                echo '<a name=' . $aPartCode['label2'] . '></a>';
+                echo '<a href=' . Yii::app()->params['outUrl'] . $aPartCode['label2'] . ' target="_blank" >' . $aPartCode['label2'] . $aPartCode['desc_en'] .'</a><br/>';
+            }
+        }
+
+        if($aPgPicture['groups']){
+            echo 'Связанные группы:<br/>';
+            foreach($aPgPicture['groups'] as $aPartCode){
+                echo '<a name=' . $aPartCode['label2'] . '></a>';
+                echo CHtml::link($aPartCode['label2'] . " " . $aPartCode['desc_en'], array(
+                            'site/pncs',
+                            'catalog'=>$sCatalog,
+                            'cd'=>$sCd,
+                            'catalogCode'=>$sCatalogCode,
+                            'modelName'=>$sModelName,
+                            'modelCode'=>$sModelCode,
+                            'groupNumber'=>$groupNumber,
+                            'partGroup'=>$aPartCode['label2']
+                        )
+                    ) . '<br/>';
+            }
+        }
     }
+
+    echo '<br/>';
+
+
 }
 
 

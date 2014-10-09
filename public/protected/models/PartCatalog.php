@@ -128,11 +128,28 @@ class PartCatalog extends CActiveRecord
         $aPartCodes = Yii::app()->db->CreateCommand()
             ->select('part_code, quantity, start_date, end_date, add_desc')
             ->from('part_catalog')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2', array(
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=101', array(
                 ':catalog'=>$catalog,
                 ':catalog_code'=>$catalogCode,
                 ':pnc'=>$pnc))
             ->queryAll();
+
+        $aParams = Yii::app()->db->CreateCommand()
+            ->select('part_code, add_desc')
+            ->from('part_catalog')
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=201', array(
+                ':catalog'=>$catalog,
+                ':catalog_code'=>$catalogCode,
+                ':pnc'=>$pnc))
+            ->queryAll();
+
+        foreach($aPartCodes as &$aPartCode){
+            foreach($aParams as $aParam){
+                if($aPartCode['part_code'] == $aParam['part_code']){
+                    $aPartCode['add_desc'] = $aPartCode['add_desc'] . " " . $aParam['add_desc'];
+                }
+            }
+        }
 
         return $aPartCodes;
     }

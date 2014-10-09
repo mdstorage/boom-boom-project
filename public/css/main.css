@@ -227,3 +227,12 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+map area{
+    background-color: #00ccff;
+    border: 5px solid #0066cc;
+}
+
+* {
+    -moz-outline: 1px dashed orange;
+}

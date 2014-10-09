@@ -114,16 +114,29 @@ class Images extends CActiveRecord
 		return parent::model($className);
 	}
 
-    public function getCoords($catalog, $cd, $picCode, $pnc){
-        $aCoords = Yii::app()->db->createCommand()
-            ->select('x1, y1, x2, y2')
+    public function getCoords($catalog, $cd, $picCode){
+
+        $query = Yii::app()->db->createCommand()
+            ->select('x1, y1, x2, y2, label2')
             ->from('images')
-            ->where('catalog = :catalog AND cd = :cd AND pic_code = :pic_code AND label2 = :label2', array(
+            ->where('catalog = :catalog AND cd = :cd AND pic_code = :pic_code', array(
                 ':catalog'=>$catalog,
                 ':cd'=>$cd,
-                ':pic_code'=>$picCode,
-                ':label2'=>$pnc))
-            ->queryAll();
+                ':pic_code'=>$picCode
+                ))
+            ->order('label2');
+
+        $aCoords = $query->queryAll();
+
+        $oPncs = new Pncs();
+        $oPartGroups = new PartGroups();
+        foreach($aCoords as &$aCoord){
+            if(strlen($aCoord['label2'])>4){
+                $aCoord['desc_en'] = $oPncs->getPncDescEn($catalog, $aCoord['label2']);
+            } else {
+                $aCoord['desc_en'] = $oPartGroups->getPartGroupDescEn($catalog, $aCoord['label2']);
+            }
+        }
 
         return $aCoords;
     }

@@ -8,7 +8,7 @@ class Functions
 
     public static function prodToDate($prod)
     {
-        if ($prod){
+        if ($prod && $prod != 999999){
             return substr($prod, -2) . '/' . substr($prod, 0, 4);
         } else {
             return '...';
