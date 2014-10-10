@@ -141,13 +141,17 @@ class SiteController extends Controller
         $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup);
 
         $oImages = new Images();
+
         foreach($aPgPictures as &$aPgPicture){
             $aCoords = $oImages->getCoords($catalog, $cd, $aPgPicture['pic_code']);
+            $aPgPicture['pnc_list'] = array();
+            $aPgPicture['pncs'] = array();
             $aPgPicture['general'] = array();
             $aPgPicture['groups'] = array();
             foreach($aCoords as $aCoord){
                 if(in_array($aCoord['label2'], $aPncCodes)){
                     $aPgPicture['pncs'][] = $aCoord;
+                    $aPgPicture['pnc_list'][$aCoord['label2']] = $aCoord['label2'];
                 } elseif (strlen($aCoord['label2'])>4) {
                     $aPgPicture['general'][] = $aCoord;
                 } else {
@@ -172,6 +176,24 @@ class SiteController extends Controller
             )
         );
 
+    }
+
+    public function actionFindByVin()
+    {
+        $request = Yii::app()->getRequest();
+        if ($request->isAjaxRequest &&  $_POST['value']){
+            $value = $_POST['value'];
+            $vin8 = substr($value, 0, 8);
+            $serialNumber = substr($value, 10, 7);
+
+            $oComplectations = new Complectations();
+            $frame = $oComplectations->getFrameByVin8($vin8);
+
+            $oFrames = new Frames();
+            $aData = $oFrames->getDataByFrameAndSerial($frame, $serialNumber);
+
+            echo $vin8 . ' ' . $aData['model_code'] . ' ' . $aData['body_color'] . "<br/>" . CHtml::link('Каталог');
+        }
     }
 
 	/**

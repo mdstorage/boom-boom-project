@@ -166,4 +166,16 @@ class Complectations extends CActiveRecord
 
         return $aComplectations;
     }
+
+    public function getFrameByVin8($vin8)
+    {
+        $frame = Yii::app()->db->CreateCommand()
+            ->select('frame')
+            ->from('complectations')
+            ->where('vin8 = :vin8', array(':vin8'=>$vin8))
+            ->group('frame')
+            ->queryScalar();
+
+        return $frame;
+    }
 }

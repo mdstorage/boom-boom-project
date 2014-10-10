@@ -5,12 +5,16 @@ $this->pageTitle=Yii::app()->name;
 ?>
 
 <?php
-
-echo "Поиск по VIN: " . CHtml::textField('VIN') . CHtml::ajaxButton("Искать", "site");
-echo "<br/>";
-echo "Поиск по FRAME: " . CHtml::textField('FRAME')." - ".CHtml::textField('CODE') . CHtml::ajaxButton("Искать", "site");;
-
 if (!empty($aCatalogs)){
+    echo "Поиск по VIN: " . CHtml::textField('VIN', '' , array('id'=>'vin')) . ' ' . CHtml::ajaxLink("Искать", array("site/findbyvin"),
+            array(
+                'type'=>'POST',
+                'data'=>array('value'=>'js:$("#vin").val()'),
+                'success'=>'js:function(html){ $("#vin_result").html(html); }'
+            ));
+    echo "<div id='vin_result'></div>";
+    echo "<br/>";
+    echo "Поиск по FRAME: " . CHtml::textField('FRAME')." - ".CHtml::textField('CODE') . CHtml::ajaxButton("Искать", "site");;
     echo "<h2>Выбрать регион </h2>";
     foreach($aCatalogs as $aCatalog){
         echo CHtml::link($aCatalog, array('site/modelnames', 'catalog'=>$aCatalog)) . '<br/>';
@@ -163,23 +167,26 @@ if (!empty($aPncs)){
         }
 
         foreach ($aPgPicture['pncs'] as $aPnc){
-            echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a>' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '<br/>';
-            echo '<table class="hidden">';
-            echo '<thead>
+            if(in_array($aPnc['label2'], $aPgPicture['pnc_list'])){
+                echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a>' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '<br/>';
+                echo '<table class="hidden">';
+                echo '<thead>
                 <td>Код</td>
                 <td>Период выпуска</td>
                 <td>Количество</td>
                 <td>Применяемость</td>
               </thead><tbody>';
-            foreach($aPartCatalog[$aPnc['label2']] as $aPartCode){
-                echo '<tr>';
-                echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
-                echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . ' - ' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
-                echo '<td>' . $aPartCode['quantity']  .'</td>';
-                echo '<td>' . $aPartCode['add_desc']  .'</td>';
-                echo '</tr>';
+                foreach($aPartCatalog[$aPnc['label2']] as $aPartCode){
+                    echo '<tr>';
+                    echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
+                    echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . ' - ' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
+                    echo '<td>' . $aPartCode['quantity']  .'</td>';
+                    echo '<td>' . $aPartCode['add_desc']  .'</td>';
+                    echo '</tr>';
+                }
+                echo '</tbody></table>';
             }
-            echo '</tbody></table>';
+            unset($aPgPicture['pnc_list'][$aPnc['label2']]);
         }
         if($aPgPicture['general']){
             echo 'Стандартные запчасти:<br/>';
@@ -187,7 +194,7 @@ if (!empty($aPncs)){
                 $aPartCodes[$aPartCode['label2']] = $aPartCode;
             }
             foreach($aPartCodes as $aPartCode){
-                echo '<a name=' . $aPartCode['label2'] . '></a>';
+                echo '<a name=' . $aPgPicture['pic_code']  . $aPartCode['label2'] . '></a>';
                 echo '<a href=' . Yii::app()->params['outUrl'] . $aPartCode['label2'] . ' target="_blank" >' . $aPartCode['label2'] . $aPartCode['desc_en'] .'</a><br/>';
             }
         }
@@ -195,7 +202,7 @@ if (!empty($aPncs)){
         if($aPgPicture['groups']){
             echo 'Связанные группы:<br/>';
             foreach($aPgPicture['groups'] as $aPartCode){
-                echo '<a name=' . $aPartCode['label2'] . '></a>';
+                echo '<a name=' . $aPgPicture['pic_code'] . $aPartCode['label2'] . '></a>';
                 echo CHtml::link($aPartCode['label2'] . " " . $aPartCode['desc_en'], array(
                             'site/pncs',
                             'catalog'=>$sCatalog,
