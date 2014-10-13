@@ -129,7 +129,8 @@ class Models extends CActiveRecord
     /*
      * Возвращает набор кодов по каждой модели (по годам выпуска)
      */
-    public function getModelNameCodes($modelName, $catalog){
+    public function getModelNameCodes($modelName, $catalog)
+    {
         $aModelNameCodes = Yii::app()->db->CreateCommand()
             ->select('add_codes, prod_start, prod_end, catalog_code, cd')
             ->from('models')
@@ -139,7 +140,19 @@ class Models extends CActiveRecord
         return $aModelNameCodes;
     }
 
+    /*
+     * Возвращает название модели по региону и коду каталога
+     */
+    public function getModelNameByCodes($catalog, $catalogCode)
+    {
+        $aModelName = Yii::app()->db->CreateCommand()
+            ->select('model_name, cd')
+            ->from('models')
+            ->where('catalog = :catalog AND catalog_code = :catalog_code', array(':catalog_code'=>$catalogCode, 'catalog'=>$catalog))
+            ->queryRow();
 
+        return $aModelName;
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.

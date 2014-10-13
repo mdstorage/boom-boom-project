@@ -14,7 +14,14 @@ if (!empty($aCatalogs)){
             ));
     echo "<div id='vin_result'></div>";
     echo "<br/>";
-    echo "Поиск по FRAME: " . CHtml::textField('FRAME')." - ".CHtml::textField('CODE') . CHtml::ajaxButton("Искать", "site");;
+    echo "Поиск по FRAME: " . CHtml::textField('FRAME', '' , array('id'=>'frame'))." - ".CHtml::textField('SERIAL', '' , array('id'=>'serial')) . ' ' .
+        CHtml::ajaxLink("Искать", array("site/findbyvin"),
+            array(
+            'type'=>'POST',
+            'data'=>array('frame'=>'js:$("#frame").val()', 'serial'=>'js:$("#serial").val()'),
+            'success'=>'js:function(html){ $("#frame_result").html(html); }'
+        ));
+    echo "<div id='frame_result'></div>";
     echo "<h2>Выбрать регион </h2>";
     foreach($aCatalogs as $aCatalog){
         echo CHtml::link($aCatalog, array('site/modelnames', 'catalog'=>$aCatalog)) . '<br/>';
@@ -56,7 +63,7 @@ if (!empty($aModelCodes)){
         echo "Период выпуска: " . Functions::prodToDate($aModelCode['prod_start']) . ' - ' .
             Functions::prodToDate($aModelCode['prod_end']) . '<br/>';
         echo "Двигатель: " . $aModelCode['engine1'] . '<br/>';
-        echo "Кузов: " . $aModelCode['body'] . '<br/>';
+        echo $aModelCode['body'] ? "Кузов: " . $aModelCode['body'] . '<br/>':'';
         echo "Класс модели: " . $aModelCode['grade'] . '<br/>';
         echo "Трансмиссия: " . $aModelCode['atm_mtm'] . '<br/>';
         echo "Кузов: " . $aModelCode['f1'] . '<br/>';

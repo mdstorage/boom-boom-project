@@ -120,10 +120,10 @@ class Frames extends CActiveRecord
     public function getDataByFrameAndSerial($frame, $serialNumber)
     {
         $aData = Yii::app()->db->createCommand()
-            ->select('CONCAT(`frame_code`,`code1`,'-',`code2`) as `model_code`, SUBSTRING(`fl1`,1,3) as `body_color`')
+            ->select('CONCAT(`frame_code`,`code1`,"-",`code2`) as `model_code`, SUBSTRING(`fl1`,4,4) as `body_color`, SUBSTRING(`fl1`,1,3) as `inter_color`, vdate')
             ->from('frames')
             ->where('frame_code=:frame AND serial_number=:serial', array(':frame'=>$frame, ':serial'=>$serialNumber))
-            ->queryAll();
+            ->queryRow();
 
         return $aData;
     }

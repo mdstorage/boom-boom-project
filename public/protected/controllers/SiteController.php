@@ -32,6 +32,7 @@ class SiteController extends Controller
 		$oModels = new Models();
 
         $aCatalogs = $oModels->getCatalogs();
+
         foreach($aCatalogs as &$aCatalog){
             $aCatalog = $aCatalog['catalog'];
         }
@@ -155,7 +156,7 @@ class SiteController extends Controller
                 } elseif (strlen($aCoord['label2'])>4) {
                     $aPgPicture['general'][] = $aCoord;
                 } else {
-                    $aPgPicture['groups'][] = $aCoord;
+                    $aPgPicture['groups'][$aCoord['label2']] = $aCoord;
                 }
             }
         }
@@ -181,18 +182,46 @@ class SiteController extends Controller
     public function actionFindByVin()
     {
         $request = Yii::app()->getRequest();
-        if ($request->isAjaxRequest &&  $_POST['value']){
-            $value = $_POST['value'];
-            $vin8 = substr($value, 0, 8);
-            $serialNumber = substr($value, 10, 7);
+        $oComplectations = new Complectations();
+        if ($request->isAjaxRequest){
+            if (!empty($_POST['value'])){
+                $value = $_POST['value'];
+                $vin8 = substr($value, 0, 8);
+                $serialNumber = substr($value, 10, 7);
+                $frame = $oComplectations->getFrameByVin8($vin8);
+            }
 
-            $oComplectations = new Complectations();
-            $frame = $oComplectations->getFrameByVin8($vin8);
+            if(!empty($_POST['frame']) && !empty($_POST['serial'])) {
+                $frame = $_POST['frame'];
+                $serialNumber = $_POST['serial'];
+            }
 
             $oFrames = new Frames();
             $aData = $oFrames->getDataByFrameAndSerial($frame, $serialNumber);
 
-            echo $vin8 . ' ' . $aData['model_code'] . ' ' . $aData['body_color'] . "<br/>" . CHtml::link('Каталог');
+            $aComplectation = $oComplectations->getComplectationByModelCode($aData['model_code']);
+
+            $oModels = new Models();
+            $aModelName = $oModels->getModelNameByCodes($aComplectation['catalog'], $aComplectation['catalog_code']);
+
+            echo "Название модели: " . $aModelName['model_name'] . "<br/>";
+            echo "Код модели: " . $aData['model_code'] . "<br/>" .
+                 "Период выпуска: " . Functions::prodToDate($aComplectation['prod_start']) . " - " . Functions::prodToDate($aComplectation['prod_end']) . "<br/>" .
+                 "Дата производства: " . Functions::prodToDate($aData['vdate']) . "<br/>" .
+                 "Цвет кузова: " . $aData['body_color'] . "<br/>" .
+                 "Цвет интерьера: " . $aData['inter_color'] . "<br/>" .
+                 "Двигатель: " . $aComplectation['engine1'] . "<br/>";
+            echo $aComplectation['body'] ? "Кузов: " . $aComplectation['body'] . '<br/>':'';
+            echo "Класс модели: " . $aComplectation['grade'] . '<br/>';
+            echo "Трансмиссия: " . $aComplectation['atm_mtm'] . '<br/>';
+            echo "Кузов: " . $aComplectation['f1'] . '<br/>';
+            echo CHtml::link('Каталог', array(
+                'groups',
+                'catalog'=>$aComplectation['catalog'],
+                'cd'=>$aModelName['cd'],
+                'catalogCode'=>$aComplectation['catalog_code'],
+                'modelName'=>$aModelName['model_name'],
+                'modelCode'=>$aData['model_code']));
         }
     }
 
