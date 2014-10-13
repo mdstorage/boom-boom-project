@@ -198,6 +198,9 @@ class SiteController extends Controller
 
             $oFrames = new Frames();
             $aData = $oFrames->getDataByFrameAndSerial($frame, $serialNumber);
+            if (empty($aData)){
+                die('Ничего не найдено. Проверьте введенные данные.');
+            }
 
             $aComplectation = $oComplectations->getComplectationByModelCode($aData['model_code']);
 
