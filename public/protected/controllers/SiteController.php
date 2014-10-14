@@ -36,7 +36,7 @@ class SiteController extends Controller
             $aCatalog = $aCatalog['catalog'];
         }
 
-        $this->render('index', array('aCatalogs'=>$aCatalogs));
+        $this->render('vybor_regiona', array('aCatalogs'=>$aCatalogs));
 	}
 
     public function actionModelNames($catalog){
@@ -51,7 +51,7 @@ class SiteController extends Controller
             $aModelNameCodes[$modelName] = $oModels->getModelNameCodes($modelName, $catalog);
         }
         $this->render(
-            'index', array(
+            'vybor_modeli_2', array(
                 'aModelNames'=>$aModelNames,
                 'sCatalog'=>$catalog,
                 'aModelNameCodes'=>$aModelNameCodes
