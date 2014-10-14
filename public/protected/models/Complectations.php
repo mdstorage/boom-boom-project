@@ -155,13 +155,47 @@ class Complectations extends CActiveRecord
             ->where('catalog = :catalog AND catalog_code = :catalog_code', array(':catalog'=>$catalog, ':catalog_code'=>$catalogCode))
             ->queryAll();
 
+        $aComplectations = $this->getAbbrevs($aComplectations);
+
+        return $aComplectations;
+    }
+
+    public function getFrameByVin8($vin8)
+    {
+        $frame = Yii::app()->db->CreateCommand()
+            ->select('frame')
+            ->from('complectations')
+            ->where(array('like', 'vin8', '%'.$vin8.'%'))
+            ->group('frame')
+            ->queryScalar();
+
+        return $frame;
+    }
+
+    public function getComplectationByModelCode($modelCode)
+    {
+        $aComplectation = Yii::app()->db->CreateCommand()
+            ->select('*')
+            ->from('complectations')
+            ->where('model_code = :model_code', array(':model_code'=>$modelCode))
+            ->queryRow();
+
+        $aComplectations = $this->getAbbrevs(array($aComplectation));
+
+        return $aComplectations[0];
+    }
+
+    private function getAbbrevs($aComplectations)
+    {
         $oAbbrevs = new Abbrevs();
 
         foreach($aComplectations as &$aComplectation){
-            $aComplectation['body'] =  $oAbbrevs->getDescEn($catalog,  $aComplectation['body']) . ' (' . $aComplectation['body'] . ')';
-            $aComplectation['grade'] =  $oAbbrevs->getDescEn($catalog,  $aComplectation['grade']) . ' (' . $aComplectation['grade'] . ')';
+            $catalog = $aComplectation['catalog'];
+            $aComplectation['body'] =  $aComplectation['body'] ? $oAbbrevs->getDescEn($catalog,  $aComplectation['body']) . ' (' . $aComplectation['body'] . ')':null;
+            $aComplectation['grade'] = $oAbbrevs->getDescEn($catalog,  $aComplectation['grade']) . ' (' . $aComplectation['grade'] . ')';
             $aComplectation['atm_mtm'] =  $oAbbrevs->getDescEn($catalog,  $aComplectation['atm_mtm']) . ' (' . $aComplectation['atm_mtm'] . ')';
             $aComplectation['f1'] =  $oAbbrevs->getDescEn($catalog,  $aComplectation['f1']) . ' (' . $aComplectation['f1'] . ')';
+            $aComplectation['engine1'] =  $oAbbrevs->getDescEn($catalog,  $aComplectation['engine1']) . ' (' . $aComplectation['engine1'] . ')';
         }
 
         return $aComplectations;

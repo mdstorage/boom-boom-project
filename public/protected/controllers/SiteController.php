@@ -32,6 +32,7 @@ class SiteController extends Controller
 		$oModels = new Models();
 
         $aCatalogs = $oModels->getCatalogs();
+
         foreach($aCatalogs as &$aCatalog){
             $aCatalog = $aCatalog['catalog'];
         }
@@ -123,6 +124,10 @@ class SiteController extends Controller
 
         $oPartCodes = new PartCodes();
         $aPncs = $oPartCodes->getPncs($catalog, $catalogCode, $partGroup);
+        $aPncCodes = array();
+        foreach($aPncs as $aPnc){
+            $aPncCodes[] = $aPnc['pnc'];
+        }
 
         $oPartCatalog = new PartCatalog();
         $aPartCatalog = array();
@@ -132,6 +137,29 @@ class SiteController extends Controller
 
         $oPartGroups = new PartGroups();
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
+
+        $oPgPictures = new PgPictures();
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup);
+
+        $oImages = new Images();
+
+        foreach($aPgPictures as &$aPgPicture){
+            $aCoords = $oImages->getCoords($catalog, $cd, $aPgPicture['pic_code']);
+            $aPgPicture['pnc_list'] = array();
+            $aPgPicture['pncs'] = array();
+            $aPgPicture['general'] = array();
+            $aPgPicture['groups'] = array();
+            foreach($aCoords as $aCoord){
+                if(in_array($aCoord['label2'], $aPncCodes)){
+                    $aPgPicture['pncs'][] = $aCoord;
+                    $aPgPicture['pnc_list'][$aCoord['label2']] = $aCoord['label2'];
+                } elseif (strlen($aCoord['label2'])>4) {
+                    $aPgPicture['general'][] = $aCoord;
+                } else {
+                    $aPgPicture['groups'][$aCoord['label2']] = $aCoord;
+                }
+            }
+        }
 
         $this->render(
             'index', array(
@@ -144,11 +172,62 @@ class SiteController extends Controller
                 'sPartGroup'=>$partGroup,
                 'sPartGroupDescEn'=>$sPartGroupDescEn,
                 'aPncs'=>$aPncs,
-                'aPartCatalog'=>$aPartCatalog
+                'aPartCatalog'=>$aPartCatalog,
+                'aPgPictures'=>$aPgPictures
             )
         );
 
     }
+
+    public function actionFindByVin()
+    {
+        $request = Yii::app()->getRequest();
+        $oComplectations = new Complectations();
+        if ($request->isAjaxRequest){
+            if (!empty($_POST['value'])){
+                $value = $_POST['value'];
+                $vin8 = substr($value, 0, 8);
+                $serialNumber = substr($value, 10, 7);
+                $frame = $oComplectations->getFrameByVin8($vin8);
+            }
+
+            if(!empty($_POST['frame']) && !empty($_POST['serial'])) {
+                $frame = $_POST['frame'];
+                $serialNumber = $_POST['serial'];
+            }
+
+            $oFrames = new Frames();
+            $aData = $oFrames->getDataByFrameAndSerial($frame, $serialNumber);
+            if (empty($aData)){
+                die('Ничего не найдено. Проверьте введенные данные.');
+            }
+
+            $aComplectation = $oComplectations->getComplectationByModelCode($aData['model_code']);
+
+            $oModels = new Models();
+            $aModelName = $oModels->getModelNameByCodes($aComplectation['catalog'], $aComplectation['catalog_code']);
+
+            echo "Название модели: " . $aModelName['model_name'] . "<br/>";
+            echo "Код модели: " . $aData['model_code'] . "<br/>" .
+                 "Период выпуска: " . Functions::prodToDate($aComplectation['prod_start']) . " - " . Functions::prodToDate($aComplectation['prod_end']) . "<br/>" .
+                 "Дата производства: " . Functions::prodToDate($aData['vdate']) . "<br/>" .
+                 "Цвет кузова: " . $aData['body_color'] . "<br/>" .
+                 "Цвет интерьера: " . $aData['inter_color'] . "<br/>" .
+                 "Двигатель: " . $aComplectation['engine1'] . "<br/>";
+            echo $aComplectation['body'] ? "Кузов: " . $aComplectation['body'] . '<br/>':'';
+            echo "Класс модели: " . $aComplectation['grade'] . '<br/>';
+            echo "Трансмиссия: " . $aComplectation['atm_mtm'] . '<br/>';
+            echo "Кузов: " . $aComplectation['f1'] . '<br/>';
+            echo CHtml::link('Каталог', array(
+                'groups',
+                'catalog'=>$aComplectation['catalog'],
+                'cd'=>$aModelName['cd'],
+                'catalogCode'=>$aComplectation['catalog_code'],
+                'modelName'=>$aModelName['model_name'],
+                'modelCode'=>$aData['model_code']));
+        }
+    }
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */

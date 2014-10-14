@@ -133,7 +133,7 @@ class PartCodes extends CActiveRecord
                 ':catalog'=>$catalog,
                 ':catalog_code'=>$catalogCode,
                 ':part_code'=>$partGroup))
-            ->group('pnc')
+            ->group('part_group')
             ->queryAll();
 
         $oPncs = new Pncs();
