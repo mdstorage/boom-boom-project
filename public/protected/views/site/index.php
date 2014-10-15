@@ -170,13 +170,13 @@ if (!empty($aPncs)){
                 href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
                 }
             }
-            echo '</map>';
+            echo '</map><br/>';
         }
 
         foreach ($aPgPicture['pncs'] as $aPnc){
             if(in_array($aPnc['label2'], $aPgPicture['pnc_list'])){
-                echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a>' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '<br/>';
-                echo '<table class="hidden">';
+                echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a><div class="btn-default" id="pncs_' . $aPgPicture['pic_code'] . $aPnc['label2'] .'">' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '</div><br/>';
+                echo '<table id="table_'.$aPgPicture['pic_code'] . $aPnc['label2'].'" class="hidden table table-striped table-bordered">';
                 echo '<thead>
                 <td>Код</td>
                 <td>Период выпуска</td>
@@ -192,8 +192,21 @@ if (!empty($aPncs)){
                     echo '</tr>';
                 }
                 echo '</tbody></table>';
+                echo '
+                    <script>
+                        $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").on("mouseover", function(){
+                            $(this).css("cursor", "pointer");
+                        });
+                        $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").on("click", function(){
+                            $("#table_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").toggleClass("hidden");
+                            $(this).toggleClass("btn-success");
+                        });
+                    </script>
+                    ';
             }
+
             unset($aPgPicture['pnc_list'][$aPnc['label2']]);
+
         }
         if($aPgPicture['general']){
             echo 'Стандартные запчасти:<br/>';
@@ -229,6 +242,8 @@ if (!empty($aPncs)){
 
 
 }
+?>
+
 
 
 
