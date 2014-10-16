@@ -79,7 +79,12 @@ if (!empty($groups)){
         $sModelCode
     );
 
-    echo "<h2>Выбрать группу запчастей </h2>";
+    echo '<table class="table">
+  
+  <tr><td class="active"><b>Выбор группы запчастей</b></td>
+  
+  </tr>
+  </table>';
 
     for ($i=1; $i<5;$i++){
         echo CHtml::link(Functions::getGroupName($i),
@@ -106,9 +111,15 @@ if (!empty($aPartGroups)){
         $groupName
     );
 
-    echo "<h2>Выбрать подгруппу запчастей </h2>";
+    echo '<table class="table">
+  
+  <tr><td class="active"><b>Выбор подгруппы запчастей</b></td>
+  
+  </tr>
+  </table>';
 
     foreach ($aPartGroups as $aPartGroup){
+		 echo ' <div class="col-md-6">';
         echo CHtml::link($aPartGroup['desc_en'], array(
                 'site/pncs',
                     'catalog'=>$sCatalog,
@@ -119,7 +130,7 @@ if (!empty($aPartGroups)){
                     'groupNumber'=>$groupNumber,
                     'partGroup'=>$aPartGroup['part_code']
                 )
-            ) . '<br/>';
+            ) . '<br/></div>';
     }
 }
 

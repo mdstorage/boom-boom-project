@@ -52,7 +52,7 @@ class SiteController extends Controller
             $aModelNameCodes[$modelName] = $oModels->getModelNameCodes($modelName, $catalog);
         }
         $this->render(
-            'vybor_modeli_2', array(
+            'vybor_modeli', array(
                 'aModelNames'=>$aModelNames,
                 'sCatalog'=>$catalog,
                 'aModelNameCodes'=>$aModelNameCodes
@@ -67,7 +67,7 @@ class SiteController extends Controller
         $aModelCodes = $oModelCodes->getModelCodes($catalog, $catalogCode);
 
         $this->render(
-            'index', array(
+            'vybor_modifikacii', array(
                 'sModelName'=>$modelName,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,

@@ -7489,3 +7489,69 @@ REQUEST_URI=/index.php/site/findbyvin
 in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (200)
 in /home/itm/projects/boom-boom-project/public/index.php (13)
 0d93c42a2f2e4d8e337316e7e50af68ec9c89aea
+2014/10/14 18:59:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/14 18:59:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/15 10:43:26 [error] [php] Undefined variable: title (E:\Denis\webprogr\boom\boom-boom-project\public\protected\views\site\vybor_regiona.php:14)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(869): SiteController->renderFile()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php(40): SiteController->render()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#8 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\views\site\vybor_regiona.php (14)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (40)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/15 14:28:21 [error] [php] Undefined variable: title (E:\Denis\webprogr\boom\boom-boom-project\public\protected\views\site\vybor_regiona.php:14)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(869): SiteController->renderFile()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(782): SiteController->renderPartial()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php(40): SiteController->render()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#7 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#8 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#9 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#10 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\views\site\vybor_regiona.php (14)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (40)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/15 19:23:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/15 19:23:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
