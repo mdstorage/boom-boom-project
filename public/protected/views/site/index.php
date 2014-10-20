@@ -150,7 +150,12 @@ if (!empty($aPncs)){
         $sPartGroupDescEn
     );
 
-    echo "<h2>Выбрать запчасть</h2>";
+    echo '<table class="table">
+  
+  <tr><td class="active"><b>Выбрать запчасть</b></td>
+  
+  </tr>
+  </table>';
 
     foreach ($aPgPictures as $aPgPicture){
         $width = Yii::app()->params['imageWidth'];

@@ -26,23 +26,17 @@ $this->breadcrumbs=array(
 <?php if (!empty($aCatalogs)){echo '<div class="table">
   <table class="table">
    <tr>
-  <td class="active"><b>Запрос по VIN</b><br/> 
-  <div class="row">
-  
-  <div class="col-xs-4">
-    <input type="text" class="form-control" placeholder="Введите VIN">';
-	CHtml::textField('VIN', '' , array('id'=>'vin')); echo '</div> <button type="submit" class="btn btn-default">'.CHtml::ajaxLink("OK", array("site/findbyvin"),
+  <td class="active"><b>Запрос по VIN</b><br/>'.CHtml::textField('VIN', '' , array('id'=>'vin')).' '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
             array(
                 'type'=>'POST',
                 'data'=>array('value'=>'js:$("#vin").val()'),
                 'success'=>'js:function(html){ $("#vin_result").html(html); }'
-            ));
+            )); echo '';
     echo "<div id='vin_result'></div>";
-    echo "</button>
+    echo "
   
-</div>
+
   </td>
-  
 </tr>
   </table>
 </div><br/>";}?>
@@ -55,25 +49,17 @@ $this->breadcrumbs=array(
 
 
 
-<?php echo '<div class="table-responsive">
+<?php echo '<div class="table">
   <table class="table">
    <tr>
-  <td class="active"><b>Запрос по FRAME</b><br/> 
-  <div class="row">
-  <div class="col-xs-2">
-    <input type="text" class="form-control" placeholder="FRAME">'; CHtml::textField('FRAME', '' , array('id'=>'frame')); echo '</div><div class="col-xs-3">
-    <input type="text" class="form-control" placeholder="">';CHtml::textField('SERIAL', '' , array('id'=>'serial'));  echo '</div>
-  <button type="submit" class="btn btn-default"> '.CHtml::ajaxLink("OK", array("site/findbyvin"),
+  <td class="active"><b>Запрос по FRAME</b><br/>'.CHtml::textField('FRAME', '' , array('id'=>'frame')).' - '.CHtml::textField('SERIAL', '' , array('id'=>'serial')).'  '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
             array(
             'type'=>'POST',
             'data'=>array('frame'=>'js:$("#frame").val()', 'serial'=>'js:$("#serial").val()'),
             'success'=>'js:function(html){ $("#frame_result").html(html); }'
         ));
-    echo "<div id='frame_result'></div></button>
+    echo "<div id='frame_result'></div>
   
-</div>
-
-
   </td>
   
 </tr>
