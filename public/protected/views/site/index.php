@@ -119,16 +119,17 @@ if (!empty($aPartGroups)){
   </table>';
 
     foreach ($aPartGroups as $aPartGroup){
-		 echo ' <div class="col-md-6">';
+        echo ' <div class="col-md-6">';
         echo CHtml::link($aPartGroup['desc_en'], array(
-                'site/pncs',
+                    'site/pncs',
                     'catalog'=>$sCatalog,
                     'cd'=>$sCd,
                     'catalogCode'=>$sCatalogCode,
                     'modelName'=>$sModelName,
                     'modelCode'=>$sModelCode,
                     'groupNumber'=>$groupNumber,
-                    'partGroup'=>$aPartGroup['part_code']
+                    'partGroup'=>$aPartGroup['part_code'],
+                    'page'=>1
                 )
             ) . '<br/></div>';
     }
@@ -152,6 +153,28 @@ if (!empty($aPncs)){
 
     echo "<h2>Выбрать запчасть</h2>";
 
+    echo "Иллюстрации: ";
+    for($i=1; $i<=$iCountPictures; $i++){
+        $currentPage = Yii::app()->request->getParam('page');
+        if ($i == $currentPage){
+            echo $i . " ";
+        } else {
+            echo CHtml::link($i, array(
+                    'site/pncs',
+                    'catalog'=>$sCatalog,
+                    'cd'=>$sCd,
+                    'catalogCode'=>$sCatalogCode,
+                    'modelName'=>$sModelName,
+                    'modelCode'=>$sModelCode,
+                    'groupNumber'=>$groupNumber,
+                    'partGroup'=>$sPartGroup,
+                    'page'=>$i
+                )). " ";
+        }
+    }
+
+    echo "<br/>";
+
     foreach ($aPgPictures as $aPgPicture){
         $width = Yii::app()->params['imageWidth'];
         if(file_exists(Yii::app()->basePath . '/../images/' .
@@ -165,7 +188,8 @@ if (!empty($aPncs)){
             $kc = $width/$size[0];
             $height = $width * $k;
 
-
+            echo '<div class="row">';
+            echo '<div class="col-sm-6">';
             echo CHtml::image(
                 Yii::app()->request->baseUrl.'/images/' .
                 $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
@@ -175,15 +199,16 @@ if (!empty($aPncs)){
             echo '<map name='. $aPgPicture['pic_code'] .'>';
             foreach($aPgPicture['pncs'] as $aPncCoords){
                 echo '<area shape="rect" coords="'.$aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc.'"
-                href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
+                href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'" id="area'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
                 foreach($aPgPicture['general'] as $aPncCoords){
                     echo '<area shape="rect" coords="'.$aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc.'"
-                href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
+                href="#'.$aPgPicture['pic_code'].$aPncCoords['label2'].'" id="area'.$aPgPicture['pic_code'].$aPncCoords['label2'].'">';
                 }
             }
             echo '</map><br/>';
         }
-
+        echo '</div>';
+        echo '<div class="col-sm-6">';
         foreach ($aPgPicture['pncs'] as $aPnc){
             if(in_array($aPnc['label2'], $aPgPicture['pnc_list'])){
                 echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a><div class="btn-default" id="pncs_' . $aPgPicture['pic_code'] . $aPnc['label2'] .'">' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '</div><br/>';
@@ -210,7 +235,19 @@ if (!empty($aPncs)){
                         });
                         $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").on("click", function(){
                             $("#table_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").toggleClass("hidden");
+                            $(this).removeClass("btn-warning btn-info");
                             $(this).toggleClass("btn-success");
+                        });
+                        $("area#area'.$aPgPicture['pic_code'] . $aPnc['label2'].'").on("click", function(){
+                            $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").removeClass("btn-info");
+                            $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").toggleClass("btn-warning");
+                        });
+                        $("area#area'.$aPgPicture['pic_code'] . $aPnc['label2'].'").on("mouseover", function(){
+
+                            $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").addClass("btn-info");
+                        });
+                        $("area#area'.$aPgPicture['pic_code'] . $aPnc['label2'].'").on("mouseout", function(){
+                            $("#pncs_'.$aPgPicture['pic_code'] . $aPnc['label2'].'").removeClass("btn-info");
                         });
                     </script>
                     ';
@@ -242,14 +279,15 @@ if (!empty($aPncs)){
                             'modelName'=>$sModelName,
                             'modelCode'=>$sModelCode,
                             'groupNumber'=>$groupNumber,
-                            'partGroup'=>$aPartCode['label2']
+                            'partGroup'=>$aPartCode['label2'],
+                            'page'=>1
                         )
                     ) . '<br/>';
             }
         }
     }
-
-    echo '<br/>';
+    echo '</div>';
+    echo '</div>';
 
 
 }

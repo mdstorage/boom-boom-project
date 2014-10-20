@@ -16,69 +16,56 @@ $this->breadcrumbs=array(
 	'',);
 
 ?>
-  
 
+<?php if (!empty($aCatalogs)) : ?>
+    <table class="table">
 
+        <tr class="active">
+            <td><h3>Запрос по VIN</h3></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><?php echo CHtml::textField('VIN', '' , array('id'=>'vin', 'class'=>'form-control', 'maxlength'=>17)); ?></td>
+            <td><?php echo CHtml::ajaxButton("Искать по VIN", array("site/findbyvin"),
+                  array(
+                      'type'=>'POST',
+                      'data'=>array('value'=>'js:$("#vin").val()'),
+                      'success'=>'js:function(html){ $("#vin_result").html(html); }'
+                  ),
+                  array('class'=>'btn btn-info')
+              ); ?></td>
+        </tr>
+        <tr>
+            <td><div id='vin_result'></div></td>
+            <td></td>
+        </tr>
 
+    </table>
+    <table class="table">
+        <tr class="active">
+            <td><h3>Запрос по FRAME</h3></td>
+            <td></td><td></td><td></td>
+        </tr>
+        <tr>
+            <td><?php echo CHtml::textField('FRAME', '' , array('id'=>'frame', 'class'=>'form-control', 'maxlength'=>6, 'width'=>6)); ?></td>
+            <td> - </td>
+            <td><?php echo CHtml::textField('SERIAL', '' , array('id'=>'serial', 'class'=>'form-control', 'maxlength'=>7, 'width'=>7)); ?></td>
+            <td><?php echo CHtml::ajaxButton("Искать по FRAME", array("site/findbyvin"),
+                    array(
+                        'type'=>'POST',
+                        'data'=>array('frame'=>'js:$("#frame").val()', 'serial'=>'js:$("#serial").val()'),
+                        'success'=>'js:function(html){ $("#frame_result").html(html); }'
+                    ),
+                    array('class'=>'btn btn-info')
+                ); ?></td>
+        </tr>
+        <tr>
+            <td><div id='frame_result'></div></td>
+            <td></td><td></td><td></td>
+        </tr>
+    </table>
 
-
-
-<?php if (!empty($aCatalogs)){echo '<div class="table">
-  <table class="table">
-   <tr>
-  <td class="active"><b>Запрос по VIN</b><br/> 
-  <div class="row">
-  
-  <div class="col-xs-4">
-    <input type="text" class="form-control" placeholder="Введите VIN">';
-	CHtml::textField('VIN', '' , array('id'=>'vin')); echo '</div> <button type="submit" class="btn btn-default">'.CHtml::ajaxLink("OK", array("site/findbyvin"),
-            array(
-                'type'=>'POST',
-                'data'=>array('value'=>'js:$("#vin").val()'),
-                'success'=>'js:function(html){ $("#vin_result").html(html); }'
-            ));
-    echo "<div id='vin_result'></div>";
-    echo "</button>
-  
-</div>
-  </td>
-  
-</tr>
-  </table>
-</div><br/>";}?>
-
-
-
-
-
-
-
-
-
-<?php echo '<div class="table-responsive">
-  <table class="table">
-   <tr>
-  <td class="active"><b>Запрос по FRAME</b><br/> 
-  <div class="row">
-  <div class="col-xs-2">
-    <input type="text" class="form-control" placeholder="FRAME">'; CHtml::textField('FRAME', '' , array('id'=>'frame')); echo '</div><div class="col-xs-3">
-    <input type="text" class="form-control" placeholder="">';CHtml::textField('SERIAL', '' , array('id'=>'serial'));  echo '</div>
-  <button type="submit" class="btn btn-default"> '.CHtml::ajaxLink("OK", array("site/findbyvin"),
-            array(
-            'type'=>'POST',
-            'data'=>array('frame'=>'js:$("#frame").val()', 'serial'=>'js:$("#serial").val()'),
-            'success'=>'js:function(html){ $("#frame_result").html(html); }'
-        ));
-    echo "<div id='frame_result'></div></button>
-  
-</div>
-
-
-  </td>
-  
-</tr>
-  </table>
-</div>";?>
+<?php endif; ?>
 
 <div class="table-responsive">
   <table class="table">
