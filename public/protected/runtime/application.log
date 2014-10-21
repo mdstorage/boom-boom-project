@@ -8031,3 +8031,55 @@ Stack trace:
 REQUEST_URI=/index.php/site/pncs?catalog=EU&cd=B2&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1&partGroup=0901&page=1
 HTTP_REFERER=http://boom.dev/index.php/site/subgroups?catalog=EU&cd=B2&catalogCode=671440&modelName=4-RUNNER+TRUCK&modelCode=LN51L-KRA&groupNumber=1
 ---
+2014/10/20 13:21:16 [error] [php] Undefined variable: frame (/home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php:201)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (201)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/20 13:21:23 [error] [php] Undefined variable: frame (/home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php:201)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (201)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/20 15:03:09 [error] [php] Undefined variable: frame (/home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php:184)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (184)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/20 15:03:30 [error] [php] Undefined variable: frame (/home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php:184)
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(286): SiteController->runAction()
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#2 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): SiteController->run()
+#3 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /home/itm/projects/boom-boom-project/public/index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in /home/itm/projects/boom-boom-project/public/protected/controllers/SiteController.php (184)
+in /home/itm/projects/boom-boom-project/public/index.php (13)
+2014/10/21 12:48:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/itm/projects/boom-boom-project/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/itm/projects/boom-boom-project/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
