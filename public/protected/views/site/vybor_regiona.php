@@ -14,7 +14,7 @@
 
 $this->breadcrumbs=array(
 	'',);
-
+$this->pageTitle=Yii::app()->name;
 ?>
 
 

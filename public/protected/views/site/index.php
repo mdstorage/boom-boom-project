@@ -194,7 +194,7 @@ if (!empty($aPncs)){
             $height = $width * $k;
 
             echo '<div class="row">';
-            echo '<div class="col-sm-6">';
+            echo '<div class="col-sm-7">';
             echo CHtml::image(
                 Yii::app()->request->baseUrl.'/images/' .
                 $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
@@ -213,7 +213,7 @@ if (!empty($aPncs)){
             echo '</map><br/>';
         }
         echo '</div>';
-        echo '<div class="col-sm-6">';
+        echo '<div class="col-sm-5">';
         foreach ($aPgPicture['pncs'] as $aPnc){
             if(in_array($aPnc['label2'], $aPgPicture['pnc_list'])){
                 echo '<a name=' . $aPgPicture['pic_code'] . $aPnc['label2'] . '></a><div class="btn-default" id="pncs_' . $aPgPicture['pic_code'] . $aPnc['label2'] .'">' . $aPnc['label2'] . " " . $aPnc['desc_en'] . '</div><br/>';
@@ -229,7 +229,7 @@ if (!empty($aPncs)){
                     echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
                     echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . ' - ' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
                     echo '<td>' . $aPartCode['quantity']  .'</td>';
-                    echo '<td>' . $aPartCode['add_desc']  .'</td>';
+                    echo '<td>' . str_replace(';', '; ', $aPartCode['add_desc'])  .'</td>';
                     echo '</tr>';
                 }
                 echo '</tbody></table>';
