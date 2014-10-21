@@ -120,7 +120,7 @@ class SiteController extends Controller
 
     }
 
-    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup){
+    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page){
 
         $oPartCodes = new PartCodes();
         $aPncs = $oPartCodes->getPncs($catalog, $catalogCode, $partGroup);
@@ -139,7 +139,8 @@ class SiteController extends Controller
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
 
         $oPgPictures = new PgPictures();
-        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup);
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, $page-1);
+        $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
 
         $oImages = new Images();
 
@@ -173,12 +174,12 @@ class SiteController extends Controller
                 'sPartGroupDescEn'=>$sPartGroupDescEn,
                 'aPncs'=>$aPncs,
                 'aPartCatalog'=>$aPartCatalog,
-                'aPgPictures'=>$aPgPictures
+                'aPgPictures'=>$aPgPictures,
+                'iCountPictures'=>$iCountPictures
             )
         );
 
     }
-
     public function actionFindByVin()
     {
         $request = Yii::app()->getRequest();
@@ -218,7 +219,7 @@ class SiteController extends Controller
             echo "Класс модели: <b>" . $aComplectation['grade'] . '</b><br/>';
             echo "Трансмиссия: <b>" . $aComplectation['atm_mtm'] . '</b><br/>';
             echo "Кузов: <b>" . $aComplectation['f1'] . '</b><br/>';
-            echo CHtml::link('Каталог', array(
+            echo CHtml::button('Перейти в каталог', array('class'=>'btn btn-default btn-lg btn-block',
                 'groups',
                 'catalog'=>$aComplectation['catalog'],
                 'cd'=>$aModelName['cd'],

@@ -16,22 +16,18 @@ $this->breadcrumbs=array(
 	'',);
 
 ?>
-  
-
-
-
-
 
 
 <?php if (!empty($aCatalogs)){echo '<div class="table">
   <table class="table">
    <tr>
-  <td class="active"><b>Запрос по VIN</b><br/>'.CHtml::textField('VIN', '' , array('id'=>'vin')).' '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
+  <td class="active"><b>Запрос по VIN</b><br/><div class="col-md-3">'.CHtml::textField('VIN', '' , array('id'=>'vin', 'class'=>'form-control', 'placeholder'=>'VIN')).'</div> '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
             array(
                 'type'=>'POST',
                 'data'=>array('value'=>'js:$("#vin").val()'),
                 'success'=>'js:function(html){ $("#vin_result").html(html); }'
-            )); echo '';
+            ), array('class'=>'btn btn-default')
+			); echo '';
     echo "<div id='vin_result'></div>";
     echo "
   
@@ -52,12 +48,13 @@ $this->breadcrumbs=array(
 <?php echo '<div class="table">
   <table class="table">
    <tr>
-  <td class="active"><b>Запрос по FRAME</b><br/>'.CHtml::textField('FRAME', '' , array('id'=>'frame')).' - '.CHtml::textField('SERIAL', '' , array('id'=>'serial')).'  '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
+  <td class="active"><b>Запрос по FRAME</b><br/><div class="col-md-2">'.CHtml::textField('FRAME', '' , array('id'=>'frame', 'class'=>'form-control', 'placeholder'=>'FRAME')).'</div><div class="col-md-3">'.CHtml::textField('SERIAL', '' , array('id'=>'serial', 'class'=>'form-control')).'</div>  '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
             array(
             'type'=>'POST',
             'data'=>array('frame'=>'js:$("#frame").val()', 'serial'=>'js:$("#serial").val()'),
             'success'=>'js:function(html){ $("#frame_result").html(html); }'
-        ));
+        ), array('class'=>'btn btn-default')
+		);
     echo "<div id='frame_result'></div>
   
   </td>
@@ -65,6 +62,7 @@ $this->breadcrumbs=array(
 </tr>
   </table>
 </div>";?>
+
 
 <div class="table-responsive">
   <table class="table">

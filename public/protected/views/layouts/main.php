@@ -18,7 +18,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" />
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/bootstrap.min.js'); ?>
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo 'Каталог TOYOTA'; ?></title>
+	<!--<title><?php echo CHtml::encode($this->pageTitle); ?></title>-->
 </head>
 
 <body>

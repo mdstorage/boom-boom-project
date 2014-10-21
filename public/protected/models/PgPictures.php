@@ -110,19 +110,33 @@ class PgPictures extends CActiveRecord
 		return parent::model($className);
 	}
 
-    public function getPgPictures($catalog, $catalog_code, $part_group){
+    public function getPgPictures($catalog, $catalog_code, $part_group, $offset){
         $aPgPictures = Yii::app()->db->CreateCommand()
             ->select('pic_code')
             ->from('pg_pictures')
             ->where('catalog = :catalog AND catalog_code = :catalog_code AND part_group = :part_group', array(
-                ':catalog_code'=>$catalog_code,
-                ':catalog'=>$catalog,
-                ':part_group'=>$part_group
+                    ':catalog_code'=>$catalog_code,
+                    ':catalog'=>$catalog,
+                    ':part_group'=>$part_group
                 )
             )
+            ->limit(1, $offset)
             ->group('pic_code')
             ->queryAll();
 
         return $aPgPictures;
+    }
+
+    public function getCountPgPictures($catalog, $catalog_code, $part_group){
+
+        $iCountPictures = Yii::app()->db->CreateCommand()
+            ->select('COUNT(*)')
+            ->from('(SELECT pic_code FROM pg_pictures WHERE catalog = :catalog AND catalog_code = :catalog_code AND part_group = :part_group GROUP BY pic_code) p')
+            ->queryScalar(array(
+                ':catalog_code'=>$catalog_code,
+                ':catalog'=>$catalog,
+                ':part_group'=>$part_group));
+
+        return $iCountPictures;
     }
 }
