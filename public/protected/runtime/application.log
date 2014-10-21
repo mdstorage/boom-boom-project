@@ -8273,3 +8273,248 @@ Stack trace:
 REQUEST_URI=/index.php/site/findbyvin
 in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (201)
 in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/20 14:34:50 [error] [php] Undefined variable: frame (E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php:201)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (201)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/20 14:35:41 [error] [php] Undefined variable: frame (E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php:201)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (201)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/20 19:21:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/20 19:21:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/20 19:22:29 [error] [php] Undefined variable: frame (E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php:201)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (201)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/20 20:02:23 [error] [php] Undefined variable: frame (E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php:201)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (201)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/21 08:40:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/21 08:40:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/21 08:53:37 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 08:54:39 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 08:55:05 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 08:55:45 [error] [php] Undefined variable: frame (E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php:201)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#5 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (201)
+in E:\Denis\webprogr\boom\boom-boom-project\public\index.php (13)
+2014/10/21 08:56:35 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 08:59:47 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 09:00:19 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 09:05:25 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 09:23:16 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 09:55:56 [error] [php] Undefined index: grade (E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php:195)
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionFindByVin()
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(286): SiteController->runAction()
+#3 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CController.php(265): SiteController->runActionWithFilters()
+#4 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(282): SiteController->run()
+#5 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#6 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#7 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CWebApplication->run()
+REQUEST_URI=/index.php/site/findbyvin
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (195)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\models\Complectations.php (183)
+in E:\Denis\webprogr\boom\boom-boom-project\public\protected\controllers\SiteController.php (206)
+2014/10/21 11:59:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/21 11:59:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/21 15:23:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/21 15:24:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 E:\Denis\webprogr\boom\boom-boom-project\vendor\yiisoft\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 E:\Denis\webprogr\boom\boom-boom-project\public\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
