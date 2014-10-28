@@ -35,7 +35,7 @@ class SiteController extends Controller
             $aModelNameCodes[$modelName] = $oModels->getModelNameCodes($modelName, $catalog);
         }
         $this->render(
-            'vybor_modeli', array(
+            'vybor_modeli_2', array(
                 'aModelNames'=>$aModelNames,
                 'sCatalog'=>$catalog,
                 'aModelNameCodes'=>$aModelNameCodes
@@ -201,15 +201,15 @@ class SiteController extends Controller
             echo $aComplectation['body'] ? "Кузов: <b>" . $aComplectation['body'] . '</b><br/>':'';
             echo "Класс модели: <b>" . $aComplectation['grade'] . '</b><br/>';
             echo "Трансмиссия: <b>" . $aComplectation['atm_mtm'] . '</b><br/>';
-            echo "Кузов: <b>" . $aComplectation['f1'] . '</b><br/>';
-            echo CHtml::button('Перейти в каталог', array('class'=>'btn btn-default btn-lg btn-block',
+            echo "Кузов: <b>" . $aComplectation['f1'] . '</b><br/><br/>';
+             echo CHtml::link('Перейти в каталог', array(
                 'groups',
                 'catalog'=>$aComplectation['catalog'],
                 'cd'=>$aModelName['cd'],
                 'catalogCode'=>$aComplectation['catalog_code'],
                 'modelName'=>$aModelName['model_name'],
                 'modelCode'=>$aData['model_code']),
-                array('class'=>'btn btn-success')
+                array('class'=>'btn btn-default btn-lg')
                 );
         }
     }

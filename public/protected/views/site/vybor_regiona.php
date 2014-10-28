@@ -18,10 +18,8 @@ $this->pageTitle=Yii::app()->name;
 ?>
 
 
-<?php if (!empty($aCatalogs)){echo '<div class="table">
-  <table class="table">
-   <tr>
-  <td class="active"><b>Запрос по VIN</b><br/><div class="col-md-3">'.CHtml::textField('VIN', '' , array('id'=>'vin', 'class'=>'form-control', 'placeholder'=>'VIN')).'</div> '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
+<?php if (!empty($aCatalogs)){echo '<div class="container"><div class="row">
+  <b>Запрос по VIN</b><br/><br/><div class="col-md-3">'.CHtml::textField('VIN', '' , array('id'=>'vin', 'class'=>'form-control', 'placeholder'=>'VIN')).'</div> '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
             array(
                 'type'=>'POST',
                 'data'=>array('value'=>'js:$("#vin").val()'),
@@ -32,42 +30,26 @@ $this->pageTitle=Yii::app()->name;
     echo "
   
 
-  </td>
-</tr>
-  </table>
-</div><br/>";}?>
+</div></div><br/> <hr>";}?>
 
 
 
-
-
-
-
-
-
-<?php echo '<div class="table">
-  <table class="table">
-   <tr>
-  <td class="active"><b>Запрос по FRAME</b><br/><div class="col-md-2">'.CHtml::textField('FRAME', '' , array('id'=>'frame', 'class'=>'form-control', 'placeholder'=>'FRAME')).'</div><div class="col-md-3">'.CHtml::textField('SERIAL', '' , array('id'=>'serial', 'class'=>'form-control')).'</div>  '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
+<?php echo '
+  <div class="container"><div class="row"><b>Запрос по FRAME</b><br/><br/><div class="col-md-2">'.CHtml::textField('FRAME', '' , array('id'=>'frame', 'class'=>'form-control', 'placeholder'=>'FRAME')).'</div><div class="col-md-3">'.CHtml::textField('SERIAL', '' , array('id'=>'serial', 'class'=>'form-control')).'</div>  '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
             array(
             'type'=>'POST',
             'data'=>array('frame'=>'js:$("#frame").val()', 'serial'=>'js:$("#serial").val()'),
             'success'=>'js:function(html){ $("#frame_result").html(html); }'
         ), array('class'=>'btn btn-default')
 		);
-    echo "<div id='frame_result'></div>
+    echo "<div id='frame_result'></div></div></div><br/> <hr>
   
-  </td>
-  
-</tr>
-  </table>
-</div>";?>
+";?>
 
 
-<div class="table-responsive">
-  <table class="table">
-   
-  <td class="active"><b>Выбор региона производства</b><br/><br/>
+<div class="container">
+<div class="row">
+<b>Выбор региона производства</b><br/><br/>
   <?php
 if (!empty($aCatalogs)){
     foreach($aCatalogs as $aCatalog){
@@ -77,11 +59,7 @@ if (!empty($aCatalogs)){
 ?>
 	<br/>
  
-  </td>
-   
-
-
-  </table>
 </div>
 
+</div>
 </div>

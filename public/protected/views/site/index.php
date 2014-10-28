@@ -229,7 +229,7 @@ if (!empty($aPncs)){
                     echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
                     echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . ' - ' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
                     echo '<td>' . $aPartCode['quantity']  .'</td>';
-                    echo '<td>' . str_replace(';', '; ', $aPartCode['add_desc'])  .'</td>';
+                    echo '<td>' .Functions::getString($aPartCode['add_desc']).'</td>';
                     echo '</tr>';
                 }
                 echo '</tbody></table>';

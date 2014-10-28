@@ -35,4 +35,17 @@ class Functions
 
         return $groupName;
     }
+	
+	 public static function getString($string)
+	 {
+	 	
+		$string1 = array(';',',','..','(',')');
+		$string2 = array('; ',', ','.. ',' (',') ');
+		$string = str_replace($string1, $string2, $string);
+		 
+		 return $string;
+	 }
+	
+	
+	
 }
