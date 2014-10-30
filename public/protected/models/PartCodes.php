@@ -144,6 +144,8 @@ class PartCodes extends CActiveRecord
 
         return $aPncs;
     }
+	
+	
 
 
 

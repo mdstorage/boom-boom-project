@@ -35,7 +35,7 @@ class SiteController extends Controller
             $aModelNameCodes[$modelName] = $oModels->getModelNameCodes($modelName, $catalog);
         }
         $this->render(
-            'vybor_modeli', array(
+            'vybor_modeli_2', array(
                 'aModelNames'=>$aModelNames,
                 'sCatalog'=>$catalog,
                 'aModelNameCodes'=>$aModelNameCodes
@@ -191,25 +191,25 @@ class SiteController extends Controller
             $oModels = new Models();
             $aModelName = $oModels->getModelNameByCodes($aComplectation['catalog'], $aComplectation['catalog_code']);
 
-            echo "Название модели: " . $aModelName['model_name'] . "<br/>";
-            echo "Код модели: " . $aData['model_code'] . "<br/>" .
-                 "Период выпуска: " . Functions::prodToDate($aComplectation['prod_start']) . " - " . Functions::prodToDate($aComplectation['prod_end']) . "<br/>" .
-                 "Дата производства: " . Functions::prodToDate($aData['vdate']) . "<br/>" .
-                 "Цвет кузова: " . $aData['body_color'] . "<br/>" .
-                 "Цвет интерьера: " . $aData['inter_color'] . "<br/>" .
-                 "Двигатель: " . $aComplectation['engine1'] . "<br/>";
-            echo $aComplectation['body'] ? "Кузов: " . $aComplectation['body'] . '<br/>':'';
-            echo "Класс модели: " . $aComplectation['grade'] . '<br/>';
-            echo "Трансмиссия: " . $aComplectation['atm_mtm'] . '<br/>';
-            echo "Кузов: " . $aComplectation['f1'] . '<br/>';
-            echo CHtml::link('Каталог', array(
+            echo "<br/>Название модели: <b>" . $aModelName['model_name'] . "</b><br/>";
+            echo "Код модели: <b>" . $aData['model_code'] . "</b><br/>" .
+                 "Период выпуска: <b>" . Functions::prodToDate($aComplectation['prod_start']) . " - " . Functions::prodToDate($aComplectation['prod_end']) . "</b><br/>" .
+                 "Дата производства: <b>" . Functions::prodToDate($aData['vdate']) . "</b><br/>" .
+                 "Цвет кузова: <b>" . $aData['body_color'] . "</b><br/>" .
+                 "Цвет интерьера: <b>" . $aData['inter_color'] . "</b><br/>" .
+                 "Двигатель: <b>" . $aComplectation['engine1'] . "</b><br/>";
+            echo $aComplectation['body'] ? "Кузов: <b>" . $aComplectation['body'] . '</b><br/>':'';
+            echo "Класс модели: <b>" . $aComplectation['grade'] . '</b><br/>';
+            echo "Трансмиссия: <b>" . $aComplectation['atm_mtm'] . '</b><br/>';
+            echo "Кузов: <b>" . $aComplectation['f1'] . '</b><br/><br/>';
+             echo CHtml::link('Перейти в каталог', array(
                 'groups',
                 'catalog'=>$aComplectation['catalog'],
                 'cd'=>$aModelName['cd'],
                 'catalogCode'=>$aComplectation['catalog_code'],
                 'modelName'=>$aModelName['model_name'],
                 'modelCode'=>$aData['model_code']),
-                array('class'=>'btn btn-success')
+                array('class'=>'btn btn-default btn-lg')
                 );
         }
     }
