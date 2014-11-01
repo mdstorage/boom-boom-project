@@ -8083,3 +8083,117 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/favicon.ico
 ---
+2014/10/31 15:52:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/31 15:52:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/31 16:03:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/10/31 16:27:22 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toyota.model_codes' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `model_codes`.
+in /home/catstoyotaby/public/protected/controllers/SiteController.php (48)
+in /home/catstoyotaby/public/index.php (13)
+2014/10/31 16:27:22 [error] [exception.CDbException] exception 'CDbException' with message 'The table "model_codes" for active record class "ModelCodes" cannot be found in the database.' in /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php:2362
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(ModelCodes))
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#2 /home/catstoyotaby/public/protected/controllers/SiteController.php(48): CActiveRecord->__construct()
+#3 [internal function]: SiteController->actionModelCodes('EU', 'B2', '671440', '4-RUNNER TRUCK')
+#4 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('modelcodes')
+#10 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/modelcodes')
+#11 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/site/modelcodes?catalog=EU&cd=B2&catalogCode=671440&modelName=4-RUNNER+TRUCK
+HTTP_REFERER=http://cats-toyota.by.suraman.newsolution.by/site/modelnames?catalog=EU
+---
+2014/10/31 16:27:25 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toyota.model_codes' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `model_codes`.
+in /home/catstoyotaby/public/protected/controllers/SiteController.php (48)
+in /home/catstoyotaby/public/index.php (13)
+2014/10/31 16:27:25 [error] [exception.CDbException] exception 'CDbException' with message 'The table "model_codes" for active record class "ModelCodes" cannot be found in the database.' in /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php:2362
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(ModelCodes))
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#2 /home/catstoyotaby/public/protected/controllers/SiteController.php(48): CActiveRecord->__construct()
+#3 [internal function]: SiteController->actionModelCodes('GR', 'B2', '671370', '4RUNNER')
+#4 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('modelcodes')
+#10 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/modelcodes')
+#11 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/site/modelcodes?catalog=GR&cd=B2&catalogCode=671370&modelName=4RUNNER
+HTTP_REFERER=http://cats-toyota.by.suraman.newsolution.by/site/modelnames?catalog=GR
+---
+2014/10/31 16:30:35 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'toyota.model_codes' doesn't exist. The SQL statement executed was: SHOW FULL COLUMNS FROM `model_codes`.
+in /home/catstoyotaby/public/protected/controllers/SiteController.php (48)
+in /home/catstoyotaby/public/index.php (13)
+2014/10/31 16:30:35 [error] [exception.CDbException] exception 'CDbException' with message 'The table "model_codes" for active record class "ModelCodes" cannot be found in the database.' in /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php:2362
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(ModelCodes))
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#2 /home/catstoyotaby/public/protected/controllers/SiteController.php(48): CActiveRecord->__construct()
+#3 [internal function]: SiteController->actionModelCodes('EU', 'B2', '671450', '4-RUNNER TRUCK')
+#4 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#5 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#6 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#8 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(282): CController->run('modelcodes')
+#10 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/modelcodes')
+#11 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/site/modelcodes?catalog=EU&cd=B2&catalogCode=671450&modelName=4-RUNNER+TRUCK
+HTTP_REFERER=http://cats-toyota.by.suraman.newsolution.by/site/modelnames?catalog=EU
+---
+2014/11/01 12:48:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/11/01 12:48:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/11/01 12:48:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /home/catstoyotaby/vendor/yiisoft/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /home/catstoyotaby/vendor/yiisoft/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /home/catstoyotaby/public/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
