@@ -69,17 +69,25 @@ class SiteController extends Controller
         switch ($groupNumber){
             case 1:
                 $min = 0;
-                $max = 2;
+                $max = 0;
                 break;
             case 2:
+                $min = 1;
+                $max = 1;
+                break;
+            case 3:
+                $min = 2;
+                $max = 2;
+                break;
+            case 4:
                 $min = 3;
                 $max = 4;
                 break;
-            case 3:
+            case 5:
                 $min = 5;
                 $max = 7;
                 break;
-            case 4:
+            case 6:
                 $min = 8;
                 $max = 9;
                 break;

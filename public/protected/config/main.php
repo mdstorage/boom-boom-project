@@ -8,6 +8,8 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Toyota catalog',
+    'sourceLanguage'=>'en',
+    'language'=>'ru',
 
 	// preloading 'log' component
 	'preload'=>array('log'),

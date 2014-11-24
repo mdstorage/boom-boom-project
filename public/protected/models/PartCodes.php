@@ -115,7 +115,8 @@ class PartCodes extends CActiveRecord
         $oPartGroups = new PartGroups();
 
         foreach($aPartGroups as &$aPartGroup){
-            $aPartGroup['desc_en'] =  $oPartGroups->getPartGroupDescEn($catalog,  $aPartGroup['part_code']) . ' (' . $aPartGroup['part_code'] . ')';
+            $aPartGroup['desc_en'] =  $oPartGroups->getPartGroupDescEn($catalog,  $aPartGroup['part_code']);
+            $aPartGroup['part_code']. $aPartGroup['part_code'];
         }
 
         return $aPartGroups;
