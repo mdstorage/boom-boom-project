@@ -45,6 +45,7 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
+            'showScriptName'=>false
 		),
 
 		'db'=>array(
@@ -56,7 +57,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=toyota',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => '123456',
 			'charset' => 'utf8',
 		),
 
