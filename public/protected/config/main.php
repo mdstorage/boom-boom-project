@@ -1,5 +1,5 @@
 <?php
-
+include_once('db.php');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -47,18 +47,12 @@ return array(
 			),
 		),
 
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
+//		'db'=>array(
+//			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+//		),
 		// uncomment the following to use a MySQL database
 
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=toyota',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
-			'charset' => 'utf8',
-		),
+        'db'=>$db,
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
