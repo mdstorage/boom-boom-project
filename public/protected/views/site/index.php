@@ -86,7 +86,7 @@ if (!empty($groups)){
   </tr>
   </table>';
 
-    for ($i=1; $i<5;$i++){
+    for ($i=1; $i<7;$i++){
         echo CHtml::link(Functions::getGroupName($i),
                 array('site/subgroups',
                     'catalog'=>$sCatalog,
@@ -120,7 +120,7 @@ if (!empty($aPartGroups)){
 
     foreach ($aPartGroups as $aPartGroup){
         echo ' <div class="col-md-6">';
-        echo CHtml::link($aPartGroup['desc_en'], array(
+        echo CHtml::link(Yii::t('toyota', $aPartGroup['desc_en']) . ' ('.$aPartGroup['part_code'].')', array(
                     'site/pncs',
                     'catalog'=>$sCatalog,
                     'cd'=>$sCd,
