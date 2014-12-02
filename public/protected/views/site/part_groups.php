@@ -26,7 +26,7 @@ if (!empty($aPartGroups)){
             '/' . $aPartGroup['pic_code'] . '.png')){
 
 
-            $link .= '<div>' . CHtml::image(
+            $link .= '<div style="height: 100px;">' . CHtml::image(
                 Yii::app()->request->baseUrl.'/images/' .
                 $sCatalog . '/grimages/' . trim($sCatalogCode) .
                 '/' . $aPartGroup['pic_code'] . '.png',
