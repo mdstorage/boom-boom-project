@@ -8,6 +8,8 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Toyota catalog',
+    'sourceLanguage'=>'en',
+    'language'=>'ru',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -88,6 +90,6 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'outUrl'=>'http://v3.ryli.by/search/preload/?article=',
-        'imageWidth'=>600
+        'imageWidth'=>650
 	),
 );

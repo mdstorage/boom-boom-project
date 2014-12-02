@@ -1,10 +1,13 @@
 <?php
 class Functions
 {
-    const GROUP_1 = "Двигатель / Топливная система / Принадлежности";
-    const GROUP_2 = "Трансмиссия / Подвеска";
-    const GROUP_3 = "Кузов";
-    const GROUP_4 = "Электрика";
+    const GROUP_1 = "ИНСТРУМЕНТЫ";
+    const GROUP_2 = "ДВИГАТЕЛЬ";
+    const GROUP_3 = "ТОПЛИВНАЯ СИСТЕМА";
+    const GROUP_4 = "ТРАНСМИССИЯ, ПОДВЕСКА, ТОРМОЗНАЯ СИСТЕМА";
+    const GROUP_5 = "КУЗОВНЫЕ ДЕТАЛИ, ЭКСТЕРЬЕР, ИНТЕРЬЕР";
+    const GROUP_6 = "ЭЛЕКТРИКА, КЛИМАТ-КОНТРОЛЬ";
+
 
     public static function prodToDate($prod)
     {
@@ -30,6 +33,12 @@ class Functions
                 break;
             case 4:
                 $groupName = self::GROUP_4;
+                break;
+            case 5:
+                $groupName = self::GROUP_5;
+                break;
+            case 6:
+                $groupName = self::GROUP_6;
                 break;
         }
 

@@ -69,17 +69,25 @@ class SiteController extends Controller
         switch ($groupNumber){
             case 1:
                 $min = 0;
-                $max = 2;
+                $max = 0;
                 break;
             case 2:
+                $min = 1;
+                $max = 1;
+                break;
+            case 3:
+                $min = 2;
+                $max = 2;
+                break;
+            case 4:
                 $min = 3;
                 $max = 4;
                 break;
-            case 3:
+            case 5:
                 $min = 5;
                 $max = 7;
                 break;
-            case 4:
+            case 6:
                 $min = 8;
                 $max = 9;
                 break;
@@ -89,8 +97,9 @@ class SiteController extends Controller
 
         $aPartGroups = $oPartCodes->getPartGroupsByCatalogCode($catalog, $catalogCode, $min, $max);
 
+
         $this->render(
-            'index', array(
+            'part_groups', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,
@@ -101,6 +110,27 @@ class SiteController extends Controller
             )
         );
 
+    }
+
+    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup, $page)
+    {
+        $oPgPictures = new PgPictures();
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
+        $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
+
+        $this->render(
+            'schemas', array(
+                'aPgPictures'=>$aPgPictures,
+                'iCountPictures'=>$iCountPictures,
+                'sCatalog'=>$catalog,
+                'sCd'=>$cd,
+                'groupNumber'=>$groupNumber,
+                'sCatalogCode'=>$catalogCode,
+                'sModelName'=>$modelName,
+                'sModelCode'=>$modelCode,
+                'partGroup'=>$partGroup
+            )
+        );
     }
 
     public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page){
@@ -122,7 +152,7 @@ class SiteController extends Controller
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
 
         $oPgPictures = new PgPictures();
-        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, $page-1);
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 1, $page-1);
         $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
 
         $oImages = new Images();
@@ -146,7 +176,7 @@ class SiteController extends Controller
         }
 
         $this->render(
-            'index', array(
+            'part_codes', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,
