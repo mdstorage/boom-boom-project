@@ -97,8 +97,9 @@ class SiteController extends Controller
 
         $aPartGroups = $oPartCodes->getPartGroupsByCatalogCode($catalog, $catalogCode, $min, $max);
 
+
         $this->render(
-            'index', array(
+            'part_groups', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,
@@ -109,6 +110,27 @@ class SiteController extends Controller
             )
         );
 
+    }
+
+    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup, $page)
+    {
+        $oPgPictures = new PgPictures();
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
+        $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
+
+        $this->render(
+            'schemas', array(
+                'aPgPictures'=>$aPgPictures,
+                'iCountPictures'=>$iCountPictures,
+                'sCatalog'=>$catalog,
+                'sCd'=>$cd,
+                'groupNumber'=>$groupNumber,
+                'sCatalogCode'=>$catalogCode,
+                'sModelName'=>$modelName,
+                'sModelCode'=>$modelCode,
+                'partGroup'=>$partGroup
+            )
+        );
     }
 
     public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page){
@@ -130,7 +152,7 @@ class SiteController extends Controller
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
 
         $oPgPictures = new PgPictures();
-        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, $page-1);
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 1, $page-1);
         $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
 
         $oImages = new Images();
@@ -154,7 +176,7 @@ class SiteController extends Controller
         }
 
         $this->render(
-            'index', array(
+            'part_codes', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,
