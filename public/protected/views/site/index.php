@@ -151,7 +151,12 @@ if (!empty($aPncs)){
         $sPartGroupDescEn
     );
 
-    echo "<h2>Выбрать запчасть</h2>";
+    echo '<table class="table">
+  
+  <tr><td class="active"><b>Выбрать запчасть</b></td>
+  
+  </tr>
+  </table>';
 
     echo "Иллюстрации: ";
     for($i=1; $i<=$iCountPictures; $i++){
@@ -224,7 +229,7 @@ if (!empty($aPncs)){
                     echo '<td><a href=' . Yii::app()->params['outUrl'] . $aPartCode['part_code'] . ' target="_blank" >' . $aPartCode['part_code']  .'</a></td>';
                     echo '<td>' . Functions::prodToDate($aPartCode['start_date']) . ' - ' . Functions::prodToDate($aPartCode['end_date']) .'</td>';
                     echo '<td>' . $aPartCode['quantity']  .'</td>';
-                    echo '<td>' . str_replace(';', '; ', $aPartCode['add_desc'])  .'</td>';
+                    echo '<td>' .Functions::getString($aPartCode['add_desc']).'</td>';
                     echo '</tr>';
                 }
                 echo '</tbody></table>';
