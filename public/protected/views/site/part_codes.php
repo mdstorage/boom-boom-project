@@ -32,7 +32,11 @@
                 '/' . $aPgPicture['pic_code'] . '.png');
 
             $k = $size[1]/$size[0];
-            $kc = $width/$size[0];
+ /*
+ * коэффициент $kc нужен, если не используется imagemapster
+  * $kc = $width/$size[0];
+ */
+            $kc=1;
             $height = $width * $k; ?>
 
 
@@ -48,11 +52,27 @@
 
                     <?php foreach($aPgPicture['pncs'] as $aPncCoords): ?>
                         <area shape="rect" coords="<?php echo $aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc; ?>"
-                        href="#<?php echo $aPgPicture['pic_code'].$aPncCoords['label2']; ?>" id="area<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>">
-                        <?php foreach($aPgPicture['general'] as $aPncCoords): ?>
-                            <area shape="rect" coords="<?php echo $aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc; ?>"
-                        href="#<?php echo $aPgPicture['pic_code'].$aPncCoords['label2']; ?>" id="area<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>">
-                        <?php endforeach; ?>
+                        href="#<?php echo $aPgPicture['pic_code'].$aPncCoords['label2']; ?>" id="area<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>" data-name="<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>">
+
+                    <?php endforeach; ?>
+
+                    <?php foreach($aPgPicture['general'] as $aPncCoords): ?>
+                        <area shape="rect" coords="<?php echo $aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc; ?>"
+                              href="#<?php echo $aPgPicture['pic_code'].$aPncCoords['label2']; ?>" id="area<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>" data-name="<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>">
+                    <?php endforeach; ?>
+
+                    <?php foreach($aPgPicture['groups'] as $aPncCoords): ?>
+                        <area shape="rect" coords="<?php echo $aPncCoords['x1']*$kc.','.$aPncCoords['y1']*$kc.','.$aPncCoords['x2']*$kc.','.$aPncCoords['y2']*$kc; ?>"
+                              href="<?php echo Yii::app()->createUrl('site/schemas', array(
+                                  'site/schemas',
+                                  'catalog'=>$sCatalog,
+                                  'cd'=>$sCd,
+                                  'catalogCode'=>$sCatalogCode,
+                                  'modelName'=>$sModelName,
+                                  'modelCode'=>$sModelCode,
+                                  'groupNumber'=>$groupNumber,
+                                  'partGroup'=>$aPncCoords['label2']
+                              )); ?>" id="area<?php echo $aPncCoords['x1'].$aPgPicture['pic_code'].$aPncCoords['label2'] ?> " data-name="<?php echo $aPgPicture['pic_code'].$aPncCoords['label2'] ?>">
                     <?php endforeach; ?>
 
                     </map><br/>
@@ -118,20 +138,19 @@
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <?php if($aPgPicture['groups']): ?>
+        <?php if($aPgPicture['groups_list']): ?>
             Связанные группы:<br/>
-            <?php foreach($aPgPicture['groups'] as $aPartCode): ?>
+            <?php foreach($aPgPicture['groups_list'] as $aPartCode): ?>
                 <a name=<?php echo $aPgPicture['pic_code'] . $aPartCode['label2']; ?>></a>
                 <?php echo CHtml::link($aPartCode['label2'] . " " . $aPartCode['desc_en'], array(
-                            'site/pncs',
+                            'site/schemas',
                             'catalog'=>$sCatalog,
                             'cd'=>$sCd,
                             'catalogCode'=>$sCatalogCode,
                             'modelName'=>$sModelName,
                             'modelCode'=>$sModelCode,
                             'groupNumber'=>$groupNumber,
-                            'partGroup'=>$aPartCode['label2'],
-                            'page'=>1
+                            'partGroup'=>$aPartCode['label2']
                         )
                     ); ?><br/>
             <?php endforeach; ?>
@@ -140,5 +159,14 @@
     </div>
     </div>
 
-
+    <script>
+        $('img').mapster({
+            fillColor: '70daf1',
+            fillOpacity: 0.3,
+            mapKey: 'data-name',
+            clickNavigate: true,
+            scaleMap: true, //автоподстройка координат меток в зависимости от размеров изображения (по умолчанию true)
+            staticState: true //подсвечивает все метки при загрузке
+        });
+    </script>
 <?php endif; ?>

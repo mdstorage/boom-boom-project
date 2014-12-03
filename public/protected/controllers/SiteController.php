@@ -112,7 +112,7 @@ class SiteController extends Controller
 
     }
 
-    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup, $page)
+    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup)
     {
         $oPgPictures = new PgPictures();
         $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
@@ -163,6 +163,7 @@ class SiteController extends Controller
             $aPgPicture['pncs'] = array();
             $aPgPicture['general'] = array();
             $aPgPicture['groups'] = array();
+            $aPgPicture['groups_list'] = array();
             foreach($aCoords as $aCoord){
                 if(in_array($aCoord['label2'], $aPncCodes)){
                     $aPgPicture['pncs'][] = $aCoord;
@@ -170,7 +171,8 @@ class SiteController extends Controller
                 } elseif (strlen($aCoord['label2'])>4) {
                     $aPgPicture['general'][] = $aCoord;
                 } else {
-                    $aPgPicture['groups'][$aCoord['label2']] = $aCoord;
+                    $aPgPicture['groups'][] = $aCoord;
+                    $aPgPicture['groups_list'][$aCoord['label2']] = $aCoord;
                 }
             }
         }
