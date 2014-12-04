@@ -111,32 +111,141 @@ class SiteController extends Controller
 
     }
 
-    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page){
+    /*
+     * Возвращает картинку со списком pnc, part_codes для каждой pnc, общих для всех групп part_codes
+     */
+    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page)
+    {
 
         $oPartCodes = new PartCodes();
+        /*
+         * array $aPncs
+         * Множество pnc, которые входят в данную группу, и их описаний.
+         * Структура:
+         * array (
+              0 =>
+              array (
+                'pnc' => '81510',
+                'desc_en' => '81510 LAMP ASSY, FRONT TURN SIGNAL, RH',
+              ),
+              1 =>
+              array (
+                'pnc' => '81510B',
+                'desc_en' => '81510B BULB (FOR FRONT TURN SIGNAL LAMP)',
+              ),
+            )
+         */
         $aPncs = $oPartCodes->getPncs($catalog, $catalogCode, $partGroup);
+        /*
+         * array $aPncCodes
+         * Индексный массив pnc
+         * array (
+              0 => '81510',
+              1 => '81510B',
+            )
+         */
         $aPncCodes = array();
         foreach($aPncs as $aPnc){
             $aPncCodes[] = $aPnc['pnc'];
         }
 
         $oPartCatalog = new PartCatalog();
+        /*
+         * array $aPartCatalog
+         * Вложенный ассоциативный массив. Ключи первого уровня: Pnc.
+         * Второй уровень: принадлежащие конкретному pnc part_codes с характеристиками
+         * array (
+              81510 =>
+              array (
+                0 =>
+                array (
+                  'part_code' => '8151020650',
+                  'quantity' => '01',
+                  'start_date' => '199202',
+                  'end_date' => '199402',
+                  'add_desc' => 'ST191..JPP..RHD..SED..GL HONG KONG SPEC',
+                ),
+                1 =>
+                array (
+                  'part_code' => '8151020660',
+                  'quantity' => '01',
+                  'start_date' => '199202',
+                  'end_date' => '199601',
+                  'add_desc' => 'AT190,CT190,ST191..JPP',
+                ),
+              ),
+              '81510B' =>
+              array (
+                0 =>
+                array (
+                  'part_code' => '9913211210',
+                  'quantity' => '02',
+                  'start_date' => '199202',
+                  'end_date' => '199601',
+                  'add_desc' => 'AT190,CT190,ST191..JPP 12V 21W',
+                ),
+              ),
+            )
+         */
         $aPartCatalog = array();
         foreach($aPncs as $aPnc){
             $aPartCatalog[$aPnc['pnc']] = $oPartCatalog->getPartCodesByPnc($catalog, $catalogCode, $aPnc['pnc']);
         }
 
         $oPartGroups = new PartGroups();
+        /*
+         * string
+         * Текстовое название группы запчастей
+         */
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
 
         $oPgPictures = new PgPictures();
+        /*
+         * array
+         * Множество картинок (схем), имеющих отношение к группе запчастей
+         * Потом этот массив дополнится значениями меток, имеющих отношение к
+         * array (
+              0 =>
+              array (
+                'pic_code' => 'MET403A',
+              ),
+            )
+         */
         $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, $page-1);
         $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
 
         $oImages = new Images();
 
         foreach($aPgPictures as &$aPgPicture){
+            /*
+             * array $aCoords
+             * Множество всех меток, изображенных на конкретной картинке.
+             * Среди этих меток и pnc, и part_codes общих деталей, и номера связанных групп.
+             * Все эти метки надо разделить по разным массивам, поскольку у них разные роли.
+             * Структура:
+             * array (
+                  0 =>
+                  array (
+                    'x1' => '295',
+                    'y1' => '467',
+                    'x2' => '348',
+                    'y2' => '484',
+                    'label2' => '81510',
+                    'desc_en' => 'LAMP ASSY, FRONT TURN SIGNAL, RH',
+                  ),
+                  1 =>
+                  array (
+                    'x1' => '370',
+                    'y1' => '619',
+                    'x2' => '421',
+                    'y2' => '635',
+                    'label2' => '81510',
+                    'desc_en' => 'LAMP ASSY, FRONT TURN SIGNAL, RH',
+                  ),
+                )
+             */
             $aCoords = $oImages->getCoords($catalog, $cd, $aPgPicture['pic_code']);
+
             $aPgPicture['pnc_list'] = array();
             $aPgPicture['pncs'] = array();
             $aPgPicture['general'] = array();
@@ -152,6 +261,72 @@ class SiteController extends Controller
                 }
             }
         }
+
+        /*
+         * Измененный массив $aPgPicture
+         * array (
+              'pic_code' => 'MET513H',
+              'pnc_list' =>
+              array (
+                85035 => '85035',
+                85310 => '85310',
+              ),
+              'pncs' =>
+              array (
+                0 =>
+                array (
+                  'x1' => '549',
+                  'y1' => '441',
+                  'x2' => '603',
+                  'y2' => '455',
+                  'label2' => '85035',
+                  'desc_en' => 'NOZZLE SUB-ASSY, WASHER',
+                ),
+                1 =>
+                array (
+                  'x1' => '608',
+                  'y1' => '583',
+                  'x2' => '662',
+                  'y2' => '598',
+                  'label2' => '85035',
+                  'desc_en' => 'NOZZLE SUB-ASSY, WASHER',
+                ),
+              ),
+              'general' =>
+              array (
+                0 =>
+                array (
+                  'x1' => '444',
+                  'y1' => '628',
+                  'x2' => '537',
+                  'y2' => '642',
+                  'label2' => '828172A290',
+                  'desc_en' => false,
+                ),
+                1 =>
+                array (
+                  'x1' => '123',
+                  'y1' => '327',
+                  'x2' => '214',
+                  'y2' => '341',
+                  'label2' => '8533610010',
+                  'desc_en' => false,
+                ),
+              ),
+              'groups' =>
+              array (
+                8505 =>
+                array (
+                  'x1' => '36',
+                  'y1' => '201',
+                  'x2' => '121',
+                  'y2' => '217',
+                  'label2' => '8505',
+                  'desc_en' => 'HEADLAMP CLEANER',
+                ),
+              ),
+            )
+         */
 
         $this->render(
             'index', array(
