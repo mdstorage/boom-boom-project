@@ -234,7 +234,7 @@ class SiteController extends Controller
               ),
             )
          */
-        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 1, $page-1);
 
         $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
 
