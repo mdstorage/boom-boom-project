@@ -102,21 +102,22 @@ class PartCodes extends CActiveRecord
      */
     public function getPartGroupsByCatalogCode($catalog, $catalogCode, $min = 0, $max = 9){
         $aPartGroups = Yii::app()->db->CreateCommand()
-            ->select('part_code')
-            ->from('part_codes')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND part_code >= (:min * 1000) AND part_code <= (:max * 1000 + 999)', array(
+            ->select('pc.part_code, ph.pic_code as pic_code')
+            ->from('part_codes pc')
+            ->leftJoin('pg_header_pics ph', 'pc.part_code = ph.part_group')
+            ->where('pc.catalog = :catalog AND pc.catalog_code = :catalog_code AND pc.part_code >= (:min * 1000) AND pc.part_code <= (:max * 1000 + 999) AND ph.catalog = :catalog AND ph.catalog_code = :catalog_code', array(
                 ':catalog'=>$catalog,
                 ':catalog_code'=>$catalogCode,
                 ':min'=>$min,
                 ':max'=>$max))
-            ->group('part_code')
+            ->group('pc.part_code')
             ->queryAll();
 
         $oPartGroups = new PartGroups();
 
         foreach($aPartGroups as &$aPartGroup){
             $aPartGroup['desc_en'] =  $oPartGroups->getPartGroupDescEn($catalog,  $aPartGroup['part_code']);
-            $aPartGroup['part_code']. $aPartGroup['part_code'];
+            //$aPartGroup['part_code']. $aPartGroup['part_code'];
         }
 
         return $aPartGroups;
@@ -128,9 +129,9 @@ class PartCodes extends CActiveRecord
      */
     public function getPncs($catalog, $catalogCode, $partGroup){
         $aPncs = Yii::app()->db->CreateCommand()
-            ->select('part_group AS pnc')
-            ->from('part_codes')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND part_code = :part_code', array(
+            ->select('pc.part_group AS pnc')
+            ->from('part_codes pc')
+            ->where('pc.catalog = :catalog AND pc.catalog_code = :catalog_code AND pc.part_code = :part_code', array(
                 ':catalog'=>$catalog,
                 ':catalog_code'=>$catalogCode,
                 ':part_code'=>$partGroup))

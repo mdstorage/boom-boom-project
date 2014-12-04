@@ -97,8 +97,9 @@ class SiteController extends Controller
 
         $aPartGroups = $oPartCodes->getPartGroupsByCatalogCode($catalog, $catalogCode, $min, $max);
 
+
         $this->render(
-            'index', array(
+            'part_groups', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,
@@ -111,11 +112,32 @@ class SiteController extends Controller
 
     }
 
+
+
+    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup)
+    {
+        $oPgPictures = new PgPictures();
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
+        $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
+
+        $this->render(
+            'schemas', array(
+                'aPgPictures'=>$aPgPictures,
+                'iCountPictures'=>$iCountPictures,
+                'sCatalog'=>$catalog,
+                'sCd'=>$cd,
+                'groupNumber'=>$groupNumber,
+                'sCatalogCode'=>$catalogCode,
+                'sModelName'=>$modelName,
+                'sModelCode'=>$modelCode,
+                'partGroup'=>$partGroup
+            )
+        );
+    }
     /*
      * Возвращает картинку со списком pnc, part_codes для каждой pnc, общих для всех групп part_codes
      */
-    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page)
-    {
+    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page){
 
         $oPartCodes = new PartCodes();
         /*
@@ -200,6 +222,7 @@ class SiteController extends Controller
         $sPartGroupDescEn = $oPartGroups->getPartGroupDescEn($catalog, $partGroup);
 
         $oPgPictures = new PgPictures();
+
         /*
          * array
          * Множество картинок (схем), имеющих отношение к группе запчастей
@@ -211,7 +234,8 @@ class SiteController extends Controller
               ),
             )
          */
-        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, $page-1);
+        $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
+
         $iCountPictures = $oPgPictures->getCountPgPictures($catalog, $catalogCode, $partGroup);
 
         $oImages = new Images();
@@ -250,6 +274,7 @@ class SiteController extends Controller
             $aPgPicture['pncs'] = array();
             $aPgPicture['general'] = array();
             $aPgPicture['groups'] = array();
+            $aPgPicture['groups_list'] = array();
             foreach($aCoords as $aCoord){
                 if(in_array($aCoord['label2'], $aPncCodes)){
                     $aPgPicture['pncs'][] = $aCoord;
@@ -257,7 +282,8 @@ class SiteController extends Controller
                 } elseif (strlen($aCoord['label2'])>4) {
                     $aPgPicture['general'][] = $aCoord;
                 } else {
-                    $aPgPicture['groups'][$aCoord['label2']] = $aCoord;
+                    $aPgPicture['groups'][] = $aCoord;
+                    $aPgPicture['groups_list'][$aCoord['label2']] = $aCoord;
                 }
             }
         }
@@ -329,7 +355,7 @@ class SiteController extends Controller
          */
 
         $this->render(
-            'index', array(
+            'part_codes', array(
                 'groupNumber'=>$groupNumber,
                 'sCatalog'=>$catalog,
                 'sCd'=>$cd,
