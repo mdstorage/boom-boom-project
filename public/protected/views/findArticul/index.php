@@ -2,12 +2,17 @@
 /* @var $this FindArticulController */
 
 $this->breadcrumbs=array(
-	'Find Articul',
+	'Поиск запчасти по артикулу',
 );
+$this->pageTitle = "Поиск запчасти по артикулу";
 ?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
-
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+<div class="col-md-3">
+        <?php echo CHtml::textField('articul', '' , array('id'=>'articul', 'class'=>'form-control', 'placeholder'=>'Введите артикул запчасти')).'</div> '.CHtml::ajaxButton("Искать", array("site/findbyvin"),
+    array(
+    'type'=>'POST',
+    'data'=>array('value'=>'js:$("#articul").val()'),
+    'success'=>'js:function(html){ $("#articul_result").html(html); }'
+    ), array('class'=>'btn btn-default')
+    ); ?>
+</div>
+<div id='articul_result'></div>

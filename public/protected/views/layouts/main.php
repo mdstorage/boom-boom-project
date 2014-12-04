@@ -5,15 +5,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="ru" />
 
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" />
     <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery-2.1.1.min.js'); ?>
 	<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/bootstrap.min.js'); ?>
@@ -26,7 +17,7 @@
 <body>
 
 
-<div class="container" id="page">
+<div class="container-fluid" id="page">
 
 <ol class="breadcrumb">
   <li><?php if(isset($this->breadcrumbs)):?>
@@ -37,12 +28,25 @@
 
 	<!-- breadcrumbs -->
 	<?php endif?>
+<div class="row">
+    <div class="col-xs-2"></div>
+    <div class="col-xs-10">
+        <h1><?php echo $this->pageTitle; ?></h1>
+    </div>
+    <div class="col-xs-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="<?php echo Yii::app()->controller->id == 'site' ? 'active' : '' ?>"><a href="<?php echo Yii::app()->createUrl("site") ?>">Каталог</a></li>
+            <li class="<?php echo Yii::app()->controller->id == 'findArticul' ? 'active' : '' ?>"><a href="<?php echo Yii::app()->createUrl("findArticul") ?>">Поиск по артикулу</a></li>
+        </ul>
 
-	<?php echo $content; ?>
+    </div>
+    <div class="col-xs-10">
+        <?php echo $content; ?>
+    </div>
+</div>
+
 
 	<div class="clear"></div>
-
-	
 
 </div><!-- page -->
 
