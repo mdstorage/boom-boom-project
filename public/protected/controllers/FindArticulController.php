@@ -33,6 +33,11 @@ class FindArticulController extends Controller
 		);
 	}
 	*/
+    public function actionArticulRegions($articul, $region = null)
+    {
+        $oFindArticul = new FindArticul($articul, $region);
 
+        $this->render('region_models', array('oFindArticul'=>$oFindArticul));
+    }
 
 }

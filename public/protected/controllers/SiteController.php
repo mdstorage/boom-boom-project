@@ -367,7 +367,8 @@ class SiteController extends Controller
                 'aPncs'=>$aPncs,
                 'aPartCatalog'=>$aPartCatalog,
                 'aPgPictures'=>$aPgPictures,
-                'iCountPictures'=>$iCountPictures
+                'iCountPictures'=>$iCountPictures,
+                'oPictures'=>$oPgPictures
             )
         );
 
