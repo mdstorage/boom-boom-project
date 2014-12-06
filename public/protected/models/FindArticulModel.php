@@ -16,15 +16,15 @@ class FindArticulModel {
 
         $regions = array();
         foreach($aData as $item){
-            $regions[] = $item['catalog'];
+            $regions[$item['catalog']] = $item['catalog'];
         }
 
         return $regions;
     }
 
-    public function getActiveRegion($articul, $region)
+    public function getActiveRegionModels($articul, $region)
     {
-        $sql = "SELECT m.model_name FROM part_codes LEFT JOIN models m ON (m.catalog = part_codes.catalog AND m.catalog_code = part_codes.catalog_code) WHERE part_codes.pnc = :articul AND part_codes.catalog = :region ";
+        $sql = "SELECT m.model_name FROM part_codes LEFT JOIN models m ON (m.catalog = part_codes.catalog AND m.catalog_code = part_codes.catalog_code) WHERE part_codes.pnc = :articul AND part_codes.catalog = :region GROUP BY m.model_name";
         $aData = Yii::app()->db->createCommand($sql)
             ->bindParam(":articul", $articul)
             ->bindParam(":region", $region)

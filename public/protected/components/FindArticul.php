@@ -10,6 +10,10 @@ class FindArticul {
     private $articul;
     private $regions = array();
     private $activeRegion;
+    private $activeModel;
+    private $activeModificataion;
+    private $activeComplectation;
+    private $options;
 
     public function __construct($articul, $region = null)
     {
@@ -18,17 +22,30 @@ class FindArticul {
 
         if (!is_null($region)){
             $this->setActiveRegion($region);
-        } else {
-            $this->setActiveRegion($this->regions[0]);
+        } elseif($this->regions) {
+            $this->setActiveRegion($this->regions[0]->getCode());
         }
     }
 
     public function setRegions()
     {
         $oModel = new FindArticulModel();
-        foreach($oModel->getRegions($this->articul) as $region){
-            $this->regions[] = Yii::t(Yii::app()->params['translateDomain'], $region);
+        $regions = $oModel->getRegions($this->articul);
+        if(empty($regions)){
+            throw new CHttpException("Запчасть с артикулом " .$this->articul. " отсутствует в каталоге.");
+        } else {
+            foreach($regions as $code=>$region){
+                $oRegion = new Region();
+                $oRegion->setCode($code);
+                $oRegion->setName($region);
+                $this->regions[] = $oRegion;
+            }
         }
+    }
+
+    public function getArticul()
+    {
+        return $this->articul;
     }
 
     public function getRegions()
@@ -43,7 +60,20 @@ class FindArticul {
         $oRegion = new Region();
         $oRegion->setCode($region);
         $oRegion->setName($region);
-        $oRegion->setModels($oModel->getActiveRegion($this->articul, $region));
+
+        $models = $oModel->getActiveRegionModels($this->articul, $region);
+
+        if(empty($models)){
+            throw new CHttpException("Ошибка в выборе моделей для региона: " . $oRegion->getRuname());
+        } else {
+            foreach($models as $code=>$model) {
+                $oModel = new Model();
+                $oModel->setCode($code);
+                $oModel->setName($model);
+                $oRegion->addModel($oModel);
+            }
+        }
+
 
         $this->activeRegion = $oRegion;
     }
@@ -51,5 +81,10 @@ class FindArticul {
     public function getActiveRegion()
     {
         return $this->activeRegion;
+    }
+
+    public function setActiveModel()
+    {
+
     }
 } 

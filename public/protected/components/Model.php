@@ -10,6 +10,8 @@ class Model {
     private $code;
     private $name;
 
+    private $modifications;
+
     public function setCode($code)
     {
         $this->code = $code;

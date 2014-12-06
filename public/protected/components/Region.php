@@ -26,7 +26,7 @@ class Region {
 
     private function setRuname()
     {
-        $this->runame = Yii::t("toyota", $this->name);
+        $this->runame = Yii::t(Yii::app()->params['translateDomain'], $this->name);
     }
 
     public function setModels($models)
@@ -37,5 +37,20 @@ class Region {
     public function getModels()
     {
         return $this->models;
+    }
+
+    public function getRuname()
+    {
+        return $this->runame;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function addModel(Model $model)
+    {
+        $this->models[] = $model;
     }
 } 
