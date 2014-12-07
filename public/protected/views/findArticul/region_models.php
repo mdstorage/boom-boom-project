@@ -11,11 +11,12 @@
             $(this).css('cursor', 'pointer');
         });
         $("#model_<?php echo $model->getCode(); ?>").on("click", function(){
+            $("#modifications_<?php echo $model->getCode(); ?>").html('<?php echo CHtml::image(Yii::app()->baseUrl.'/images/loader.gif', 'Идет поиск', array('height'=>30)); ?>');
             $.ajax({
                 type:   'POST',
                 async:  false,
                 url:    "<?php echo Yii::app()->createUrl('findArticul/articulModelModifications') ?>",
-                data:   { region: "<?php echo $oFindArticul->getActiveRegion()->getCode(); ?>", model: "<?php echo $model->getName(); ?>" },
+                data:   { articul: "<?php echo $oFindArticul->getArticul(); ?>", region: "<?php echo $oFindArticul->getActiveRegion()->getCode(); ?>", model: "<?php echo $model->getName(); ?>" },
                 success: function(data) {
                     $("#modifications_<?php echo $model->getCode(); ?>").html(data);
                 }

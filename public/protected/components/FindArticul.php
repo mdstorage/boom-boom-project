@@ -25,6 +25,8 @@ class FindArticul {
         } elseif($this->regions) {
             $this->setActiveRegion($this->regions[0]->getCode());
         }
+
+        $this->options = new Options();
     }
 
     public function setRegions()
@@ -83,8 +85,4 @@ class FindArticul {
         return $this->activeRegion;
     }
 
-    public function setActiveModel()
-    {
-
-    }
 } 

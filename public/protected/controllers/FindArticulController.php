@@ -42,11 +42,14 @@ class FindArticulController extends Controller
 
     public function actionArticulModelModifications()
     {
+        $articul = Yii::app()->request->getPost('articul');
         $region = Yii::app()->request->getPost('region');
         $model = Yii::app()->request->getPost('model');
 
-        $oModel = new Model();
+        $oModel = new Model(array('articul'=>$articul, 'region'=>$region, 'model'=>$model));
 
-        echo $region.$model;
+        $oModel->setModifications();
+
+        $this->renderPartial('model_modifications', array('oModel'=>$oModel));
     }
 }
