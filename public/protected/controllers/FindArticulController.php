@@ -46,8 +46,11 @@ class FindArticulController extends Controller
         $region = Yii::app()->request->getPost('region');
         $model = Yii::app()->request->getPost('model');
 
-        $oModel = new Model(array('articul'=>$articul, 'region'=>$region, 'model'=>$model));
+        $oRegion = new Region($region);
 
+        $oModel = new Model($model);
+        $oModel->setOptions(array('articul'=>$articul));
+        $oModel->setRegion($oRegion);
         $oModel->setModifications();
 
         $this->renderPartial('model_modifications', array('oModel'=>$oModel));

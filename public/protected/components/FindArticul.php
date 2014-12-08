@@ -37,8 +37,7 @@ class FindArticul {
             throw new CHttpException("Запчасть с артикулом " .$this->articul. " отсутствует в каталоге.");
         } else {
             foreach($regions as $code=>$region){
-                $oRegion = new Region();
-                $oRegion->setCode($code);
+                $oRegion = new Region($code);
                 $oRegion->setName($region);
                 $this->regions[] = $oRegion;
             }
@@ -59,8 +58,7 @@ class FindArticul {
     {
         $oModel = new FindArticulModel();
 
-        $oRegion = new Region();
-        $oRegion->setCode($region);
+        $oRegion = new Region($region);
         $oRegion->setName($region);
 
         $models = $oModel->getActiveRegionModels($this->articul, $region);
@@ -69,8 +67,7 @@ class FindArticul {
             throw new CHttpException("Ошибка в выборе моделей для региона: " . $oRegion->getRuname());
         } else {
             foreach($models as $code=>$model) {
-                $oModel = new Model();
-                $oModel->setCode($code);
+                $oModel = new Model($code);
                 $oModel->setName($model);
                 $oRegion->addModel($oModel);
             }

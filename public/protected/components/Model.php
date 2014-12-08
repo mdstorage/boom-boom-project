@@ -9,11 +9,17 @@
 class Model {
     private $code;
     private $name;
+    private $region;
 
     private $modifications;
     public $options;
 
-    public function __construct($options=array())
+    public function __construct($code)
+    {
+        $this->code = $code;
+    }
+
+    public function setOptions($options=array())
     {
         $this->options = new Options();
         foreach($options as $name=>$value){
@@ -21,14 +27,19 @@ class Model {
         }
     }
 
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
     public function getCode()
     {
        return $this->code;
+    }
+
+    public function setRegion(Region $region)
+    {
+        $this->region = $region;
+    }
+
+    public function getRegion()
+    {
+        return $this->region;
     }
 
     public function setName($name)
@@ -45,8 +56,8 @@ class Model {
     {
         $oFindArticulModel = new FindArticulModel();
 
-        if($this->options->hasOption('articul') && $this->options->hasOption('region') && $this->options->hasOption('model')){
-            $modifications = $oFindArticulModel->getActiveModelModifications($this->options->getOption('articul'), $this->options->getOption('region'), $this->options->getOption('model'));
+        if($this->options->hasOption('articul') && $this->getRegion()->getCode() && $this->getCode()){
+            $modifications = $oFindArticulModel->getActiveModelModifications($this->options->getOption('articul'), $this->getRegion()->getCode(), $this->getCode());
             foreach($modifications as $code=>$name){
                 $oModification = new Modification();
                 $oModification->setCode($code);

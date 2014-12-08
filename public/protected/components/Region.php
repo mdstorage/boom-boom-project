@@ -13,6 +13,11 @@ class Region {
 
     private $models = array();
 
+    public function __construct($code)
+    {
+        $this->code = $code;
+    }
+
     public function setCode($code)
     {
         $this->code = $code;
