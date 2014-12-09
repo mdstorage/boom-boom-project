@@ -40,7 +40,7 @@ class FindArticulModel {
 
     public function getActiveModelModifications($articul, $region, $model)
     {
-        $sql = "SELECT m.add_codes, m.catalog_code FROM part_codes LEFT JOIN models m ON (m.catalog = part_codes.catalog AND m.catalog_code = part_codes.catalog_code) WHERE part_codes.pnc = :articul AND part_codes.catalog = :region AND m.model_name = :model";
+        $sql = "SELECT m.add_codes, m.catalog_code, m.prod_start, m.prod_end FROM part_codes LEFT JOIN models m ON (m.catalog = part_codes.catalog AND m.catalog_code = part_codes.catalog_code) WHERE part_codes.pnc = :articul AND part_codes.catalog = :region AND m.model_name = :model";
         $aData = Yii::app()->db->createCommand($sql)
             ->bindParam(":articul", $articul)
             ->bindParam(":region", $region)
@@ -49,7 +49,7 @@ class FindArticulModel {
 
         $modifications = array();
         foreach($aData as $item){
-            $modifications[$item['catalog_code']] = $item['add_codes'];
+            $modifications[$item['catalog_code']] = array('name'=>$item['add_codes'], 'options'=>array('prod_start'=>$item['prod_start'], 'prod_end'=>$item['prod_end']));
         }
 
         return $modifications;

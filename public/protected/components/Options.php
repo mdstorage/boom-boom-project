@@ -27,4 +27,9 @@ class Options {
     {
         return $this->options[$name];
     }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
 } 

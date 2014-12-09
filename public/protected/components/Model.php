@@ -6,7 +6,7 @@
  * Time: 16:24
  */
 
-class Model {
+class Model implements ModelInterface{
     private $code;
     private $name;
     private $region;
@@ -52,18 +52,14 @@ class Model {
         return $this->name;
     }
 
-    public function setModifications()
+    public function setModifications($modifications)
     {
-        $oFindArticulModel = new FindArticulModel();
-
-        if($this->options->hasOption('articul') && $this->getRegion()->getCode() && $this->getCode()){
-            $modifications = $oFindArticulModel->getActiveModelModifications($this->options->getOption('articul'), $this->getRegion()->getCode(), $this->getCode());
-            foreach($modifications as $code=>$name){
-                $oModification = new Modification();
-                $oModification->setCode($code);
-                $oModification->setName($name);
-                $this->modifications[] = $oModification;
-            }
+        foreach($modifications as $code=>$data){
+            $oModification = new Modification();
+            $oModification->setCode($code);
+            $oModification->setName($data['name']);
+            $oModification->setOptions($data['options']);
+            $this->modifications[] = $oModification;
         }
     }
 

@@ -1,6 +1,6 @@
 <ul class="nav nav-pills">
     <?php foreach($oFindArticul->getRegions() as $region): ?>
-        <li class="<?php echo ($region->getCode() == $oFindArticul->getActiveRegion()->getCode()) ? 'active': ''; ?>"><a href="<?php echo Yii::app()->createUrl('findArticul/articulRegions', array('articul'=>$oFindArticul->getArticul(), 'region'=>$region->getCode())) ?>"><?php echo $region->getRuname(); ?><br/></a></li>
+        <li class="<?php echo ($region->getCode() == $oFindArticul->getActiveRegion()->getCode()) ? 'active': ''; ?>"><a href="<?php echo Yii::app()->createUrl('findArticul/articulRegions', array('articul'=>$oFindArticul->getArticul(), 'regionCode'=>$region->getCode())) ?>"><?php echo $region->getRuname(); ?><br/></a></li>
     <?php endforeach; ?>
 </ul>
 <?php foreach($oFindArticul->getActiveRegion()->getModels() as $model): ?>

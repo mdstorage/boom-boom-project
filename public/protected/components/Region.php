@@ -6,7 +6,7 @@
  * Time: 14:29
  */
 
-class Region {
+class Region implements RegionInterface{
     private $code;
     private $name;
     private $runame;
@@ -34,9 +34,13 @@ class Region {
         $this->runame = Yii::t(Yii::app()->params['translateDomain'], $this->name);
     }
 
-    public function setModels($models)
+    public function setModels($models=array())
     {
-        $this->models = $models;
+        foreach($models as $code=>$model) {
+            $oModel = new Model($code);
+            $oModel->setName($model);
+            $this->addModel($oModel);
+        }
     }
 
     public function getModels()
@@ -54,7 +58,7 @@ class Region {
         return $this->code;
     }
 
-    public function addModel(Model $model)
+    public function addModel(ModelInterface $model)
     {
         $this->models[] = $model;
     }

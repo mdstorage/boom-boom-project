@@ -15,32 +15,22 @@ class FindArticul {
     private $activeComplectation;
     private $options;
 
-    public function __construct($articul, $region = null)
+    private $findArticulModel;
+
+    public function __construct($articul)
     {
+        $this->findArticulModel = new FindArticulModel();
+
         $this->articul = $articul;
-        $this->setRegions();
 
-        if (!is_null($region)){
-            $this->setActiveRegion($region);
-        } elseif($this->regions) {
-            $this->setActiveRegion($this->regions[0]->getCode());
-        }
-
-        $this->options = new Options();
     }
 
-    public function setRegions()
+    public function setRegions($regions=array())
     {
-        $oModel = new FindArticulModel();
-        $regions = $oModel->getRegions($this->articul);
-        if(empty($regions)){
-            throw new CHttpException("Запчасть с артикулом " .$this->articul. " отсутствует в каталоге.");
-        } else {
-            foreach($regions as $code=>$region){
-                $oRegion = new Region($code);
-                $oRegion->setName($region);
-                $this->regions[] = $oRegion;
-            }
+        foreach($regions as $code=>$region){
+            $oRegion = new Region($code);
+            $oRegion->setName($region);
+            $this->regions[] = $oRegion;
         }
     }
 
@@ -54,27 +44,9 @@ class FindArticul {
         return $this->regions;
     }
 
-    public function setActiveRegion($region)
+    public function setActiveRegion(RegionInterface $region)
     {
-        $oModel = new FindArticulModel();
-
-        $oRegion = new Region($region);
-        $oRegion->setName($region);
-
-        $models = $oModel->getActiveRegionModels($this->articul, $region);
-
-        if(empty($models)){
-            throw new CHttpException("Ошибка в выборе моделей для региона: " . $oRegion->getRuname());
-        } else {
-            foreach($models as $code=>$model) {
-                $oModel = new Model($code);
-                $oModel->setName($model);
-                $oRegion->addModel($oModel);
-            }
-        }
-
-
-        $this->activeRegion = $oRegion;
+        $this->activeRegion = $region;
     }
 
     public function getActiveRegion()
