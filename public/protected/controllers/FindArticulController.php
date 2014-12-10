@@ -95,20 +95,38 @@ class FindArticulController extends Controller
             $region = Yii::app()->request->getPost('region');
             $model = Yii::app()->request->getPost('model');
 
-            $oFindArticulModel = new FindArticulModel();
-
-
             if($articul && $region && $model){
                 $oModel = new Model($model);
+                $oModel->setRegion(new Region($region));
+                $oFindArticulModel = new FindArticulModel();
                 $modifications = $oFindArticulModel->getActiveModelModifications($articul, $region, $model);
                 if(empty($modifications)){
                     throw new CHttpException("Ошибка в выборе модификаций для модели: " . $model);
                 } else {
                     $oModel->setModifications($modifications);
                 }
+                $this->renderPartial('_model_modifications', array('oModel'=>$oModel, 'articul'=>$articul));
+            } else {
+                throw new CHttpException("Ошибка в передаче данных.");
             }
-
-            $this->renderPartial('_model_modifications', array('oModel'=>$oModel));
         }
+    }
+
+    public function actionArticulModificationGroups($articul, $modificationCode, $regionCode)
+    {
+        $groups = FindArticulModel::getArticulModificationGroups($articul, $modificationCode, $regionCode);
+
+        $oFindArticul = new FindArticul($articul);
+        $oRegion = new Region($regionCode);
+        $oRegion->setName($regionCode);
+        $oFindArticul->setActiveRegion($oRegion);
+
+        if(empty($groups)){
+            throw new CHttpException("Ошибка в выборе групп.");
+        } else {
+            $oFindArticul->setGroups($groups);
+        }
+
+        VarExport::getExport($oFindArticul);
     }
 }

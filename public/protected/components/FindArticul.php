@@ -15,14 +15,11 @@ class FindArticul {
     private $activeComplectation;
     private $options;
 
-    private $findArticulModel;
+    private $groups = array();
 
     public function __construct($articul)
     {
-        $this->findArticulModel = new FindArticulModel();
-
         $this->articul = $articul;
-
     }
 
     public function setRegions($regions=array())
@@ -54,4 +51,13 @@ class FindArticul {
         return $this->activeRegion;
     }
 
+    public function setGroups($groups=array())
+    {
+        foreach($groups as $code=>$data){
+            $oGroup = new Group();
+            $oGroup->setCode($code);
+            $oGroup->setName($data['name']);
+            $this->groups[] = $oGroup;
+        }
+    }
 } 

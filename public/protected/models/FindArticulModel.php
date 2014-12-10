@@ -54,4 +54,26 @@ class FindArticulModel {
 
         return $modifications;
     }
+
+    public static function getArticulModificationGroups($articul, $modificationCode, $regionCode)
+    {
+        $sql = "SELECT prtcds.part_code as part_group, part_groups.desc_en
+                FROM part_codes prtcds
+                LEFT JOIN part_groups
+                ON part_groups.group_id = prtcds.part_code
+                WHERE prtcds.pnc = :articul AND prtcds.catalog_code = :modificationCode AND part_groups.catalog = :regionCode";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":articul", $articul)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->queryAll();
+
+        $groups = array();
+        foreach($aData as $item){
+            $groups[$item['part_group']] = array('name'=>$item['desc_en'], 'options'=>array());
+        }
+
+        return $groups;
+    }
 } 
