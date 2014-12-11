@@ -16,6 +16,7 @@ class FindArticul {
     private $options;
 
     private $groups = array();
+    private $activeGroup;
 
     public function __construct($articul)
     {
@@ -59,5 +60,30 @@ class FindArticul {
             $oGroup->setName($data['name']);
             $this->groups[] = $oGroup;
         }
+    }
+
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    public function setActiveGroup(GroupInterface $oGroup)
+    {
+        $this->activeGroup = $oGroup;
+    }
+
+    public function getActiveGroup()
+    {
+        return $this->activeGroup;
+    }
+
+    public function setActiveModification(Modification $oModification)
+    {
+        $this->activeModificataion = $oModification;
+    }
+
+    public function getActiveModification()
+    {
+        return $this->activeModificataion;
     }
 } 

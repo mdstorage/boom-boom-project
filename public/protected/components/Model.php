@@ -7,29 +7,14 @@
  */
 
 class Model implements ModelInterface{
-    private $code;
-    private $name;
-    private $region;
+    use CodeNameTrait;
 
+    private $region;
     private $modifications;
-    public $options;
 
     public function __construct($code)
     {
         $this->code = $code;
-    }
-
-    public function setOptions($options=array())
-    {
-        $this->options = new Options();
-        foreach($options as $name=>$value){
-            $this->options->setOption($name, $value);
-        }
-    }
-
-    public function getCode()
-    {
-       return $this->code;
     }
 
     public function setRegion(Region $region)
@@ -40,16 +25,6 @@ class Model implements ModelInterface{
     public function getRegion()
     {
         return $this->region;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getName()
-    {
-        return $this->name;
     }
 
     public function setModifications($modifications)

@@ -11,6 +11,8 @@ trait CodeNameTrait {
     private $name;
     private $runame;
 
+    private $options;
+
     public function setCode($code)
     {
         $this->code = $code;
@@ -35,5 +37,18 @@ trait CodeNameTrait {
     public function getCode()
     {
         return $this->code;
+    }
+
+    public function setOptions($options=array())
+    {
+        $this->options = new Options();
+        foreach($options as $name=>$value){
+            $this->options->setOption($name, $value);
+        }
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 } 

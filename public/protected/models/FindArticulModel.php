@@ -57,11 +57,9 @@ class FindArticulModel {
 
     public static function getArticulModificationGroups($articul, $modificationCode, $regionCode)
     {
-        $sql = "SELECT prtcds.part_code as part_group, part_groups.desc_en
+        $sql = "SELECT prtcds.part_code as part_group
                 FROM part_codes prtcds
-                LEFT JOIN part_groups
-                ON part_groups.group_id = prtcds.part_code
-                WHERE prtcds.pnc = :articul AND prtcds.catalog_code = :modificationCode AND part_groups.catalog = :regionCode";
+                WHERE prtcds.pnc = :articul AND prtcds.catalog_code = :modificationCode AND prtcds.catalog = :regionCode";
 
         $aData = Yii::app()->db->createCommand($sql)
             ->bindParam(":articul", $articul)
@@ -71,7 +69,29 @@ class FindArticulModel {
 
         $groups = array();
         foreach($aData as $item){
-            $groups[$item['part_group']] = array('name'=>$item['desc_en'], 'options'=>array());
+            $groups[Functions::getGroupNumberBySubGroup($item['part_group'])] = array('name'=>Functions::getGroupName(Functions::getGroupNumberBySubGroup($item['part_group'])), 'options'=>array());
+        }
+
+        return $groups;
+    }
+
+    public static function getArticulModificationSubGroups($articul, $modificationCode, $regionCode, $groupNumber)
+    {
+        $sql = "SELECT prtcds.part_code as part_group, part_groups.desc_en, pg_header_pics.pic_code
+                FROM part_codes prtcds
+                LEFT JOIN part_groups ON part_groups.group_id = prtcds.part_code
+                LEFT JOIN pg_header_pics ON prtcds.part_code = pg_header_pics.part_group AND prtcds.catalog = pg_header_pics.catalog AND prtcds.catalog_code = pg_header_pics.catalog_code
+                WHERE prtcds.pnc = :articul AND prtcds.catalog_code = :modificationCode AND SUBSTRING(prtcds.part_code, 1, 1) IN ". Functions::getSubGroupsByGroupNumber($groupNumber) ." AND part_groups.catalog = :regionCode";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":articul", $articul)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->queryAll();
+
+        $groups = array();
+        foreach($aData as $item){
+            $groups[$item['part_group']] = array('name'=>$item['desc_en'], 'options'=>array('picture'=>$item['pic_code']));
         }
 
         return $groups;

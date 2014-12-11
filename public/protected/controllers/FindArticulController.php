@@ -66,7 +66,7 @@ class FindArticulController extends Controller
                  * Если пользователь не задавал регион, то в качестве активного выбирается первый из списка регионов объект
                  */
                 $regions = $oFindArticul->getRegions();
-                $oActiveRegion= $regions[0];
+                $oActiveRegion = new Region($regions[0]->getCode());
             }
 
             $oActiveRegion->setName($oActiveRegion->getCode());
@@ -114,6 +114,8 @@ class FindArticulController extends Controller
 
     public function actionArticulModificationGroups($articul, $modificationCode, $regionCode)
     {
+        $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
+
         $groups = FindArticulModel::getArticulModificationGroups($articul, $modificationCode, $regionCode);
 
         $oFindArticul = new FindArticul($articul);
@@ -127,6 +129,41 @@ class FindArticulController extends Controller
             $oFindArticul->setGroups($groups);
         }
 
-        VarExport::getExport($oFindArticul);
+        $this->render('modification_groups', array('oFindArticul'=>$oFindArticul, 'params'=>$params));
+    }
+
+    public function actionArticulGroupSubGroups($articul, $modificationCode, $regionCode, $groupCode)
+    {
+        $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
+        $subGroups = FindArticulModel::getArticulModificationSubGroups($articul, $modificationCode, $regionCode, $groupCode);
+
+        $oFindArticul = new FindArticul($articul);
+
+        $oGroup = new Group();
+        $oGroup->setCode($groupCode);
+        $oGroup->setName(Functions::getGroupName($groupCode));
+        if(empty($subGroups)){
+            throw new CHttpException("Ошибка в выборе подгрупп.");
+        } else {
+            $oGroup->setSubGroups($subGroups);
+        }
+        $oFindArticul->setActiveGroup($oGroup);
+
+        $oModification = new Modification();
+        $oModification->setCode($modificationCode);
+        $oFindArticul->setActiveModification($oModification);
+
+        $oRegion = new Region($regionCode);
+        $oFindArticul->setActiveRegion($oRegion);
+
+        $this->render('group_subgroups', array('oFindArticul'=>$oFindArticul, 'params'=>$params));
+
+    }
+
+    public function actionArticulSubgroupSchemas($articul)
+    {
+        $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
+        $oFindArticul = new FindArticul($articul);
+        $this->render('subgroup_schemas', array('oFindArticul'=>$oFindArticul, 'params'=>$params));
     }
 }
