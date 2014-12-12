@@ -1,5 +1,5 @@
 <?php
-interface GroupInterface
+interface GroupInterface extends CodeNameInterface
 {
 
 }

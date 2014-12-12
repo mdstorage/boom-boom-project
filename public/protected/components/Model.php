@@ -9,33 +9,17 @@
 class Model implements ModelInterface{
     use CodeNameTrait;
 
-    private $region;
     private $modifications;
 
-    public function __construct($code)
+    public function __construct()
     {
-        $this->code = $code;
     }
 
-    public function setRegion(Region $region)
+    public function setModifications($modifications, ModificationInterface $modificationClass)
     {
-        $this->region = $region;
-    }
+        $this->modifications = $this->setChildrens($modifications, $modificationClass);
 
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    public function setModifications($modifications)
-    {
-        foreach($modifications as $code=>$data){
-            $oModification = new Modification();
-            $oModification->setCode($code);
-            $oModification->setName($data['name']);
-            $oModification->setOptions($data['options']);
-            $this->modifications[] = $oModification;
-        }
+        return $this;
     }
 
     public function getModifications()

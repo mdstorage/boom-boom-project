@@ -1,12 +1,6 @@
 <?php
-interface RegionInterface
+interface RegionInterface extends CodeNameInterface
 {
-    public function setCode($code);
-    public function getCode();
-
-    public function setName($name);
-    public function getRuname();
-
-    public function setModels($models);
+    public function setModels($models, ModelInterface $modelClass);
     public function addModel(ModelInterface $model);
 }

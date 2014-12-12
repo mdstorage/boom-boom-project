@@ -1,6 +1,5 @@
 <?php
-interface ModificationInterface
+interface ModificationInterface extends CodeNameInterface
 {
-    public function setCode($code);
-    public function getCode();
+
 }

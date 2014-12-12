@@ -41,14 +41,53 @@ trait CodeNameTrait {
 
     public function setOptions($options=array())
     {
-        $this->options = new Options();
         foreach($options as $name=>$value){
-            $this->options->setOption($name, $value);
+            $this->addOption($name, $value);
+        }
+    }
+
+    public function addOption($name, $value)
+    {
+        $this->options[$name] = $value;
+    }
+
+    public function hasOption($name)
+    {
+        if($this->options[$name]){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getOption($name)
+    {
+        if($this->hasOption($name)){
+            return $this->options[$name];
         }
     }
 
     public function getOptions()
     {
         return $this->options;
+    }
+
+    protected function setChildrens($childrens, $class)
+    {
+        $property = array();
+        foreach($childrens as $code=>$data){
+            $oObject = clone $class;
+            if($code){
+                $oObject->setCode($code);
+            }
+            if(isset($data['name'])){
+                $oObject->setName($data['name']);
+            }
+            if(isset($data['options'])){
+                $oObject->setOptions($data['options']);
+            }
+            $property[] = $oObject;
+        }
+        return $property;
     }
 } 

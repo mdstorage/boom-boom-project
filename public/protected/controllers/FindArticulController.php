@@ -36,55 +36,47 @@ class FindArticulController extends Controller
     public function actionArticulRegions($articul, $regionCode = null)
     {
         /*
-         * Модель для поиска по артикулу
-         */
-        $oFindArticulModel = new FindArticulModel();
-
-        /*
-         * Компонент, отслеживающий процесс поиска по артикулу
-         */
-        $oFindArticul = new FindArticul($articul);
-
-        /*
          * Выборка регионов из базы данных для конкретного артикула
          */
-        $aRegions = $oFindArticulModel->getRegions($articul);
+        $aRegions = FindArticulModel::getRegions($articul);
         if(empty($aRegions)){
             throw new CHttpException("Запчасть с артикулом " .$articul. " отсутствует в каталоге.");
         } else {
+            $oActiveRegion = Factory::createRegion();
             /*
-             * Если регионы найдены, они помещаются в объект компонента oFindArticul
+             * Если регионы найдены, они помещаются в контейнер
              */
-            $oFindArticul->setRegions($aRegions);
+            $oContainer = Factory::createContainer($articul)->setRegions($aRegions, $oActiveRegion);
             /*
              * Если пользователь задал регион, то этот регион становится активным
              */
             if (!is_null($regionCode)){
-                $oActiveRegion = new Region($regionCode);
+                $oActiveRegion->setCode($regionCode);
             } else{
                 /*
                  * Если пользователь не задавал регион, то в качестве активного выбирается первый из списка регионов объект
                  */
-                $regions = $oFindArticul->getRegions();
-                $oActiveRegion = new Region($regions[0]->getCode());
+                $regions = $oContainer->getRegions();
+                $oActiveRegion->setCode($regions[0]->getCode());
             }
 
             $oActiveRegion->setName($oActiveRegion->getCode());
             /*
              * Выборка моделей из базы для данного артикула и региона
              */
-            $models = $oFindArticulModel->getActiveRegionModels($articul, $oActiveRegion->getCode());
+            $models = FindArticulModel::getActiveRegionModels($articul, $oActiveRegion->getCode());
 
             if(empty($models)){
                 throw new CHttpException("Ошибка в выборе моделей для региона: " . $oActiveRegion->getRuname());
             } else {
-                $oActiveRegion->setModels($models);
+                $oActiveRegion->setModels($models, Factory::createModel());
             }
 
-            $oFindArticul->setActiveRegion($oActiveRegion);
+            $oContainer->setActiveRegion($oActiveRegion);
+
         }
 
-        $this->render('region_models', array('oFindArticul'=>$oFindArticul));
+        $this->render('region_models', array('oContainer'=>$oContainer));
     }
 
     public function actionArticulModelModifications()
@@ -92,24 +84,45 @@ class FindArticulController extends Controller
         if(Yii::app()->request->isAjaxRequest){
 
             $articul = Yii::app()->request->getPost('articul');
-            $region = Yii::app()->request->getPost('region');
-            $model = Yii::app()->request->getPost('model');
+            $regionCode = Yii::app()->request->getPost('region');
+            $modelCode = Yii::app()->request->getPost('model');
 
-            if($articul && $region && $model){
-                $oModel = new Model($model);
-                $oModel->setRegion(new Region($region));
-                $oFindArticulModel = new FindArticulModel();
-                $modifications = $oFindArticulModel->getActiveModelModifications($articul, $region, $model);
+            if($articul && $regionCode && $modelCode){
+                $oModel = Factory::createModel($modelCode);
+                $modifications = FindArticulModel::getActiveModelModifications($articul, $regionCode, $modelCode);
                 if(empty($modifications)){
-                    throw new CHttpException("Ошибка в выборе модификаций для модели: " . $model);
+                    throw new CHttpException("Ошибка в выборе модификаций для модели: " . $modelCode);
                 } else {
-                    $oModel->setModifications($modifications);
+                    $oModel->setModifications($modifications, Factory::createModification());
                 }
-                $this->renderPartial('_model_modifications', array('oModel'=>$oModel, 'articul'=>$articul));
+                $oContainer = Factory::createContainer($articul)
+                    ->setActiveRegion(Factory::createRegion($regionCode))
+                    ->setActiveModel($oModel);
+
+                $this->renderPartial('_model_modifications', array('oContainer'=>$oContainer));
             } else {
                 throw new CHttpException("Ошибка в передаче данных.");
             }
         }
+    }
+
+    public function actionComplectations($articul, $modificationCode, $regionCode){
+
+        $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
+
+        $complectations = FindArticulModel::getComplectations($articul, $modificationCode, $regionCode);
+
+        if(empty($complectations)){
+            throw new CHttpException("Ошибка в выборе комплектаций для модификации: " . $modificationCode);
+        } else {
+            $oModification = Factory::createModification($modificationCode)->setComplectations($complectations, Factory::createComplectation());
+        }
+
+        $oContainer = Factory::createContainer($articul)
+            ->setActiveRegion(Factory::createRegion($regionCode, $regionCode))
+            ->setActiveModification($oModification);
+
+        VarExport::getExport($oContainer);
     }
 
     public function actionArticulModificationGroups($articul, $modificationCode, $regionCode)
@@ -118,26 +131,23 @@ class FindArticulController extends Controller
 
         $groups = FindArticulModel::getArticulModificationGroups($articul, $modificationCode, $regionCode);
 
-        $oFindArticul = new FindArticul($articul);
-        $oRegion = new Region($regionCode);
-        $oRegion->setName($regionCode);
-        $oFindArticul->setActiveRegion($oRegion);
+        $oContainer = Factory::createContainer($articul)->setActiveRegion(Factory::createRegion($regionCode, $regionCode));
 
         if(empty($groups)){
             throw new CHttpException("Ошибка в выборе групп.");
         } else {
-            $oFindArticul->setGroups($groups);
+            $oContainer->setGroups($groups);
         }
 
-        $this->render('modification_groups', array('oFindArticul'=>$oFindArticul, 'params'=>$params));
+        $this->render('modification_groups', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 
     public function actionArticulGroupSubGroups($articul, $modificationCode, $regionCode, $groupCode)
     {
-        $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
+        $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
         $subGroups = FindArticulModel::getArticulModificationSubGroups($articul, $modificationCode, $regionCode, $groupCode);
 
-        $oFindArticul = new FindArticul($articul);
+        $oContainer = Factory::createContainer($articul);
 
         $oGroup = new Group();
         $oGroup->setCode($groupCode);
@@ -147,23 +157,21 @@ class FindArticulController extends Controller
         } else {
             $oGroup->setSubGroups($subGroups);
         }
-        $oFindArticul->setActiveGroup($oGroup);
+        $oContainer->setActiveGroup($oGroup);
 
-        $oModification = new Modification();
-        $oModification->setCode($modificationCode);
-        $oFindArticul->setActiveModification($oModification);
+        $oContainer->setActiveModification(Factory::createModification($modificationCode));
 
-        $oRegion = new Region($regionCode);
-        $oFindArticul->setActiveRegion($oRegion);
+        $oContainer->setActiveRegion(Factory::createRegion($regionCode));
 
-        $this->render('group_subgroups', array('oFindArticul'=>$oFindArticul, 'params'=>$params));
+        $this->render('group_subgroups', array('oContainer'=>$oContainer, 'params'=>$params));
 
     }
 
     public function actionArticulSubgroupSchemas($articul)
     {
-        $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
-        $oFindArticul = new FindArticul($articul);
-        $this->render('subgroup_schemas', array('oFindArticul'=>$oFindArticul, 'params'=>$params));
+        $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
+        $oContainer = Factory::createContainer($articul);
+
+        $this->render('subgroup_schemas', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 }

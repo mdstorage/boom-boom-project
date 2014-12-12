@@ -1,11 +1,8 @@
 <?php
-interface SchemaInterface
+interface SchemaInterface extends CodeNameInterface
 {
     public function setPicture($picture);
     public function getPicture();
-
-    public function setName($name);
-    public function getName();
 
     public function setPncs($pncs);
     public function getPncs();

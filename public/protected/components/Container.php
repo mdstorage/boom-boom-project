@@ -6,7 +6,7 @@
  * Time: 14:43
  */
 
-class FindArticul {
+class Container {
     private $articul;
     private $regions = array();
     private $activeRegion;
@@ -18,18 +18,29 @@ class FindArticul {
     private $groups = array();
     private $activeGroup;
 
-    public function __construct($articul)
+    public function __construct()
     {
-        $this->articul = $articul;
     }
 
-    public function setRegions($regions=array())
+    public function setArticul($articul)
     {
-        foreach($regions as $code=>$region){
-            $oRegion = new Region($code);
-            $oRegion->setName($region);
+        $this->articul = $articul;
+
+        return $this;
+    }
+
+    public function setRegions($regions=array(), RegionInterface $regionClass)
+    {
+        $regionName = get_class($regionClass);
+        foreach($regions as $code=>$data){
+            $oRegion = clone $regionClass;
+            $oRegion->setCode($code);
+            $oRegion->setName($data['name']);
+
             $this->regions[] = $oRegion;
         }
+
+        return $this;
     }
 
     public function getArticul()
@@ -45,6 +56,8 @@ class FindArticul {
     public function setActiveRegion(RegionInterface $region)
     {
         $this->activeRegion = $region;
+
+        return $this;
     }
 
     public function getActiveRegion()
@@ -60,6 +73,8 @@ class FindArticul {
             $oGroup->setName($data['name']);
             $this->groups[] = $oGroup;
         }
+
+        return $this;
     }
 
     public function getGroups()
@@ -70,6 +85,8 @@ class FindArticul {
     public function setActiveGroup(GroupInterface $oGroup)
     {
         $this->activeGroup = $oGroup;
+
+        return $this;
     }
 
     public function getActiveGroup()
@@ -77,13 +94,27 @@ class FindArticul {
         return $this->activeGroup;
     }
 
-    public function setActiveModification(Modification $oModification)
+    public function setActiveModification(ModificationInterface $oModification)
     {
         $this->activeModificataion = $oModification;
+
+        return $this;
     }
 
     public function getActiveModification()
     {
         return $this->activeModificataion;
+    }
+
+    public function setActiveModel(ModelInterface $oModel)
+    {
+        $this->activeModel = $oModel;
+
+        return $this;
+    }
+
+    public function getActiveModel()
+    {
+        return $this->activeModel;
     }
 } 

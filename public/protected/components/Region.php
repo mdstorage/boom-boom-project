@@ -7,40 +7,16 @@
  */
 
 class Region implements RegionInterface{
-    private $code;
-    private $name;
-    private $runame;
+    use CodeNameTrait;
 
     private $models = array();
 
-    public function __construct($code)
-    {
-        $this->code = $code;
-    }
 
-    public function setCode($code)
+    public function setModels($models=array(), ModelInterface $modelClass)
     {
-        $this->code = $code;
-    }
+        $this->models = $this->setChildrens($models, $modelClass);
 
-    public function setName($name)
-    {
-        $this->name = $name;
-        $this->setRuname();
-    }
-
-    private function setRuname()
-    {
-        $this->runame = Yii::t(Yii::app()->params['translateDomain'], $this->name);
-    }
-
-    public function setModels($models=array())
-    {
-        foreach($models as $code=>$model) {
-            $oModel = new Model($code);
-            $oModel->setName($model);
-            $this->addModel($oModel);
-        }
+        return $this;
     }
 
     public function getModels()
@@ -48,18 +24,10 @@ class Region implements RegionInterface{
         return $this->models;
     }
 
-    public function getRuname()
-    {
-        return $this->runame;
-    }
-
-    public function getCode()
-    {
-        return $this->code;
-    }
-
     public function addModel(ModelInterface $model)
     {
         $this->models[] = $model;
+
+        return $this;
     }
 } 

@@ -1,5 +1,5 @@
 <?php
-interface ModelInterface
+interface ModelInterface extends CodeNameInterface
 {
 
 }

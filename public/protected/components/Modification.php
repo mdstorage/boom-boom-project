@@ -7,53 +7,22 @@
  */
 
 class Modification implements ModificationInterface{
+    use CodeNameTrait;
 
-    private $code;
-    private $name;
-
-    private $classifications;
-    private $options;
+    private $complectations;
 
     public function __construct()
     {
-        $this->options = new Options();
     }
 
-    public function setOptions($options=array())
+    public function setComplectations($complectations, ComplectationInterface $complectationClass)
     {
-        foreach($options as $name=>$value){
-            $this->options->setOption($name, $value);
-        }
+        $this->setChildrens($complectations, $complectationClass, $this->complectations);
+        return $this;
     }
 
-    public function addOption($name, $value)
+    public function getModifications()
     {
-        $this->options->setOption($name, $value);
+        return $this->complectations;
     }
-
-    public function getOptions()
-    {
-        return $this->options->getOptions();
-    }
-
-    public function setCode($code)
-    {
-        $this->code = $code;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
 } 

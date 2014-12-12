@@ -1,10 +1,10 @@
 <?php $this->pageTitle = "Данная запчасть используется в следующих моделях и их модификациях" ?>
 <ul class="nav nav-pills">
-    <?php foreach($oFindArticul->getRegions() as $region): ?>
-        <li class="<?php echo ($region->getCode() == $oFindArticul->getActiveRegion()->getCode()) ? 'active': ''; ?>"><a href="<?php echo Yii::app()->createUrl('findArticul/articulRegions', array('articul'=>$oFindArticul->getArticul(), 'regionCode'=>$region->getCode())) ?>"><?php echo $region->getRuname(); ?><br/></a></li>
+    <?php foreach($oContainer->getRegions() as $region): ?>
+        <li class="<?php echo ($region->getCode() == $oContainer->getActiveRegion()->getCode()) ? 'active': ''; ?>"><a href="<?php echo Yii::app()->createUrl('findArticul/articulRegions', array('articul'=>$oContainer->getArticul(), 'regionCode'=>$region->getCode())) ?>"><?php echo $region->getRuname(); ?><br/></a></li>
     <?php endforeach; ?>
 </ul>
-<?php foreach($oFindArticul->getActiveRegion()->getModels() as $model): ?>
+<?php foreach($oContainer->getActiveRegion()->getModels() as $model): ?>
     <div id="model_<?php echo $model->getCode(); ?>" class="model"><?php echo $model->getRuname(); ?></div>
     <div id="modifications_<?php echo $model->getCode(); ?>"></div>
     <script>
@@ -17,7 +17,7 @@
                 type:   'POST',
                 async:  false,
                 url:    "<?php echo Yii::app()->createUrl('findArticul/articulModelModifications') ?>",
-                data:   { articul: "<?php echo $oFindArticul->getArticul(); ?>", region: "<?php echo $oFindArticul->getActiveRegion()->getCode(); ?>", model: "<?php echo $model->getRuname(); ?>" },
+                data:   { articul: "<?php echo $oContainer->getArticul(); ?>", region: "<?php echo $oContainer->getActiveRegion()->getCode(); ?>", model: "<?php echo $model->getRuname(); ?>" },
                 success: function(data) {
                     $("#modifications_<?php echo $model->getCode(); ?>").html(data);
                 }
