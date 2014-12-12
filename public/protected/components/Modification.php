@@ -17,11 +17,12 @@ class Modification implements ModificationInterface{
 
     public function setComplectations($complectations, ComplectationInterface $complectationClass)
     {
-        $this->setChildrens($complectations, $complectationClass, $this->complectations);
+        $this->complectations = $this->setChildrens($complectations, $complectationClass);
+
         return $this;
     }
 
-    public function getModifications()
+    public function getComplectations()
     {
         return $this->complectations;
     }

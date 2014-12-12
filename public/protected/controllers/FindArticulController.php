@@ -110,7 +110,7 @@ class FindArticulController extends Controller
 
         $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
 
-        $complectations = FindArticulModel::getComplectations($articul, $modificationCode, $regionCode);
+        $complectations = FindArticulModel::getComplectations($modificationCode, $regionCode);
 
         if(empty($complectations)){
             throw new CHttpException("Ошибка в выборе комплектаций для модификации: " . $modificationCode);
@@ -122,7 +122,7 @@ class FindArticulController extends Controller
             ->setActiveRegion(Factory::createRegion($regionCode, $regionCode))
             ->setActiveModification($oModification);
 
-        VarExport::getExport($oContainer);
+        $this->render('complectations', array('oContainer'=>$oContainer));
     }
 
     public function actionArticulModificationGroups($articul, $modificationCode, $regionCode)

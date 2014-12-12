@@ -55,6 +55,30 @@ class FindArticulModel {
         return $modifications;
     }
 
+    public static function getComplectations($modificationCode, $regionCode)
+    {
+        $sql = "SELECT c.model_code, c.prod_start, c.prod_end, c.complectation_code, c.engine1
+                FROM complectations c
+                WHERE c.catalog = :regionCode AND c.catalog_code = :modificationCode
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->queryAll();
+
+        $complectations = array();
+        foreach($aData as $item){
+            $complectations[$item['complectation_code']] = array('name'=>$item['model_code'], 'options'=>array(
+                'prod_start'=>$item['prod_start'],
+                'prod_end'  =>$item['prod_end'],
+                'engine'    =>$item['engine1']
+            ));
+        }
+
+        return $complectations;
+    }
+
     public static function getArticulModificationGroups($articul, $modificationCode, $regionCode)
     {
         $sql = "SELECT prtcds.part_code as part_group
