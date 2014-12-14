@@ -68,6 +68,13 @@ class Factory {
         return $oGroup;
     }
 
+    public static function createSchema($code=null, $name=null)
+    {
+        $oSchema = new Schema();
+
+        return $oSchema;
+    }
+
     private function setCodeName(CodeNameInterface $object, $code=null, $name=null)
     {
         if($code){

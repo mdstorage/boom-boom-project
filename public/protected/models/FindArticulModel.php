@@ -49,10 +49,32 @@ class FindArticulModel {
 
         $modifications = array();
         foreach($aData as $item){
-            $modifications[$item['catalog_code']] = array('name'=>$item['add_codes'], 'options'=>array('prod_start'=>$item['prod_start'], 'prod_end'=>$item['prod_end']));
+            $modifications[$item['catalog_code']] = array('name'=>$item['add_codes'], 'options'=>array(
+                Functions::PROD_START   =>$item['prod_start'],
+                Functions::PROD_END     =>$item['prod_end']));
         }
 
         return $modifications;
+    }
+
+    public static function getModification($regionCode, $modificationCode)
+    {
+        $sql = "
+        SELECT m.cd
+        FROM models m
+        WHERE m.catalog = :regionCode AND m.catalog_code = :modificationCode
+        LIMIT 1
+        ";
+
+        $sData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->queryScalar();
+
+        $modification = array();
+        $modification[$modificationCode] = array('name'=>$modificationCode, 'options'=>array(Functions::CD => $sData));
+
+        return $modification;
     }
 
     public static function getComplectations($modificationCode, $regionCode)
@@ -70,16 +92,16 @@ class FindArticulModel {
         $complectations = array();
         foreach($aData as $item){
             $complectations[$item['complectation_code']] = array('name'=>$item['model_code'], 'options'=>array(
-                'prod_start'=>$item['prod_start'],
-                'prod_end'  =>$item['prod_end'],
-                'engine'    =>$item['engine1']
+                Functions::PROD_START   =>$item['prod_start'],
+                Functions::PROD_END     =>$item['prod_end'],
+                'engine'                =>$item['engine1']
             ));
         }
 
         return $complectations;
     }
 
-    public static function getArticulModificationGroups($articul, $modificationCode, $regionCode)
+    public static function getGroups($articul, $modificationCode, $regionCode)
     {
         $sql = "SELECT prtcds.part_code as part_group
                 FROM part_codes prtcds
@@ -119,5 +141,51 @@ class FindArticulModel {
         }
 
         return $groups;
+    }
+
+    public static function getSchemas($regionCode, $modificationCode, $subGroupCode, $complectationCode)
+    {
+        $sql = "
+            SELECT c.prod_start, c.prod_end
+            FROM complectations c
+            WHERE c.catalog = :regionCode AND c.catalog_code = :modificationCode AND c.complectation_code = :complectationCode
+            LIMIT 1
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":complectationCode", $complectationCode)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->queryRow();
+
+        $prod_start = $aData['prod_start'];
+        $prod_end   = $aData['prod_end'];
+
+        $sql = "
+            SELECT pp.pic_code, pd.desc_en
+            FROM pg_pictures pp
+            LEFT JOIN pic_desc pd ON pp.pic_desc_code = pd.pic_num
+            WHERE pp.catalog = :regionCode
+                AND pp.catalog_code = :modificationCode
+                AND pp.part_group = :subGroupCode
+                AND (pp.start_date <= " . $prod_end . "
+                OR pp.end_date >= " . $prod_start . ")
+                AND pd.catalog = :regionCode
+                AND pd.catalog_code = :modificationCode
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":complectationCode", $complectationCode)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->bindParam(":subGroupCode", $subGroupCode)
+            ->queryAll();
+
+        $schemas = array();
+        foreach($aData as $item){
+            $schemas[$item['pic_code']] = array('name'=>$item['desc_en'], 'options'=>array());
+        }
+
+        return $schemas;
     }
 } 

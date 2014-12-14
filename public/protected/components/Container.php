@@ -7,6 +7,8 @@
  */
 
 class Container {
+    use ChildrensTrait;
+
     private $articul;
     private $regions = array();
     private $activeRegion;
@@ -17,6 +19,8 @@ class Container {
 
     private $groups = array();
     private $activeGroup;
+    private $schemas = array();
+    private $activeSchema;
 
     public function __construct()
     {
@@ -31,14 +35,8 @@ class Container {
 
     public function setRegions($regions=array(), RegionInterface $regionClass)
     {
-        $regionName = get_class($regionClass);
-        foreach($regions as $code=>$data){
-            $oRegion = clone $regionClass;
-            $oRegion->setCode($code);
-            $oRegion->setName($data['name']);
 
-            $this->regions[] = $oRegion;
-        }
+        $this->regions = $this->setChildrens($regions, $regionClass);
 
         return $this;
     }
@@ -65,14 +63,10 @@ class Container {
         return $this->activeRegion;
     }
 
-    public function setGroups($groups=array())
+    public function setGroups($groups=array(), GroupInterface $groupClass)
     {
-        foreach($groups as $code=>$data){
-            $oGroup = new Group();
-            $oGroup->setCode($code);
-            $oGroup->setName($data['name']);
-            $this->groups[] = $oGroup;
-        }
+
+        $this->groups = $this->setChildrens($groups, $groupClass);
 
         return $this;
     }
@@ -116,5 +110,17 @@ class Container {
     public function getActiveModel()
     {
         return $this->activeModel;
+    }
+
+    public function setSchemas($schemas=array(), SchemaInterface $schemaClass)
+    {
+        $this->schemas = $this->setChildrens($schemas, $schemaClass);
+
+        return $this;
+    }
+
+    public function getSchemas()
+    {
+        return $this->schemas;
     }
 } 

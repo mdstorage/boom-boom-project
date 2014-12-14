@@ -76,7 +76,7 @@ class FindArticulController extends Controller
 
         }
 
-        $this->render('region_models', array('oContainer'=>$oContainer));
+        $this->render('01_regions_models', array('oContainer'=>$oContainer));
     }
 
     public function actionArticulModelModifications()
@@ -99,7 +99,7 @@ class FindArticulController extends Controller
                     ->setActiveRegion(Factory::createRegion($regionCode))
                     ->setActiveModel($oModel);
 
-                $this->renderPartial('_model_modifications', array('oContainer'=>$oContainer));
+                $this->renderPartial('02_modifications', array('oContainer'=>$oContainer));
             } else {
                 throw new CHttpException("Ошибка в передаче данных.");
             }
@@ -122,56 +122,77 @@ class FindArticulController extends Controller
             ->setActiveRegion(Factory::createRegion($regionCode, $regionCode))
             ->setActiveModification($oModification);
 
-        $this->render('complectations', array('oContainer'=>$oContainer));
+        $this->render('03_complectations', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 
-    public function actionArticulModificationGroups($articul, $modificationCode, $regionCode)
+    public function actionGroups($articul, $modificationCode, $regionCode, $complectationCode)
     {
         $params = Functions::getActionParams($this, __FUNCTION__, func_get_args());
 
-        $groups = FindArticulModel::getArticulModificationGroups($articul, $modificationCode, $regionCode);
+        $groups = FindArticulModel::getGroups($articul, $modificationCode, $regionCode);
 
         $oContainer = Factory::createContainer($articul)->setActiveRegion(Factory::createRegion($regionCode, $regionCode));
 
         if(empty($groups)){
             throw new CHttpException("Ошибка в выборе групп.");
         } else {
-            $oContainer->setGroups($groups);
+            $oContainer->setGroups($groups, Factory::createGroup());
         }
 
-        $this->render('modification_groups', array('oContainer'=>$oContainer, 'params'=>$params));
+        $this->render('04_groups', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 
-    public function actionArticulGroupSubGroups($articul, $modificationCode, $regionCode, $groupCode)
+    public function actionSubgroups($articul, $modificationCode, $regionCode, $groupCode, $complectationCode)
     {
         $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
         $subGroups = FindArticulModel::getArticulModificationSubGroups($articul, $modificationCode, $regionCode, $groupCode);
 
         $oContainer = Factory::createContainer($articul);
 
-        $oGroup = new Group();
-        $oGroup->setCode($groupCode);
-        $oGroup->setName(Functions::getGroupName($groupCode));
+        $oGroup = Factory::createGroup($groupCode, Functions::getGroupName($groupCode));
+
         if(empty($subGroups)){
             throw new CHttpException("Ошибка в выборе подгрупп.");
         } else {
             $oGroup->setSubGroups($subGroups);
         }
+
         $oContainer->setActiveGroup($oGroup);
 
         $oContainer->setActiveModification(Factory::createModification($modificationCode));
 
         $oContainer->setActiveRegion(Factory::createRegion($regionCode));
 
-        $this->render('group_subgroups', array('oContainer'=>$oContainer, 'params'=>$params));
+        $this->render('05_subgroups', array('oContainer'=>$oContainer, 'params'=>$params));
 
     }
 
-    public function actionArticulSubgroupSchemas($articul)
+    public function actionSchemas($articul, $regionCode, $modificationCode, $subGroupCode, $complectationCode)
     {
         $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
-        $oContainer = Factory::createContainer($articul);
 
-        $this->render('subgroup_schemas', array('oContainer'=>$oContainer, 'params'=>$params));
+        $schemas = FindArticulModel::getSchemas($regionCode, $modificationCode, $subGroupCode, $complectationCode);
+        $modification = FindArticulModel::getModification($regionCode, $modificationCode);
+
+        $oContainer = Factory::createContainer($articul)
+            ->setActiveRegion(Factory::createRegion($regionCode))
+            ->setActiveModification(Factory::createModification($modificationCode, $modificationCode)->setOptions(array(Functions::CD=>$modification[$modificationCode]['options'][Functions::CD])));
+
+        if(empty($schemas)){
+            throw new CHttpException('Ошибка в выборе набора схем.');
+        } else {
+            $oContainer->setSchemas($schemas, Factory::createSchema());
+        }
+
+        $this->render('06_schemas', array('oContainer'=>$oContainer, 'params'=>$params));
+    }
+
+    public function actionSchema()
+    {
+        $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
+
+        $oContainer = Factory::createContainer();
+
+        $this->render('07_schema', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 }

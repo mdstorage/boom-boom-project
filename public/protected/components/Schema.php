@@ -1,32 +1,11 @@
 <?php
 
 class Schema implements SchemaInterface{
+    use CodeNameTrait;
 
-    private $name;
-    private $picture;
     private $pncs;
     private $articuls;
     private $groups;
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-    }
-
-    public function getPicture()
-    {
-        return $this->picture;
-    }
 
     public function setPncs($pncs)
     {
