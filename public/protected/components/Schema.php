@@ -4,12 +4,14 @@ class Schema implements SchemaInterface{
     use CodeNameTrait;
 
     private $pncs;
-    private $articuls;
-    private $groups;
+    private $commonArticuls;
+    private $refGroups;
 
-    public function setPncs($pncs)
+    public function setPncs($pncs, PncInterface $pncClass)
     {
-        $this->pncs = $pncs;
+        $this->pncs = $this->setChildrens($pncs, $pncClass);
+
+        return $this;
     }
 
     public function getPncs()
@@ -17,23 +19,27 @@ class Schema implements SchemaInterface{
         return $this->pncs;
     }
 
-    public function setArticuls($articuls)
+    public function setCommonArticuls($articuls, ArticulInterface $articulClass)
     {
-        $this->articuls = $articuls;
+        $this->commonArticuls = $this->setChildrens($articuls, $articulClass);
+
+        return $this;
     }
 
-    public function getArticuls()
+    public function getCommonArticuls()
     {
-        return $this->articuls;
+        return $this->commonArticuls;
     }
 
-    public function setGroups($groups)
+    public function setRefGroups($groups, GroupInterface $groupClass)
     {
-        $this->groups = $groups;
+        $this->refGroups = $this->setChildrens($groups, $groupClass);
+
+        return $this;
     }
 
-    public function getGroups()
+    public function getRefGroups()
     {
-        return $this->groups;
+        return $this->refGroups;
     }
 } 

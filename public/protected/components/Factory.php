@@ -71,8 +71,25 @@ class Factory {
     public static function createSchema($code=null, $name=null)
     {
         $oSchema = new Schema();
+        self::setCodeName($oSchema, $code, $name);
 
         return $oSchema;
+    }
+
+    public static function createPnc($code=null, $name=null)
+    {
+        $oPnc = new Pnc();
+        self::setCodeName($oPnc, $code, $name);
+
+        return $oPnc;
+    }
+
+    public static function createArticul($code=null, $name=null)
+    {
+        $oArticul = new Articul();
+        self::setCodeName($oArticul, $code, $name);
+
+        return $oArticul;
     }
 
     private function setCodeName(CodeNameInterface $object, $code=null, $name=null)

@@ -13,6 +13,17 @@ class Functions
 
     const CD = 'cd';
 
+    const X1 = 'x1';
+    const X2 = 'x2';
+    const Y1 = 'y1';
+    const Y2 = 'y2';
+
+    const DESC_EN = 'desc_en';
+    const NAME = 'name';
+    const OPTIONS = 'options';
+
+    const QUANTITY = 'quantity';
+
     public static function prodToDate($prod)
     {
         if ($prod && $prod != 999999){

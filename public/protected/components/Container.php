@@ -21,6 +21,7 @@ class Container {
     private $activeGroup;
     private $schemas = array();
     private $activeSchema;
+    private $activePnc;
 
     public function __construct()
     {
@@ -122,5 +123,29 @@ class Container {
     public function getSchemas()
     {
         return $this->schemas;
+    }
+
+    public function setActiveSchema(SchemaInterface $oSchema)
+    {
+        $this->activeSchema = $oSchema;
+
+        return $this;
+    }
+
+    public function getActiveSchema()
+    {
+        return $this->activeSchema;
+    }
+
+    public function setActivePnc(PncInterface $oPnc)
+    {
+        $this->activePnc = $oPnc;
+
+        return $this;
+    }
+
+    public function getActivePnc()
+    {
+        return $this->activePnc;
     }
 } 

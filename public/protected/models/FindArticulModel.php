@@ -188,4 +188,165 @@ class FindArticulModel {
 
         return $schemas;
     }
+
+    public static function getPnc($articul, $regionCode, $modificationCode, $subGroupCode)
+    {
+        $sql = "
+            SELECT pc.part_group as pnc
+            FROM part_codes pc
+            WHERE pc.catalog = :regionCode AND pc.catalog_code = :modificationCode AND pc.pnc = :articul AND pc.part_code = :subGroupCode
+            LIMIT 1
+        ";
+
+        $sPnc = Yii::app()->db->createCommand($sql)
+            ->bindParam(":articul", $articul)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->bindParam(":subGroupCode", $subGroupCode)
+            ->queryScalar();
+
+        return $sPnc;
+    }
+
+    public static function getPncs($schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd)
+    {
+         /*
+         * Выбрать pnc, которые имеют отношение к конкретной модификации
+         */
+
+        $sql1 = "
+            SELECT pc.part_group as pnc
+            FROM part_codes pc
+            WHERE pc.catalog = :regionCode AND pc.catalog_code = :modificationCode AND pc.part_code = :subGroupCode
+            GROUP BY pc.part_group
+        ";
+
+        /*
+         * Выбрать все метки pnc, изображенные на схеме и имеющие отношение к конкретной модификации
+         */
+        $sql = "
+            SELECT i.label2, i.x1, i.y1, i.x2, i.y2, p.desc_en
+            FROM images i
+            LEFT JOIN pncs p ON i.label2 = p.pnc
+            WHERE i.catalog = :regionCode AND i.pic_code = :schemaCode AND i.cd = :cd AND p.catalog = :regionCode
+            AND i.label1 IN (13061, 13062)
+            AND i.label2 IN (".$sql1.")
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":subGroupCode", $subGroupCode)
+            ->bindParam(":schemaCode", $schemaCode)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->bindParam(":cd", $cd)
+            ->queryAll();
+
+        $pncs = array();
+        foreach($aData as $item){
+            $pncs[$item['label2']] = array(
+                Functions::NAME=>$item['desc_en'],
+                Functions::OPTIONS=>array(
+                    Functions::X1=>$item['x1'],
+                    Functions::X2=>$item['x2'],
+                    Functions::Y1=>$item['y1'],
+                    Functions::Y2=>$item['y2']
+            ));
+        }
+
+        return $pncs;
+    }
+
+    public static function getCommonArticuls($schemaCode, $regionCode, $cd)
+    {
+        /*
+         * Выбрать все метки общих артикулов, изображенные на схеме
+         */
+        $sql = "
+            SELECT i.label2, i.x1, i.y1, i.x2, i.y2
+            FROM images i
+            WHERE i.catalog = :regionCode AND i.pic_code = :schemaCode AND i.cd = :cd
+            AND i.label1 IN (13322)
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":schemaCode", $schemaCode)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":cd", $cd)
+            ->queryAll();
+
+        $commonArticuls = array();
+        foreach($aData as $item){
+            $commonArticuls[$item['label2']] = array(
+                Functions::NAME=>$item['label2'],
+                Functions::OPTIONS=>array(
+                    Functions::X1=>$item['x1'],
+                    Functions::X2=>$item['x2'],
+                    Functions::Y1=>$item['y1'],
+                    Functions::Y2=>$item['y2']
+            ));
+        }
+
+        return $commonArticuls;
+    }
+
+    public static function getRefGroups($schemaCode, $regionCode, $cd)
+    {
+         /*
+         * Выбрать все метки ссылок на другие группы, изображенные на схеме
+         */
+        $sql = "
+            SELECT i.label2, i.x1, i.y1, i.x2, i.y2
+            FROM images i
+            WHERE i.catalog = :regionCode AND i.pic_code = :schemaCode AND i.cd = :cd
+            AND i.label1 IN (12548)
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":schemaCode", $schemaCode)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":cd", $cd)
+            ->queryAll();
+
+        $refGroups = array();
+        foreach($aData as $item){
+            $refGroups[$item['label2']] = array(
+                Functions::NAME=>$item['label2'],
+                Functions::OPTIONS=>array(
+                    Functions::X1=>$item['x1'],
+                    Functions::X2=>$item['x2'],
+                    Functions::Y1=>$item['y1'],
+                    Functions::Y2=>$item['y2']
+                ));
+        }
+
+        return $refGroups;
+    }
+
+    public static function getArticuls($regionCode, $modificationCode, $pncCode)
+    {
+        $sql = "
+            SELECT pc.part_code, pc.quantity, pc.start_date, pc.end_date, pc.add_desc
+            FROM part_catalog pc
+            WHERE pc.catalog = :regionCode AND pc.catalog_code = :modificationCode AND pnc = :pncCode
+        ";
+
+        $aData = Yii::app()->db->createCommand($sql)
+            ->bindParam(":pncCode", $pncCode)
+            ->bindParam(":regionCode", $regionCode)
+            ->bindParam(":modificationCode", $modificationCode)
+            ->queryAll();
+
+        $articuls = array();
+        foreach($aData as $item){
+            $articuls[$item['part_code']] = array(
+                Functions::NAME=>$item['add_desc'],
+                Functions::OPTIONS=>array(
+                    Functions::QUANTITY => $item['quantity'],
+                    Functions::PROD_START => $item['start_date'],
+                    Functions::PROD_END => $item['end_date']
+            ));
+        }
+
+        return $articuls;
+    }
 } 

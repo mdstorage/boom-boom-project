@@ -187,11 +187,39 @@ class FindArticulController extends Controller
         $this->render('06_schemas', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 
-    public function actionSchema()
+    public function actionSchema($articul, $schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd)
     {
         $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
 
-        $oContainer = Factory::createContainer();
+        $pncCode = FindArticulModel::getPnc($articul, $regionCode, $modificationCode, $subGroupCode);
+
+        $pncs = FindArticulModel::getPncs($schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd);
+
+        $commonArticuls = FindArticulModel::getCommonArticuls($schemaCode, $regionCode, $cd);
+
+        $refGroups = FindArticulModel::getRefGroups($schemaCode, $regionCode, $cd);
+
+        $oSchema = Factory::createSchema($schemaCode);
+
+        if(!empty($pncs)){
+            $oSchema->setPncs($pncs, Factory::createPnc());
+        }
+
+        if(!empty($commonArticuls)){
+            $oSchema->setCommonArticuls($commonArticuls, Factory::createArticul());
+        }
+
+        if(!empty($refGroups)){
+            $oSchema->setRefGroups($refGroups, Factory::createGroup());
+        }
+
+        $oContainer = Factory::createContainer()
+            ->setArticul($articul)
+            ->setActiveSchema($oSchema)
+            ->setActiveRegion(Factory::createRegion($regionCode))
+            ->setActivePnc(Factory::createPnc($pncCode)
+                ->setArticuls(FindArticulModel::getArticuls($regionCode, $modificationCode, $pncCode), Factory::createArticul())
+            );
 
         $this->render('07_schema', array('oContainer'=>$oContainer, 'params'=>$params));
     }

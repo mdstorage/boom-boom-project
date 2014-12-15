@@ -1,12 +1,12 @@
 <?php
 interface SchemaInterface extends CodeNameInterface
 {
-    public function setPncs($pncs);
+    public function setPncs($pncs, PncInterface $pncClass);
     public function getPncs();
 
-    public function setArticuls($articuls);
-    public function getArticuls();
+    public function setCommonArticuls($articuls, ArticulInterface $articulClass);
+    public function getCommonArticuls();
 
-    public function setGroups($groups);
-    public function getGroups();
+    public function setRefGroups($groups, GroupInterface $groupClass);
+    public function getRefGroups();
 }
