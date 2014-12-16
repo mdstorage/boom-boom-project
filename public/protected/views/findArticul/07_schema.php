@@ -9,9 +9,31 @@
 
 ?>
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <?php foreach($pncs as $pnc): ?>
-            <?php echo $pnc->getRuname() ?><br/>
+            <div id="pnc_<?php echo $pnc->getCode(); ?>"><?php echo $pnc->getCode()." ".$pnc->getRuname() ?></div>
+            <?php if($pnc->getCode() == $oContainer->getActivePnc()->getCode()): ?>
+                <table class="table">
+                    <?php foreach($oContainer->getActivePnc()->getArticuls() as $articul): ?>
+                        <tr>
+                            <?php if($articul->getCode() == $oContainer->getActiveArticul()->getCode()): ?>
+                                <td><strong><?php echo $articul->getCode(); ?></strong></td>
+                            <?php else: ?>
+                                <td><?php echo $articul->getCode(); ?></td>
+                            <?php endif; ?>
+                            <?php foreach($articul->getOptions() as $name=>$value): ?>
+                                <td><?php echo $value; ?></td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php endif; ?>
+            <div id="pnc_result_<?php echo $pnc->getCode();?>"></div>
+            <script>
+                $("#pnc_<?php echo $pnc->getCode(); ?>").on('click', function(){
+                    alert('hello');
+                })
+            </script>
         <?php endforeach; ?>
         <?php if(!empty($commonArticuls)): ?>
             <h4>Общие запчасти:</h4>
@@ -26,7 +48,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-8">
         <?php if(file_exists(Yii::app()->basePath . '/../images/' .
             $regionCode . '/images_' . strtolower($regionCode) . '_' . strtolower($params['cd']) .
             '/' . $schemaCode . '.png')): ?>
@@ -63,4 +85,6 @@
         <?php endif; ?>
     </div>
 </div>
+
+
 

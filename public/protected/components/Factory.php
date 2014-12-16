@@ -8,20 +8,17 @@
 
 class Factory {
 
-    public static function createContainer($articul=null)
+    public static function createContainer()
     {
         $oContainer = new Container();
-        if($articul){
-            $oContainer->setArticul($articul);
-        }
 
         return $oContainer;
     }
 
-    public static function createRegion($code=null, $name=null, $models=array())
+    public static function createRegion($code=null, $name=null, $options=null, $models=array())
     {
         $oRegion = new Region();
-        self::setCodeName($oRegion, $code, $name);
+        self::setParameters($oRegion, $code, $name, $options);
         if(!empty($models)){
             $oRegion->setModels($models, self::createModel());
         }
@@ -29,10 +26,10 @@ class Factory {
         return $oRegion;
     }
 
-    public static function createModel($code=null, $name=null, $modifications=array())
+    public static function createModel($code=null, $name=null, $options=null, $modifications=array())
     {
         $oModel = new Model();
-        self::setCodeName($oModel, $code, $name);
+        self::setParameters($oModel, $code, $name, $options);
         if(!empty($modifications)){
             $oModel->setModifications($modifications, self::createModification());
         }
@@ -40,11 +37,11 @@ class Factory {
         return $oModel;
     }
 
-    public static function createModification($code=null, $name=null, $complectations=array())
+    public static function createModification($code=null, $name=null, $options=null, $complectations=array())
     {
         $oModification = new Modification();
 
-        self::setCodeName($oModification, $code, $name);
+        self::setParameters($oModification, $code, $name, $options);
         if(!empty($complectations)){
             $oModification->setComplectations($complectations, self::createComplectation());
         }
@@ -52,53 +49,56 @@ class Factory {
         return $oModification;
     }
 
-    public static function createComplectation($code=null, $name=null)
+    public static function createComplectation($code=null, $name=null, $options=null)
     {
         $oComplectation = new Complectation();
-        self::setCodeName($oComplectation, $code, $name);
+        self::setParameters($oComplectation, $code, $name, $options);
 
         return $oComplectation;
     }
 
-    public static function createGroup($code=null, $name=null)
+    public static function createGroup($code=null, $name=null, $options=null)
     {
         $oGroup = new Group();
-        self::setCodeName($oGroup, $code, $name);
+        self::setParameters($oGroup, $code, $name, $options);
 
         return $oGroup;
     }
 
-    public static function createSchema($code=null, $name=null)
+    public static function createSchema($code=null, $name=null, $options=null)
     {
         $oSchema = new Schema();
-        self::setCodeName($oSchema, $code, $name);
+        self::setParameters($oSchema, $code, $name, $options);
 
         return $oSchema;
     }
 
-    public static function createPnc($code=null, $name=null)
+    public static function createPnc($code=null, $name=null, $options=null)
     {
         $oPnc = new Pnc();
-        self::setCodeName($oPnc, $code, $name);
+        self::setParameters($oPnc, $code, $name, $options);
 
         return $oPnc;
     }
 
-    public static function createArticul($code=null, $name=null)
+    public static function createArticul($code=null, $name=null, $options=null)
     {
         $oArticul = new Articul();
-        self::setCodeName($oArticul, $code, $name);
+        self::setParameters($oArticul, $code, $name, $options);
 
         return $oArticul;
     }
 
-    private function setCodeName(CodeNameInterface $object, $code=null, $name=null)
+    private function setParameters(CodeNameInterface $object, $code=null, $name=null, $options=null)
     {
         if($code){
             $object->setCode($code);
         }
         if($name){
             $object->setName($name);
+        }
+        if($options){
+            $object->setOptions($options);
         }
     }
 } 

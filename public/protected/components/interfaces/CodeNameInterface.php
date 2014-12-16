@@ -12,4 +12,8 @@ interface CodeNameInterface {
 
     public function setName($name);
     public function getRuname();
+
+    public function setOptions($options);
+    public function getOption($name);
+    public function getOptions();
 } 

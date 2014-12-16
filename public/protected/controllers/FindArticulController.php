@@ -46,7 +46,9 @@ class FindArticulController extends Controller
             /*
              * Если регионы найдены, они помещаются в контейнер
              */
-            $oContainer = Factory::createContainer($articul)->setRegions($aRegions, $oActiveRegion);
+            $oContainer = Factory::createContainer()
+                ->setActiveArticul(Factory::createArticul($articul))
+                ->setRegions($aRegions, $oActiveRegion);
             /*
              * Если пользователь задал регион, то этот регион становится активным
              */
@@ -95,7 +97,8 @@ class FindArticulController extends Controller
                 } else {
                     $oModel->setModifications($modifications, Factory::createModification());
                 }
-                $oContainer = Factory::createContainer($articul)
+                $oContainer = Factory::createContainer()
+                    ->setActiveArticul(Factory::createArticul($articul))
                     ->setActiveRegion(Factory::createRegion($regionCode))
                     ->setActiveModel($oModel);
 
@@ -187,7 +190,7 @@ class FindArticulController extends Controller
         $this->render('06_schemas', array('oContainer'=>$oContainer, 'params'=>$params));
     }
 
-    public function actionSchema($articul, $schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd)
+    public function actionSchema($articul, $schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd, $complectationCode)
     {
         $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
 
@@ -214,11 +217,11 @@ class FindArticulController extends Controller
         }
 
         $oContainer = Factory::createContainer()
-            ->setArticul($articul)
+            ->setActiveArticul(Factory::createArticul($articul))
             ->setActiveSchema($oSchema)
             ->setActiveRegion(Factory::createRegion($regionCode))
             ->setActivePnc(Factory::createPnc($pncCode)
-                ->setArticuls(FindArticulModel::getArticuls($regionCode, $modificationCode, $pncCode), Factory::createArticul())
+                ->setArticuls(FindArticulModel::getArticuls($regionCode, $modificationCode, $pncCode, $complectationCode), Factory::createArticul())
             );
 
         $this->render('07_schema', array('oContainer'=>$oContainer, 'params'=>$params));

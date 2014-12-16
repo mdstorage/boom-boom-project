@@ -3,9 +3,9 @@
 class Schema implements SchemaInterface{
     use CodeNameTrait;
 
-    private $pncs;
-    private $commonArticuls;
-    private $refGroups;
+    private $pncs = array();
+    private $commonArticuls = array();
+    private $refGroups = array();
 
     public function setPncs($pncs, PncInterface $pncClass)
     {
@@ -21,6 +21,7 @@ class Schema implements SchemaInterface{
 
     public function setCommonArticuls($articuls, ArticulInterface $articulClass)
     {
+
         $this->commonArticuls = $this->setChildrens($articuls, $articulClass);
 
         return $this;

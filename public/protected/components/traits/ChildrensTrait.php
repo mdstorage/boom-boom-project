@@ -23,4 +23,5 @@ trait ChildrensTrait {
 
         return $property;
     }
+
 } 

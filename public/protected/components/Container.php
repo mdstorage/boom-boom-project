@@ -9,42 +9,42 @@
 class Container {
     use ChildrensTrait;
 
-    private $articul;
     private $regions = array();
+    private $groups = array();
+    private $schemas = array();
+    private $options;
+
     private $activeRegion;
     private $activeModel;
     private $activeModificataion;
     private $activeComplectation;
-    private $options;
 
-    private $groups = array();
     private $activeGroup;
-    private $schemas = array();
     private $activeSchema;
     private $activePnc;
+    private $activeArticul;
 
     public function __construct()
     {
     }
 
-    public function setArticul($articul)
+    public function setActiveArticul(ArticulInterface $articulClass)
     {
-        $this->articul = $articul;
+        $this->activeArticul = $articulClass;
 
         return $this;
     }
 
     public function setRegions($regions=array(), RegionInterface $regionClass)
     {
-
         $this->regions = $this->setChildrens($regions, $regionClass);
 
         return $this;
     }
 
-    public function getArticul()
+    public function getActiveArticul()
     {
-        return $this->articul;
+        return $this->activeArticul;
     }
 
     public function getRegions()

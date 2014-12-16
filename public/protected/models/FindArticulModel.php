@@ -16,7 +16,7 @@ class FindArticulModel {
 
         $regions = array();
         foreach($aData as $item){
-            $regions[$item['catalog']] = array('name'=>$item['catalog'], 'options'=>array());
+            $regions[$item['catalog']] = array(Functions::NAME=>$item['catalog'], Functions::OPTIONS=>array());
         }
 
         return $regions;
@@ -143,7 +143,7 @@ class FindArticulModel {
         return $groups;
     }
 
-    public static function getSchemas($regionCode, $modificationCode, $subGroupCode, $complectationCode)
+    public static function getComplectationDates($regionCode, $modificationCode, $complectationCode)
     {
         $sql = "
             SELECT c.prod_start, c.prod_end
@@ -157,6 +157,13 @@ class FindArticulModel {
             ->bindParam(":regionCode", $regionCode)
             ->bindParam(":modificationCode", $modificationCode)
             ->queryRow();
+
+        return $aData;
+    }
+
+    public static function getSchemas($regionCode, $modificationCode, $subGroupCode, $complectationCode)
+    {
+        $aData = self::getComplectationDates($regionCode, $modificationCode, $complectationCode);
 
         $prod_start = $aData['prod_start'];
         $prod_end   = $aData['prod_end'];
@@ -322,12 +329,19 @@ class FindArticulModel {
         return $refGroups;
     }
 
-    public static function getArticuls($regionCode, $modificationCode, $pncCode)
+    public static function getArticuls($regionCode, $modificationCode, $pncCode, $complectationCode)
     {
+        $aData = self::getComplectationDates($regionCode, $modificationCode, $complectationCode);
+
+        $prod_start = $aData['prod_start'];
+        $prod_end   = $aData['prod_end'];
+
         $sql = "
             SELECT pc.part_code, pc.quantity, pc.start_date, pc.end_date, pc.add_desc
             FROM part_catalog pc
             WHERE pc.catalog = :regionCode AND pc.catalog_code = :modificationCode AND pnc = :pncCode
+            AND (pc.start_date <= " . $prod_end . "
+            OR pc.end_date >= " . $prod_start . ")
         ";
 
         $aData = Yii::app()->db->createCommand($sql)
