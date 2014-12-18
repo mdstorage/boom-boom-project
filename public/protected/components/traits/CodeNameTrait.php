@@ -75,4 +75,5 @@ trait CodeNameTrait {
     {
         return $this->options;
     }
-} 
+
+}

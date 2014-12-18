@@ -1,23 +1,8 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name;
+$this->pageTitle="Выбор модели";
 ?>
-
-  <table class="table">
-  
-  <tr><td class="active"><b>Выбор модели</b></td>
-  
-  </tr>
-  </table>
-
-   	
-  
-  
-  
-  
-
-
 
 <div class="row">
 <?php

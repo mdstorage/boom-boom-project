@@ -89,6 +89,13 @@ class Factory {
         return $oArticul;
     }
 
+    public static function createCollection($collection, CodeNameInterface $object)
+    {
+        $oCollection = new Collection();
+        $oCollection->setCollection($collection, $object);
+        return $oCollection;
+    }
+
     private function setParameters(CodeNameInterface $object, $code=null, $name=null, $options=null)
     {
         if($code){

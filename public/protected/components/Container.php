@@ -137,7 +137,7 @@ class Container {
         return $this->activeSchema;
     }
 
-    public function setActivePnc(PncInterface $oPnc)
+    public function setActivePnc($oPnc)
     {
         $this->activePnc = $oPnc;
 

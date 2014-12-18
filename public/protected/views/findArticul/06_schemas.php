@@ -3,7 +3,9 @@
     $cd = $oContainer->getActiveModification()->getOption(Functions::CD);
     $regionCode = $oContainer->getActiveRegion()->getCode();
 ?>
+<div class="row">
 <?php foreach ($oContainer->getSchemas() as $schema): ?>
+    <div class="col-lg-3">
     <div><?php echo $schema->getRuname(); ?></div>
     <?php if(file_exists(Yii::app()->basePath . '/../images/' .
         $regionCode . '/images_' . strtolower($regionCode) . '_' . strtolower($cd) .
@@ -19,4 +21,6 @@
             )
         );?>
     <?php endif; ?>
+    </div>
 <?php endforeach; ?>
+</div>

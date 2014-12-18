@@ -43,4 +43,26 @@ class Schema implements SchemaInterface{
     {
         return $this->refGroups;
     }
+
+    public function setActivePncs($code)
+    {
+        foreach($this->pncs as $pnc){
+            if($code == $pnc->getCode()){
+                $pnc->onActive();
+            }
+        }
+    }
+
+    public function getActivePncs(){
+
+        $activePncs = array();
+
+        foreach($this->pncs as $pnc){
+            if($pnc->isActive()){
+                $activePncs[$pnc->getCode()] = $pnc;
+            }
+        }
+
+        return $activePncs;
+    }
 } 

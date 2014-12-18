@@ -174,10 +174,10 @@ class FindArticulController extends Controller
     {
         $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
 
-        $schemas = FindArticulModel::getSchemas($regionCode, $modificationCode, $subGroupCode, $complectationCode);
+        $schemas = FindArticulModel::getSchemas($articul, $regionCode, $modificationCode, $subGroupCode, $complectationCode);
         $modification = FindArticulModel::getModification($regionCode, $modificationCode);
 
-        $oContainer = Factory::createContainer($articul)
+        $oContainer = Factory::createContainer()
             ->setActiveRegion(Factory::createRegion($regionCode))
             ->setActiveModification(Factory::createModification($modificationCode, $modificationCode)->setOptions(array(Functions::CD=>$modification[$modificationCode]['options'][Functions::CD])));
 
@@ -194,7 +194,7 @@ class FindArticulController extends Controller
     {
         $params = Functions::getActionParams(__CLASS__, __FUNCTION__, func_get_args());
 
-        $pncCode = FindArticulModel::getPnc($articul, $regionCode, $modificationCode, $subGroupCode);
+        $articulPnsc = FindArticulModel::getArticulPncs($articul, $regionCode, $modificationCode, $subGroupCode);
 
         $pncs = FindArticulModel::getPncs($schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd);
 
@@ -217,13 +217,34 @@ class FindArticulController extends Controller
         }
 
         $oContainer = Factory::createContainer()
-            ->setActiveArticul(Factory::createArticul($articul))
+            ->setActiveArticul(Factory::createArticul($articul)->setOptions())
             ->setActiveSchema($oSchema)
             ->setActiveRegion(Factory::createRegion($regionCode))
-            ->setActivePnc(Factory::createPnc($pncCode)
-                ->setArticuls(FindArticulModel::getArticuls($regionCode, $modificationCode, $pncCode, $complectationCode), Factory::createArticul())
+            ->setActivePnc(Factory::createCollection($articulPnsc, Factory::createPnc())
             );
 
+        foreach($oContainer->getActivePnc()->getCollection() as $pnc){
+            $pnc->setArticuls(FindArticulModel::getArticuls($regionCode, $modificationCode, $pnc->getCode(), $complectationCode), Factory::createArticul());
+        }
+
         $this->render('07_schema', array('oContainer'=>$oContainer, 'params'=>$params));
+    }
+
+    public function actionPncArticuls()
+    {
+        if(Yii::app()->request->isAjaxRequest){
+            $regionCode = Yii::app()->request->getPost('regionCode');
+            $modificationCode = Yii::app()->request->getPost('modificationCode');
+            $pncCode = Yii::app()->request->getPost('pncCode');
+            $complectationCode = Yii::app()->request->getPost('complectationCode');
+
+            $articuls = FindArticulModel::getArticuls($regionCode, $modificationCode, $pncCode, $complectationCode);
+
+            $oContainer = Factory::createContainer()
+            ->setActivePnc(Factory::createPnc($pncCode)
+                ->setArticuls($articuls, Factory::createArticul()));
+
+            $this->renderPartial('08_articuls', array('oContainer'=>$oContainer));
+        }
     }
 }

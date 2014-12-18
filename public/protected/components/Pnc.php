@@ -8,6 +8,7 @@
 
 class Pnc implements PncInterface{
     use CodeNameTrait;
+    use ActiveTrait;
 
     private $articuls=array();
 

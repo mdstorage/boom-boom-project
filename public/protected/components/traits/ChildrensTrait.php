@@ -1,7 +1,8 @@
 <?php
 
 trait ChildrensTrait {
-    private function setChildrens($childrens, $class)
+
+    protected function setChildrens($childrens, $class)
     {
         $property = array();
 

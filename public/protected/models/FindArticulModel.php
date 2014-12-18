@@ -161,13 +161,41 @@ class FindArticulModel {
         return $aData;
     }
 
-    public static function getSchemas($regionCode, $modificationCode, $subGroupCode, $complectationCode)
+    public static function getSchemas($articul, $regionCode, $modificationCode, $subGroupCode, $complectationCode)
     {
-        $aData = self::getComplectationDates($regionCode, $modificationCode, $complectationCode);
+        /*
+         * Выбор дат для комплектации. Эти даты потом влияют на выбор схемы, так как схемы тоже имеют свои даты.
+         */
 
+        $aData = self::getComplectationDates($regionCode, $modificationCode, $complectationCode);
         $prod_start = $aData['prod_start'];
         $prod_end   = $aData['prod_end'];
 
+        $cd = self::getModification($regionCode, $modificationCode)[$modificationCode]['options'][Functions::CD];
+
+        /*
+         * Список pnc, в которые входит искомый артикул для выбранной модификации и группы
+         */
+        $sqlPncs = "
+            SELECT pc.part_group as pnc
+            FROM part_codes pc
+            WHERE pc.pnc = :articul AND pc.catalog = :regionCode AND pc.catalog_code = :modificationCode AND pc.part_code = :subGroupCode
+            GROUP BY pc.part_group
+        ";
+
+        /*
+         * Список схем, на которых изображен искомый артикул или хотя бы один из pnc, в которые входит искомый артикул для выбранной модификации и группы (список pnc берется из предыдущего запроса)
+         */
+
+        $sqlSchemas = "
+            SELECT i.pic_code
+            FROM images i
+            WHERE (i.label2 = :articul OR i.label2 IN (".$sqlPncs.")) AND i.catalog = :regionCode AND i.cd = '".$cd."'
+        ";
+
+/*
+ * Списко схем, принадлежащих группе и на которых изображен искомый артикул или хотя бы один из pnc, в которые входит искомый артикул для выбранной модификации и группы (берутся данные из предыдущего запроса)
+ */
         $sql = "
             SELECT pp.pic_code, pd.desc_en
             FROM pg_pictures pp
@@ -179,6 +207,8 @@ class FindArticulModel {
                 OR pp.end_date >= " . $prod_start . ")
                 AND pd.catalog = :regionCode
                 AND pd.catalog_code = :modificationCode
+                AND pp.pic_code IN (".$sqlSchemas.")
+            GROUP BY pp.pic_code
         ";
 
         $aData = Yii::app()->db->createCommand($sql)
@@ -186,6 +216,7 @@ class FindArticulModel {
             ->bindParam(":regionCode", $regionCode)
             ->bindParam(":modificationCode", $modificationCode)
             ->bindParam(":subGroupCode", $subGroupCode)
+            ->bindParam(":articul", $articul)
             ->queryAll();
 
         $schemas = array();
@@ -196,23 +227,28 @@ class FindArticulModel {
         return $schemas;
     }
 
-    public static function getPnc($articul, $regionCode, $modificationCode, $subGroupCode)
+    public static function getArticulPncs($articul, $regionCode, $modificationCode, $subGroupCode)
     {
         $sql = "
             SELECT pc.part_group as pnc
             FROM part_codes pc
             WHERE pc.catalog = :regionCode AND pc.catalog_code = :modificationCode AND pc.pnc = :articul AND pc.part_code = :subGroupCode
-            LIMIT 1
+            GROUP BY pc.part_group
         ";
 
-        $sPnc = Yii::app()->db->createCommand($sql)
+        $aData = Yii::app()->db->createCommand($sql)
             ->bindParam(":articul", $articul)
             ->bindParam(":regionCode", $regionCode)
             ->bindParam(":modificationCode", $modificationCode)
             ->bindParam(":subGroupCode", $subGroupCode)
-            ->queryScalar();
+            ->queryAll();
 
-        return $sPnc;
+        $pncs = array();
+        foreach($aData as $item){
+            $pncs[$item['pnc']] = array(Functions::NAME=>$item['pnc'], Functions::OPTIONS=>array());
+        }
+
+        return $pncs;
     }
 
     public static function getPncs($schemaCode, $regionCode, $modificationCode, $subGroupCode, $cd)
