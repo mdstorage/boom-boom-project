@@ -124,25 +124,37 @@ class PartCatalog extends CActiveRecord
 		return parent::model($className);
 	}
 
-    public function getPartCodesByPnc($catalog, $catalogCode, $pnc){
-        $aPartCodes = Yii::app()->db->CreateCommand()
+    public function getPartCodesByPnc($catalog, $catalogCode, $pnc, $prodDate=""){
+
+        if ($prodDate !== ""){
+            $prodDateString = 'AND (EndDate >= :prodDate OR EndDate = "")';
+        } else {
+            $prodDateString = "";
+        }
+
+        $aPartCodesQuery = Yii::app()->db->CreateCommand()
             ->select('part_code, quantity, start_date, end_date, add_desc')
             ->from('part_catalog')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=101', array(
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=101 ' . $prodDateString, array(
                 ':catalog'=>$catalog,
                 ':catalog_code'=>$catalogCode,
-                ':pnc'=>$pnc))
-            ->queryAll();
+                ':pnc'=>$pnc));
 
-        $aParams = Yii::app()->db->CreateCommand()
+        $aParamsQuery = Yii::app()->db->CreateCommand()
             ->select('part_code, add_desc')
             ->from('part_catalog')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=201', array(
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=201 ' . $prodDateString, array(
                 ':catalog'=>$catalog,
                 ':catalog_code'=>$catalogCode,
-                ':pnc'=>$pnc))
-            ->queryAll();
+                ':pnc'=>$pnc));
 
+        if ($prodDate !== ""){
+            $aPartCodesQuery->bindParam(':prodDate', $prodDate);
+            $aParamsQuery->bindParam(':prodDate', $prodDate);
+        }
+
+        $aParams = $aParamsQuery->queryAll();
+        $aPartCodes = $aPartCodesQuery->queryAll();
         foreach($aPartCodes as &$aPartCode){
             foreach($aParams as $aParam){
                 if($aPartCode['part_code'] == $aParam['part_code']){

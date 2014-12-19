@@ -137,7 +137,7 @@ class SiteController extends Controller
     /*
      * Возвращает картинку со списком pnc, part_codes для каждой pnc, общих для всех групп part_codes
      */
-    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page){
+    public function actionPncs($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $partGroup, $page, $prodDate=""){
 
         $oPartCodes = new PartCodes();
         /*
@@ -211,7 +211,7 @@ class SiteController extends Controller
          */
         $aPartCatalog = array();
         foreach($aPncs as $aPnc){
-            $aPartCatalog[$aPnc['pnc']] = $oPartCatalog->getPartCodesByPnc($catalog, $catalogCode, $aPnc['pnc']);
+            $aPartCatalog[$aPnc['pnc']] = $oPartCatalog->getPartCodesByPnc($catalog, $catalogCode, $aPnc['pnc'], $prodDate);
         }
 
         $oPartGroups = new PartGroups();
