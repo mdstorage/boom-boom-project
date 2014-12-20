@@ -44,6 +44,7 @@ if (!empty($aPartGroups)){
                     'modelCode'=>$sModelCode,
                     'groupNumber'=>$groupNumber,
                     'partGroup'=>$aPartGroup['part_code'],
+                    'prodDate'=>$prodDate,
                     'page'=>1
                 )
             ) . '<br/>';

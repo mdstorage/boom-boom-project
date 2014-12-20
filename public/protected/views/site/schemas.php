@@ -23,7 +23,7 @@ echo '<table class="table">
 <?php foreach ($aPgPictures as $aPgPicture) :?>
     <?php $counter++; ?>
     <?php $width = (Yii::app()->params['imageWidth'])/3;?>
-    Схема <?php echo $counter; ?> из <?php echo $iCountPictures; ?>
+    <?php $link = "Схема " . $counter . " из " . $iCountPictures; ?>
     <?php if(file_exists(Yii::app()->basePath . '/../images/' .
         $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
         '/' . $aPgPicture['pic_code'] . '.png')):?>
@@ -33,17 +33,22 @@ echo '<table class="table">
 
         $k = $size[1]/$size[0];
         $kc = $width/$size[0];
-        $height = $width * $k;?>
+        $height = $width * $k;
 
-        <div class="col-xs-3">
+        $link .= CHtml::image(
+            Yii::app()->request->baseUrl.'/images/' .
+            $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
+            '/' . $aPgPicture['pic_code'] . '.png',
+            $aPgPicture['pic_code'],
+            array("width"=>$width));
+
+        ?>
+    <?php endif; ?>
+
+    <div class="col-xs-3">
 
         <?php echo CHtml::link(
-            CHtml::image(
-                Yii::app()->request->baseUrl.'/images/' .
-                $sCatalog . '/images_' . strtolower($sCatalog) . '_' . strtolower($sCd) .
-                '/' . $aPgPicture['pic_code'] . '.png',
-                $aPgPicture['pic_code'],
-                array("width"=>$width)),
+            $link,
             array(
                 'site/pncs',
                 'catalog'=>$sCatalog,
@@ -53,12 +58,11 @@ echo '<table class="table">
                 'modelCode'=>$sModelCode,
                 'groupNumber'=>$groupNumber,
                 'partGroup'=>$partGroup,
+                'prodDate'=>$prodDate,
                 'page'=>$counter
             )
         );?>
-        </div>
-
-    <?php endif; ?>
+    </div>
 
 <?php endforeach; ?>
 </div>

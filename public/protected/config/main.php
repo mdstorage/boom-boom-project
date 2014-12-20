@@ -19,7 +19,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.components.interfaces.*',
-        'application.components.traits.*',
+        'application.components.traits.*'
 	),
 
 	'modules'=>array(

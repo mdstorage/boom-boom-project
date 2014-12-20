@@ -94,6 +94,7 @@ if (!empty($groups)){
                     'catalogCode'=>$sCatalogCode,
                     'modelName'=>$sModelName,
                     'modelCode'=>$sModelCode,
+                    'prodDate'=>$prodDate,
                     'groupNumber'=>$i)) . '<br/>';
     }
 }

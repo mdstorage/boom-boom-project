@@ -126,8 +126,15 @@ class PartCatalog extends CActiveRecord
 
     public function getPartCodesByPnc($catalog, $catalogCode, $pnc, $prodDate=""){
 
+        $parameters = array(
+            ':catalog'=>$catalog,
+            ':catalog_code'=>$catalogCode,
+            ':pnc'=>$pnc
+        );
+
         if ($prodDate !== ""){
-            $prodDateString = 'AND (EndDate >= :prodDate OR EndDate = "")';
+            $prodDateString = 'AND (end_date >= :prodDate OR end_date = "")';
+            $parameters[':prodDate'] = $prodDate;
         } else {
             $prodDateString = "";
         }
@@ -135,23 +142,12 @@ class PartCatalog extends CActiveRecord
         $aPartCodesQuery = Yii::app()->db->CreateCommand()
             ->select('part_code, quantity, start_date, end_date, add_desc')
             ->from('part_catalog')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=101 ' . $prodDateString, array(
-                ':catalog'=>$catalog,
-                ':catalog_code'=>$catalogCode,
-                ':pnc'=>$pnc));
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=101 ' .$prodDateString, $parameters);
 
         $aParamsQuery = Yii::app()->db->CreateCommand()
             ->select('part_code, add_desc')
             ->from('part_catalog')
-            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=201 ' . $prodDateString, array(
-                ':catalog'=>$catalog,
-                ':catalog_code'=>$catalogCode,
-                ':pnc'=>$pnc));
-
-        if ($prodDate !== ""){
-            $aPartCodesQuery->bindParam(':prodDate', $prodDate);
-            $aParamsQuery->bindParam(':prodDate', $prodDate);
-        }
+            ->where('catalog = :catalog AND catalog_code = :catalog_code AND pnc = :pnc AND field_type = 2 AND code1=201 ' .$prodDateString, $parameters);
 
         $aParams = $aParamsQuery->queryAll();
         $aPartCodes = $aPartCodesQuery->queryAll();

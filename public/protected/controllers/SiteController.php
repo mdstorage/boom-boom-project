@@ -59,12 +59,12 @@ class SiteController extends Controller
         );
     }
 
-    public function actionGroups($catalog, $cd, $catalogCode, $modelName, $modelCode)
+    public function actionGroups($catalog, $cd, $catalogCode, $modelName, $modelCode, $prodDate="")
     {
-        $this->render('index', array('groups'=>1, 'sCatalog'=>$catalog, 'sCd'=>$cd, 'sCatalogCode'=>$catalogCode, 'sModelName'=>$modelName, 'sModelCode'=>$modelCode));
+        $this->render('index', array('groups'=>1, 'sCatalog'=>$catalog, 'sCd'=>$cd, 'sCatalogCode'=>$catalogCode, 'sModelName'=>$modelName, 'sModelCode'=>$modelCode, 'prodDate'=>$prodDate));
     }
 
-    public function actionSubGroups($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber)
+    public function actionSubGroups($catalog, $catalogCode, $cd, $modelName, $modelCode, $groupNumber, $prodDate="")
     {
         switch ($groupNumber){
             case 1:
@@ -106,7 +106,8 @@ class SiteController extends Controller
                 'sCatalogCode'=>$catalogCode,
                 'sModelName'=>$modelName,
                 'sModelCode'=>$modelCode,
-                'aPartGroups'=>$aPartGroups
+                'aPartGroups'=>$aPartGroups,
+                'prodDate'=>$prodDate
             )
         );
 
@@ -114,7 +115,7 @@ class SiteController extends Controller
 
 
 
-    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup)
+    public function actionSchemas($catalog, $cd, $catalogCode, $modelName, $modelCode, $groupNumber, $partGroup, $prodDate="")
     {
         $oPgPictures = new PgPictures();
         $aPgPictures = $oPgPictures->getPgPictures($catalog, $catalogCode, $partGroup, 30, 0);
@@ -130,7 +131,8 @@ class SiteController extends Controller
                 'sCatalogCode'=>$catalogCode,
                 'sModelName'=>$modelName,
                 'sModelCode'=>$modelCode,
-                'partGroup'=>$partGroup
+                'partGroup'=>$partGroup,
+                'prodDate'=>$prodDate
             )
         );
     }
@@ -418,7 +420,8 @@ class SiteController extends Controller
                 'cd'=>$aModelName['cd'],
                 'catalogCode'=>$aComplectation['catalog_code'],
                 'modelName'=>$aModelName['model_name'],
-                'modelCode'=>$aData['model_code']),
+                'modelCode'=>$aData['model_code'],
+                'prodDate'=>$aData['vdate']),
                 array('class'=>'btn btn-default btn-lg')
                 );
         }
