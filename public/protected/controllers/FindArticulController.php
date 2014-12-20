@@ -182,7 +182,8 @@ class FindArticulController extends Controller
             ->setActiveModification(Factory::createModification($modificationCode, $modificationCode)->setOptions(array(Functions::CD=>$modification[$modificationCode]['options'][Functions::CD])));
 
         if(empty($schemas)){
-            throw new CHttpException('Ошибка в выборе набора схем.');
+            $this->render('exception', array('title'=>'Выбранный артикул не содержится в указанной группе', 'message'=>'Для того, чтобы вернуться назад, возпользуйтесь панелью управления браузера.'));
+            return;
         } else {
             $oContainer->setSchemas($schemas, Factory::createSchema());
         }

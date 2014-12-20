@@ -15,20 +15,12 @@
 
             <?php if(in_array($pnc->getCode(), $oContainer->getActivePnc()->getCollectionCodes())): ?>
             <div id="articuls_<?php echo $pnc->getCode(); ?>">
-                    <table class="table" id="<?php echo $pnc->getCode(); ?>">
-                        <?php foreach($oContainer->getActivePnc()->getCollectionItem($pnc->getCode())->getArticuls() as $articul): ?>
-                            <tr>
-                                <?php if($articul->getCode() == $oContainer->getActiveArticul()->getCode()): ?>
-                                    <td><strong><?php echo $articul->getCode(); ?></strong></td>
-                                <?php else: ?>
-                                    <td><?php echo $articul->getCode(); ?></td>
-                                <?php endif; ?>
-                                <?php foreach($articul->getOptions() as $name=>$value): ?>
-                                    <td><?php echo $value; ?></td>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
+                <?php $this->widget('articulsListWidget', array(
+                        'tableId'=>$pnc->getCode(),
+                        'articulsList'=>$oContainer->getActivePnc()->getCollectionItem($pnc->getCode())->getArticuls(),
+                        'activeArticulCode'=>$oContainer->getActiveArticul()->getCode()
+                    )
+                ); ?>
             </div>
             <?php else: ?>
             <div id="articuls_<?php echo $pnc->getCode(); ?>" class="hidden"></div>
@@ -58,16 +50,22 @@
             <h4>Общие запчасти:</h4>
             <?php foreach($commonArticuls as $commonArticul): ?>
                 <?php if($commonArticul->getCode() == $oContainer->getActiveArticul()->getCode()): ?>
-                    <strong><?php echo $commonArticul->getRuname(); ?></strong><br/>
+        <a href=<?php echo Yii::app()->params['outUrl'] . $commonArticul->getCode(); ?> target="_blank" ><strong><?php echo $commonArticul->getCode(); ?></strong></a><br/>
                 <?php else: ?>
-                    <?php echo $commonArticul->getRuname(); ?><br/>
+                    <a href=<?php echo Yii::app()->params['outUrl'] . $commonArticul->getCode(); ?> target="_blank" ><?php echo $commonArticul->getCode(); ?></a><br/>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
         <?php if(!empty($refGroups)): ?>
             <h4>Ссылки на группы:</h4>
             <?php foreach($refGroups as $refGroup): ?>
-                <?php echo $refGroup->getRuname() ?><br/>
+        <a href="<?php echo Yii::app()->createUrl('findArticul/schemas', array(
+            'articul'=>$params['articul'],
+            'regionCode'=>$params['regionCode'],
+            'modificationCode'=>$params['modificationCode'],
+            'subGroupCode'=>$refGroup->getCode(),
+            'complectationCode'=>$params['complectationCode']
+        )) ?>"><?php echo $refGroup->getRuname(); ?></a><br/>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>

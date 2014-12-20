@@ -8,8 +8,8 @@ class Functions
     const GROUP_5 = "КУЗОВНЫЕ ДЕТАЛИ, ЭКСТЕРЬЕР, ИНТЕРЬЕР";
     const GROUP_6 = "ЭЛЕКТРИКА, КЛИМАТ-КОНТРОЛЬ";
 
-    const PROD_START = "Дата начала производства";
-    const PROD_END = "Дата окончания производства";
+    const PROD_START = "Начало пр-ва";
+    const PROD_END = "Конец пр-ва";
 
     const CD = 'cd';
 
@@ -22,7 +22,7 @@ class Functions
     const NAME = 'name';
     const OPTIONS = 'options';
 
-    const QUANTITY = 'quantity';
+    const QUANTITY = 'Кол-во';
 
     public static function prodToDate($prod)
     {
