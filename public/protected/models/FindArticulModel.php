@@ -171,7 +171,8 @@ class FindArticulModel {
         $prod_start = $aData['prod_start'];
         $prod_end   = $aData['prod_end'];
 
-        $cd = self::getModification($regionCode, $modificationCode)[$modificationCode]['options'][Functions::CD];
+        $modification = self::getModification($regionCode, $modificationCode);
+        $cd = $modification[$modificationCode]['options'][Functions::CD];
 
         /*
          * Список pnc, в которые входит искомый артикул для выбранной модификации и группы

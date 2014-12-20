@@ -3,7 +3,7 @@
 use Symfony\Component\Yaml\Yaml;
 Yii::setPathOfAlias('Symfony',Yii::getPathOfAlias('application.vendor.Symfony'));
 
-$array = Yaml::parse(file_get_contents(__DIR__.'/toyota.yml'));
+$array = Yaml::parse(file_get_contents(stripslashes(__DIR__).'/toyota.yml'));
 //VarExport::getExport($array);
 
 //return array(
